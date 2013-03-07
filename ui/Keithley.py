@@ -26,9 +26,6 @@ except AttributeError:
 #class Ui_mainWindow(object):
 class Ui_mainWindow(QtGui.QMainWindow):
 
-    def callback(self, event):
-        print self.sender().currentText() 
-
     def setupUi(self, mainWindow):
         mainWindow.setObjectName(_fromUtf8("mainWindow"))
         mainWindow.resize(731, 326)
@@ -68,8 +65,6 @@ class Ui_mainWindow(QtGui.QMainWindow):
         self.connect_button = QtGui.QPushButton(self.centralwidget)
         self.connect_button.setGeometry(QtCore.QRect(270, 20, 92, 31))
         self.connect_button.setObjectName(_fromUtf8("connect_button"))
-        # Connection
-        self.smu1_combo.currentIndexChanged.connect(self.callback)
         self.SMU1_GroupBox = QtGui.QGroupBox(self.centralwidget)
         self.SMU1_GroupBox.setGeometry(QtCore.QRect(30, 130, 151, 151))
         self.SMU1_GroupBox.setObjectName(_fromUtf8("SMU1_GroupBox"))

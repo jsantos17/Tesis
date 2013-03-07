@@ -2,10 +2,7 @@ import sys
 from PyQt4.QtGui import QApplication, QMainWindow
 from PyQt4 import QtGui
 from Keithley import Ui_mainWindow
-
-
-def onMeasureSelect(event):
-    print "Combobox touched"
+from Handlers import SlotContainer
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -17,10 +14,11 @@ if __name__ == "__main__":
                       "Current List Sweep", "Current Step",
                       "Voltage Bias", "Voltage Sweep",
                       "Voltage List Sweep", "Voltage Step"]
+    container = SlotContainer()
     for box in combo_boxes:
-        box.currentIndexChanged.connect(onMeasureSelect)
         for element in combo_elements:
             box.addItem(element)
+        box.currentIndexChanged.connect(container.on_measure_select)
 
 
 
