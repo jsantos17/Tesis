@@ -2,8 +2,9 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import QObject
 
 class SlotContainer(QtGui.QMainWindow):
-    #def __init__(self, ui):
-    #    self.ui = ui
+    def __init__(self, ui):
+        QtGui.QMainWindow.__init__(self)
+        self.ui = ui
 
     def set_ui(self, ui):
         self.ui = ui

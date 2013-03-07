@@ -14,8 +14,7 @@ if __name__ == "__main__":
                       "Current List Sweep", "Current Step",
                       "Voltage Bias", "Voltage Sweep",
                       "Voltage List Sweep", "Voltage Step"]
-    container = SlotContainer()
-    container.set_ui(ui)
+    container = SlotContainer(ui)
     for box in combo_boxes:
         for element in combo_elements:
             box.addItem(element)
