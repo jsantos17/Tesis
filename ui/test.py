@@ -15,12 +15,11 @@ if __name__ == "__main__":
                       "Voltage Bias", "Voltage Sweep",
                       "Voltage List Sweep", "Voltage Step"]
     container = SlotContainer()
+    container.set_ui(ui)
     for box in combo_boxes:
         for element in combo_elements:
             box.addItem(element)
         box.currentIndexChanged.connect(container.on_measure_select)
-
-
 
     window.show()
     sys.exit(app.exec_())
