@@ -1,0 +1,32 @@
+from PyQt4 import QtGui, QtCore 
+
+
+def get_sweep_groupbox():
+    sweep_groupbox = QtGui.QGroupBox()
+    #sweep_groupbox.setGeometry(QtCore.QRect(30, 20, 271, 131))
+    sweep_groupbox.setGeometry(QtCore.QRect(0, 0, 271, 131))
+    sweep_groupbox.setTitle("")
+    sweep_groupbox.setObjectName("sweep_groupbox")
+    val_stop_field = QtGui.QLineEdit(sweep_groupbox)
+    val_stop_field.setGeometry(QtCore.QRect(100, 80, 161, 25))
+    val_stop_field.setObjectName("val_stop_field")
+    sweep_type_label = QtGui.QLabel(sweep_groupbox)
+    sweep_type_label.setGeometry(QtCore.QRect(6, 10, 81, 20))
+    sweep_type_label.setObjectName("sweep_type_label")
+    comboBox = QtGui.QComboBox(sweep_groupbox)
+    comboBox.setGeometry(QtCore.QRect(100, 10, 161, 25))
+    comboBox.setObjectName("sweep_type_combobox")
+    comboBox.addItem("Lineal")
+    comboBox.addItem("Log10")
+    comboBox.addItem("Log25")
+    comboBox.addItem("Log50")
+    value_stop = QtGui.QLabel(sweep_groupbox)
+    value_stop.setGeometry(QtCore.QRect(10, 90, 71, 16))
+    value_stop.setObjectName("value_stop")
+    value_init = QtGui.QLabel(sweep_groupbox)
+    value_init.setGeometry(QtCore.QRect(10, 50, 71, 16))
+    value_init.setObjectName("value_init")
+    val_inicio_field = QtGui.QLineEdit(sweep_groupbox)
+    val_inicio_field.setGeometry(QtCore.QRect(100, 50, 161, 25))
+    val_inicio_field.setObjectName("val_inicio_field")
+    return sweep_groupbox
