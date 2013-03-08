@@ -19,6 +19,7 @@ if __name__ == "__main__":
         for element in combo_elements:
             box.addItem(element)
         box.currentIndexChanged.connect(container.on_measure_select)
-
+    
+    ui.pushButton.clicked.connect(container.callback)
     window.show()
     sys.exit(app.exec_())

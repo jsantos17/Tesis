@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
-    <height>349</height>
+    <width>1150</width>
+    <height>326</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1150</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>SMU</string>
@@ -93,7 +99,7 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="mainLayout">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QVBoxLayout" name="smu1_layout">
         <item>
          <widget class="QLabel" name="smu1_label">
           <property name="maximumSize">
@@ -132,7 +138,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QVBoxLayout" name="smu2_layout">
         <item>
          <widget class="QLabel" name="smu2_label">
           <property name="maximumSize">
@@ -171,7 +177,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="smu3_layout">
         <item>
          <widget class="QLabel" name="smu3_label">
           <property name="maximumSize">
@@ -204,7 +210,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QVBoxLayout" name="smu4_layout">
         <item>
          <widget class="QLabel" name="smu4_label">
           <property name="maximumSize">
@@ -233,9 +239,6 @@
      </layout>
     </item>
    </layout>
-   <zorder>horizontalLayoutWidget</zorder>
-   <zorder>verticalLayoutWidget_5</zorder>
-   <zorder>smu1_label</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
