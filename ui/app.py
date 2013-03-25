@@ -21,5 +21,7 @@ if __name__ == "__main__":
         box.currentIndexChanged.connect(container.on_measure_select)
     
     ui.pushButton.clicked.connect(container.callback)
+    ui.start_stop_radio.clicked.connect(container.selected_start_stop)
+    ui.center_span_radio.clicked.connect(container.selected_center_span)
     window.show()
     sys.exit(app.exec_())

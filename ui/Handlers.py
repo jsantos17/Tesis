@@ -7,6 +7,16 @@ class SlotContainer(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.ui = ui
 
+    def selected_start_stop(self, event):
+        print "Selected start stop"
+        self.ui.bottom_layout.itemAt(2).widget().setParent(None)
+        self.ui.bottom_layout.addWidget(self._get_start_stop_groupbox())
+
+    def selected_center_span(self, event):
+        print "Selected center span"
+        self.ui.bottom_layout.itemAt(2).widget().setParent(None)
+        self.ui.bottom_layout.addWidget(self._get_center_span_groupbox())
+
     def on_measure_select(self, event):
         print "ComboBox: {cbox}, Text = {ctext}".format(cbox=self.sender().objectName(), ctext = self.sender().currentText())
         senderName = str(self.sender().objectName())
@@ -19,7 +29,17 @@ class SlotContainer(QtGui.QMainWindow):
             "smu4": self.ui.smu4_layout
         }
         caller_layout = mapping[senderName[0:4]]
-        if "sweep" in self.sender().currentText().toLower():
+        if "open" in self.sender().currentText().toLower():
+            caller_layout.itemAt(2).widget().setParent(None) # Delete widget
+            new_groupbox = QtGui.QGroupBox()
+            caller_layout.addWidget(new_groupbox)
+        if "list" in self.sender().currentText().toLower():
+            new_groupbox = self._get_list_groupbox()
+            caller_layout.itemAt(2).widget().setParent(None) # Delete widget
+            caller_layout.addWidget(new_groupbox)
+            new_groupbox.repaint()
+            caller_layout.update()
+        elif "sweep" in self.sender().currentText().toLower():
             new_groupbox = self._get_sweep_groupbox()
             caller_layout.itemAt(2).widget().setParent(None) # Delete widget
             caller_layout.addWidget(new_groupbox)
@@ -40,3 +60,12 @@ class SlotContainer(QtGui.QMainWindow):
 
     def _get_step_groupbox(self):
         return SubUi.get_step_groupbox()
+
+    def _get_list_groupbox(self):
+        return SubUi.get_list_groupbox()
+    
+    def _get_center_span_groupbox(self):
+        return SubUi.get_center_span_ui()
+
+    def _get_start_stop_groupbox(self):
+        return SubUi.get_start_stop_ui()

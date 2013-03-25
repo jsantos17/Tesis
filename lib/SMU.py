@@ -14,7 +14,7 @@ class SMU:
     self.source_mode = source_mode
     if source_mode == SourceMode.VOLTAGE:
       self._source_mode_command = "DV"
-    else:
+    else:   # Implies SourceMode.CURRENT
       self._source_mode_command = "DI"
 
   def set_channel(self, channel):
