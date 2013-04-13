@@ -1,6 +1,7 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import QObject
 import SubUi
+import LayoutUtil
 from MeasureHandler import MeasureHandler
 
 class SlotContainer(QtGui.QMainWindow):
@@ -19,14 +20,18 @@ class SlotContainer(QtGui.QMainWindow):
         self.ui.bottom_layout.addWidget(self._get_center_span_groupbox())
     
     def on_measure(self, event):
+        # We mostly prepare objects for the actual handlers
+        
         params = self
         handler = MeasureHandler()
         handler.handle(event, self.ui, params)
 
     def on_measure_select(self, event):
         print "ComboBox: {cbox}, Text = {ctext}".format(cbox=self.sender().objectName(), ctext = self.sender().currentText())
-        senderName = str(self.sender().objectName())
-        senderText = str(self.sender().currentText())
+        LayoutUtil.layout_update(self.sender(), self.ui) # Pass the sender to the handling function
+        
+    def _layout_update(self, sender):
+        sender_name = str(sender.objectName())
         # Map sender name to layout
         mapping = {
             "smu1": self.ui.smu1_layout,
@@ -34,29 +39,25 @@ class SlotContainer(QtGui.QMainWindow):
             "smu3": self.ui.smu3_layout,
             "smu4": self.ui.smu4_layout
         }
-        caller_layout = mapping[senderName[0:4]]
-        if "open" in self.sender().currentText().toLower():
+        caller_layout = mapping[sender_name[0:4]]
+        if "open" in sender.currentText().toLower():
             caller_layout.itemAt(2).widget().setParent(None) # Delete widget
             new_groupbox = QtGui.QGroupBox()
             caller_layout.addWidget(new_groupbox)
-        if "list" in self.sender().currentText().toLower():
+        if "list" in sender.currentText().toLower():
             new_groupbox = self._get_list_groupbox()
             caller_layout.itemAt(2).widget().setParent(None) # Delete widget
             caller_layout.addWidget(new_groupbox)
-            new_groupbox.repaint()
-            caller_layout.update()
-        elif "sweep" in self.sender().currentText().toLower():
+        elif "sweep" in sender.currentText().toLower():
             new_groupbox = self._get_sweep_groupbox()
             caller_layout.itemAt(2).widget().setParent(None) # Delete widget
             caller_layout.addWidget(new_groupbox)
-            new_groupbox.repaint()
-            caller_layout.update()
-        elif "step" in self.sender().currentText().toLower():
+        elif "step" in sender.currentText().toLower():
             new_groupbox = self._get_step_groupbox()
             caller_layout.itemAt(2).widget().setParent(None) # Delete widget
             caller_layout.addWidget(new_groupbox)
-            new_groupbox.repaint()
-            caller_layout.update()
+
+
 
     def _get_sweep_groupbox(self):
         return SubUi.get_sweep_groupbox() 
