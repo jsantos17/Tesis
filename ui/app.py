@@ -10,17 +10,16 @@ if __name__ == "__main__":
     ui = Ui_mainWindow()
     ui.setupUi(window)
     combo_boxes = [ui.smu1_combo, ui.smu2_combo, ui.smu3_combo, ui.smu4_combo]
-    combo_elements = ["Open","Current Bias","Current Sweep",
+    combo_elements = ["Open","Current Constant","Current Sweep",
                       "Current List Sweep", "Current Step",
-                      "Voltage Bias", "Voltage Sweep",
-                      "Voltage List Sweep", "Voltage Step"]
+                      "Voltage Constant", "Voltage Sweep",
+                      "Voltage List Sweep", "Voltage Step",]
     container = SlotContainer(ui)
     for box in combo_boxes:
         for element in combo_elements:
             box.addItem(element)
         box.currentIndexChanged.connect(container.on_measure_select)
     
-    ui.pushButton.clicked.connect(container.callback)
     ui.start_stop_radio.clicked.connect(container.selected_start_stop)
     ui.center_span_radio.clicked.connect(container.selected_center_span)
     ui.measure_button.clicked.connect(container.on_measure)

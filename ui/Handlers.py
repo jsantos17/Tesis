@@ -58,9 +58,6 @@ class SlotContainer(QtGui.QMainWindow):
             new_groupbox.repaint()
             caller_layout.update()
 
-    def callback(self, event):
-        self.ui.smu1_layout.itemAt(0).widget().setParent(None)
-
     def _get_sweep_groupbox(self):
         return SubUi.get_sweep_groupbox() 
 

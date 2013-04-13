@@ -1,52 +1,26 @@
 from util.SMUType import SMUType
 from util.SourceMode import SourceMode
 
-class SMU:
-    def __init__(self, output, source_mode=SourceMode.VOLTAGE, smu_type=SMUType.SMU1, channel = 1, compliance):
+class SMUBase:
+
+    def __init__(self, voltage_name, current_name, source_mode=SourceMode.VOLTAGE, ch_number):
+        
+        if source_mode not in (SourceMode.VOLTAGE, SourceMode.CURRENT, SourceMode.COMMON):
+            raise SMUConfigError("Source mode must be defined from SourceMode enum")
+        
+        if len(voltage_name) > 6:
+            raise SMUConfigError("Voltage name too long")
+        
+        if len(current_name) > 6:
+            raise SMUConfigError("Current name too long")
+
+        if ch_number > 8:
+            raise SMUConfigError("Channel number too high")
+        
+        self.ch_number = ch_number
+        self.current_name = current_name
+        self.voltage_name = voltage_name
         self.source_mode = source_mode
-        self.smu_type = smu_type
-        self.output = output
-        self.channel = channel
-        self.compliance = compliance
-
-    def set_source_mode(self, source_mode):
-        self.source_mode = source_mode
-        if source_mode == SourceMode.VOLTAGE:
-            self._source_mode_command = "DV"
-        else:   # Implies SourceMode.CURRENT
-            self._source_mode_command = "DI"
-
-    def set_channel(self, channel):
-        if channel > 8:
-            raise SMUConfigError("")
-        self.channel = channel
-
-    def set_output(self, output):
-        self._validate_range(output)
-        self.output = output
-
-    def set_compliance(self, compliance):
-        self._validate_range(compliance)
-        self.compliance = compliance
-
-    def execute(self, connection):
-        if self.channel == None or self.output == None or self.compliance == None:
-            raise SMUConfigError("SMU not fully configured")
-        print "{source_mode}{channel},{ranges},{output},{compliance}".format(
-            source_mode=self.source_mode,
-            channel = self.channel,
-            ranges = self.ranges,
-            output = self.output,
-            compliance = self.compliance)
-
-    def _validate_range(self, value):
-        if self.source_mode == SourceMode.VOLTAGE and value < -210 or value > 210:
-            raise SMUConfigError("Voltage out of range")
-        if self.source_mode == SourceMode.CURRENT:
-            if self.smu_type == SMUType.SMU1 and value < -0.1050 or value > 0.1050:
-                raise SMUConfigError("Current out of range")
-            elif self.smu_type == SMUType.SMU2 and value < -1.05 or value > 1.05:
-                raise SMUConfigError("Current out of range")
 
 
 class SMUConfigError(Exception):
