@@ -1,6 +1,7 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import QObject
 import SubUi
+from MeasureHandler import MeasureHandler
 
 class SlotContainer(QtGui.QMainWindow):
     def __init__(self, ui):
@@ -16,6 +17,11 @@ class SlotContainer(QtGui.QMainWindow):
         print "Selected center span"
         self.ui.bottom_layout.itemAt(2).widget().setParent(None)
         self.ui.bottom_layout.addWidget(self._get_center_span_groupbox())
+    
+    def on_measure(self, event):
+        params = self
+        handler = MeasureHandler()
+        handler.handle(event, self.ui, params)
 
     def on_measure_select(self, event):
         print "ComboBox: {cbox}, Text = {ctext}".format(cbox=self.sender().objectName(), ctext = self.sender().currentText())

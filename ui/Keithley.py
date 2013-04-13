@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Keithley.ui'
 #
-# Created: Fri Mar 22 09:19:15 2013
+# Created: Sat Apr 13 12:45:03 2013
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -99,7 +99,7 @@ class Ui_mainWindow(object):
         self.horizontalLayout_5.addWidget(self.range_field)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
         self.bottom_layout.addWidget(self.freq_groupbox)
-        self.gridLayout.addLayout(self.bottom_layout, 3, 0, 1, 1)
+        self.gridLayout.addLayout(self.bottom_layout, 4, 0, 1, 1)
         self.ip_file_layout = QtGui.QVBoxLayout()
         self.ip_file_layout.setObjectName(_fromUtf8("ip_file_layout"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -123,10 +123,10 @@ class Ui_mainWindow(object):
         self.label.setMaximumSize(QtCore.QSize(16777215, 25))
         self.label.setObjectName(_fromUtf8("label"))
         self.horizontalLayout_2.addWidget(self.label)
-        self.lineEdit = QtGui.QLineEdit(self.centralwidget)
-        self.lineEdit.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
-        self.horizontalLayout_2.addWidget(self.lineEdit)
+        self.fileField = QtGui.QLineEdit(self.centralwidget)
+        self.fileField.setMaximumSize(QtCore.QSize(16777215, 25))
+        self.fileField.setObjectName(_fromUtf8("fileField"))
+        self.horizontalLayout_2.addWidget(self.fileField)
         self.pushButton = QtGui.QPushButton(self.centralwidget)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.horizontalLayout_2.addWidget(self.pushButton)
@@ -195,12 +195,15 @@ class Ui_mainWindow(object):
         self.smu3_groupbox_2.setObjectName(_fromUtf8("smu3_groupbox_2"))
         self.smu4_layout.addWidget(self.smu3_groupbox_2)
         self.mainLayout.addLayout(self.smu4_layout)
-        self.gridLayout.addLayout(self.mainLayout, 1, 0, 1, 1)
+        self.gridLayout.addLayout(self.mainLayout, 2, 0, 1, 1)
         self.line = QtGui.QFrame(self.centralwidget)
         self.line.setFrameShape(QtGui.QFrame.HLine)
         self.line.setFrameShadow(QtGui.QFrame.Sunken)
         self.line.setObjectName(_fromUtf8("line"))
-        self.gridLayout.addWidget(self.line, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.line, 3, 0, 1, 1)
+        self.measure_button = QtGui.QPushButton(self.centralwidget)
+        self.measure_button.setObjectName(_fromUtf8("measure_button"))
+        self.gridLayout.addWidget(self.measure_button, 1, 0, 1, 1)
         mainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(mainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -231,4 +234,5 @@ class Ui_mainWindow(object):
         self.smu2_label.setText(_translate("mainWindow", "SMU 2", None))
         self.smu3_label.setText(_translate("mainWindow", "SMU 3", None))
         self.smu4_label.setText(_translate("mainWindow", "SMU 4", None))
+        self.measure_button.setText(_translate("mainWindow", "Medir", None))
 

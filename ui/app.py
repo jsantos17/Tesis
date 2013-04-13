@@ -23,5 +23,6 @@ if __name__ == "__main__":
     ui.pushButton.clicked.connect(container.callback)
     ui.start_stop_radio.clicked.connect(container.selected_start_stop)
     ui.center_span_radio.clicked.connect(container.selected_center_span)
+    ui.measure_button.clicked.connect(container.on_measure)
     window.show()
     sys.exit(app.exec_())

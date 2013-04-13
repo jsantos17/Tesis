@@ -21,7 +21,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0">
+    <item row="4" column="0">
      <layout class="QHBoxLayout" name="bottom_layout">
       <item>
        <widget class="QGroupBox" name="s_groupbox">
@@ -243,7 +243,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="fileField">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -263,7 +263,7 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
+    <item row="2" column="0">
      <layout class="QHBoxLayout" name="mainLayout">
       <item>
        <layout class="QVBoxLayout" name="smu1_layout">
@@ -405,10 +405,17 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <widget class="Line" name="line">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="measure_button">
+      <property name="text">
+       <string>Medir</string>
       </property>
      </widget>
     </item>
