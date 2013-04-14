@@ -1,11 +1,10 @@
-from util.SMUType import SMUType
 from util.SourceMode import SourceMode
 
 class SMUBase:
 
     def __init__(self, voltage_name, current_name, source_mode=SourceMode.VOLTAGE, ch_number):
         
-        if source_mode not in (SourceMode.VOLTAGE, SourceMode.CURRENT, SourceMode.COMMON):
+        if source_mode not in [SourceMode.VOLTAGE, SourceMode.CURRENT, SourceMode.COMMON]:
             raise SMUConfigError("Source mode must be defined from SourceMode enum")
         
         if len(voltage_name) > 6:
