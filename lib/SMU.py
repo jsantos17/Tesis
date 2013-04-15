@@ -1,8 +1,8 @@
 from util.SourceMode import SourceMode
 
-class SMUBase:
+class SMUBase(object):
 
-    def __init__(self, voltage_name, current_name, source_mode=SourceMode.VOLTAGE, ch_number):
+    def __init__(self, voltage_name, current_name, ch_number, source_mode=SourceMode.VOLTAGE):
         
         if source_mode not in [SourceMode.VOLTAGE, SourceMode.CURRENT, SourceMode.COMMON]:
             raise SMUConfigError("Source mode must be defined from SourceMode enum")
