@@ -25,7 +25,7 @@ class SMUSweep(SMUBase):
             if start < -0.105 or stop < -0.105 or step < -0.105 or compliance < -0.105:
                 raise SMUSweepConfigError("Current must be above -0.105A")
             if start > 0.105 or stop > 0.105 or step > 0.105 or compliance > 0.105:
-                raise SMUSweepConfigError("Voltage must be below 0.105A")
+                raise SMUSweepConfigError("Current must be below 0.105A")
         
         # Validation passed! Create the object
 
@@ -35,11 +35,6 @@ class SMUSweep(SMUBase):
         self.compliance = compliance
         self.sweep_type = sweep_type
 
-
-    def _get_chan_cmd(self):
-        command = "CH{ch_number},'{voltage_name}','{current_name}',{source_mode},1".format(ch_number=self.ch_number,
-                            voltage_name=self.voltage_name, current_name=self.current_name, source_mode=self.source_mode)
-        return command
 
     def _get_var1_cmd(self):
         if self.source_type == SourceType.VOLTAGE:
@@ -52,7 +47,6 @@ class SMUSweep(SMUBase):
         return command
 
     def get_commands(self):
-
         return [self._get_chan_cmd(), self._get_var1_cmd()]
 
 
