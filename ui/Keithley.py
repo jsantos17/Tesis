@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Keithley.ui'
 #
-# Created: Sat Apr 13 12:45:03 2013
+# Created: Tue Apr 16 11:37:44 2013
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -190,10 +190,10 @@ class Ui_mainWindow(object):
         self.smu4_combo = QtGui.QComboBox(self.centralwidget)
         self.smu4_combo.setObjectName(_fromUtf8("smu4_combo"))
         self.smu4_layout.addWidget(self.smu4_combo)
-        self.smu3_groupbox_2 = QtGui.QGroupBox(self.centralwidget)
-        self.smu3_groupbox_2.setTitle(_fromUtf8(""))
-        self.smu3_groupbox_2.setObjectName(_fromUtf8("smu3_groupbox_2"))
-        self.smu4_layout.addWidget(self.smu3_groupbox_2)
+        self.smu4_groupbox = QtGui.QGroupBox(self.centralwidget)
+        self.smu4_groupbox.setTitle(_fromUtf8(""))
+        self.smu4_groupbox.setObjectName(_fromUtf8("smu4_groupbox"))
+        self.smu4_layout.addWidget(self.smu4_groupbox)
         self.mainLayout.addLayout(self.smu4_layout)
         self.gridLayout.addLayout(self.mainLayout, 2, 0, 1, 1)
         self.line = QtGui.QFrame(self.centralwidget)

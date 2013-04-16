@@ -10,6 +10,7 @@ if __name__ == "__main__":
     ui = Ui_mainWindow()
     ui.setupUi(window)
     combo_boxes = [ui.smu1_combo, ui.smu2_combo, ui.smu3_combo, ui.smu4_combo]
+    combo_groupboxes = [ui.smu1_groupbox, ui.smu2_groupbox, ui.smu3_groupbox, ui.smu4_groupbox]
     combo_elements = ["Open","Current Constant","Current Sweep",
                       "Current List Sweep", "Current Step",
                       "Voltage Constant", "Voltage Sweep",

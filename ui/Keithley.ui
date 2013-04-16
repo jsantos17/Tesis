@@ -395,7 +395,7 @@
          <widget class="QComboBox" name="smu4_combo"/>
         </item>
         <item>
-         <widget class="QGroupBox" name="smu3_groupbox_2">
+         <widget class="QGroupBox" name="smu4_groupbox">
           <property name="title">
            <string/>
           </property>
