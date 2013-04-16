@@ -31,11 +31,12 @@ class SlotContainer(QtGui.QMainWindow):
         # Two SMUs can't be in sweep mode or step mode at the same time! 
         # List sweep or constant is fair enough in more than one SMU
         
-         print "ComboBox: {cbox}, Text = {ctext}".format(cbox=self.sender().objectName(), 
+        print "ComboBox: {cbox}, Text = {ctext}".format(cbox=self.sender().objectName(), 
                                                 ctext = self.sender().currentText())
         # print self.modes_activated
-         
-        LayoutUtil.layout_update(self.sender(), self.ui) # Pass the sender to the handling function
+        # Pass the sender to the handling function
+                 
+        LayoutUtil.layout_update(self.sender(), self.ui)
         
         #if "sweep" in self.sender().currentText().toLower() and "list" not in self.sender().currentText().toLower():
         #    self.modes_activated.add("sweep")

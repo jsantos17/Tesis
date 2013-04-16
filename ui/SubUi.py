@@ -68,6 +68,20 @@ def get_sweep_groupbox():
     val_inicio_field.setObjectName("val_inicio_field")
     return sweep_groupbox
 
+def get_constant_groupbox():
+    constant_groupbox = QtGui.QGroupBox()
+    constant_groupbox.setGeometry(QtCore.QRect(10, 10, 181, 80))
+    constant_groupbox.setTitle("")
+    constant_groupbox.setObjectName("constant_groupbox")
+    constant_label = QtGui.QLabel(constant_groupbox)
+    constant_label.setGeometry(QtCore.QRect(10, 30, 61, 14))
+    constant_label.setObjectName("constant_label")
+    constant_textbox = QtGui.QLineEdit(constant_groupbox)
+    constant_textbox.setGeometry(QtCore.QRect(60, 25, 113, 22))
+    constant_textbox.setObjectName("constant_textbox") 
+    constant_label.setText("Valor") 
+    return constant_groupbox
+
 def get_list_groupbox():
     list_groupbox = QtGui.QGroupBox()
     textEdit = QtGui.QTextEdit(list_groupbox)

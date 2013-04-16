@@ -28,6 +28,13 @@ def layout_update(sender, ui):
             new_groupbox = get_step_groupbox()
             caller_layout.itemAt(2).widget().setParent(None) # Delete widget
             caller_layout.addWidget(new_groupbox)
+        elif "constant" in sender.currentText().toLower():
+            new_groupbox = get_constant_groupbox()
+            caller_layout.itemAt(2).widget().setParent(None) # Delete widget
+            caller_layout.addWidget(new_groupbox)
+
+def get_constant_groupbox():
+    return SubUi.get_constant_groupbox()
 
 def get_sweep_groupbox():
     return SubUi.get_sweep_groupbox()
