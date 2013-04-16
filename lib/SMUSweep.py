@@ -5,7 +5,7 @@ from util.SourceType import SourceType
 class SMUSweep(SMUBase):
     # Source mode is for channel definition, Source type for VAR1 definition
     def __init__(self, voltage_name, current_name, source_mode, ch_number, source_type, start, stop, step, compliance, sweep_type=SweepType.LINEAR):
-        super(SMUSweep, self).__init__(voltage_name, current_name, source_mode, ch_number)
+        super(SMUSweep, self).__init__(voltage_name, current_name, ch_number, source_mode)
         
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:
             raise SMUSweepConfigError("source_type must be defined from SourceType enum")
@@ -44,6 +44,11 @@ class SMUSweep(SMUBase):
 
         command = template.format(sweep_type=self.sweep_type, start=self.start, stop=self.stop, 
                                  step=self.step, compliance=self.compliance)
+        return command
+
+    def _get_chan_cmd(self):
+        command = "CH{ch_number},'{voltage_name}','{current_name}',{source_mode},1".format(ch_number=self.ch_number,
+                                    voltage_name=self.voltage_name, current_name=self.current_name, source_mode=self.source_mode)
         return command
 
     def get_commands(self):
