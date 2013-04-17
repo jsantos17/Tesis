@@ -1,8 +1,8 @@
 import sys
 from PyQt4.QtGui import QApplication, QMainWindow
 from PyQt4 import QtGui
-from Keithley import Ui_mainWindow
-from Handlers import SlotContainer
+from gui.Keithley import Ui_mainWindow
+from gui.Handlers import SlotContainer
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
