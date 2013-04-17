@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Keithley.ui'
+# Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Tue Apr 16 11:37:44 2013
+# Created: Tue Apr 16 21:23:39 2013
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         mainWindow.setObjectName(_fromUtf8("mainWindow"))
         mainWindow.resize(1150, 564)
-        mainWindow.setMinimumSize(QtCore.QSize(1150, 300))
+        mainWindow.setMinimumSize(QtCore.QSize(1150, 500))
         self.centralwidget = QtGui.QWidget(mainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -144,7 +144,7 @@ class Ui_mainWindow(object):
         self.smu1_combo.setObjectName(_fromUtf8("smu1_combo"))
         self.smu1_layout.addWidget(self.smu1_combo)
         self.smu1_groupbox = QtGui.QGroupBox(self.centralwidget)
-        self.smu1_groupbox.setMinimumSize(QtCore.QSize(0, 20))
+        self.smu1_groupbox.setMinimumSize(QtCore.QSize(0, 200))
         self.smu1_groupbox.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.smu1_groupbox.setTitle(_fromUtf8(""))
         self.smu1_groupbox.setObjectName(_fromUtf8("smu1_groupbox"))
@@ -160,7 +160,7 @@ class Ui_mainWindow(object):
         self.smu2_combo.setObjectName(_fromUtf8("smu2_combo"))
         self.smu2_layout.addWidget(self.smu2_combo)
         self.smu2_groupbox = QtGui.QGroupBox(self.centralwidget)
-        self.smu2_groupbox.setMinimumSize(QtCore.QSize(0, 20))
+        self.smu2_groupbox.setMinimumSize(QtCore.QSize(0, 200))
         self.smu2_groupbox.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.smu2_groupbox.setTitle(_fromUtf8(""))
         self.smu2_groupbox.setObjectName(_fromUtf8("smu2_groupbox"))
@@ -176,6 +176,7 @@ class Ui_mainWindow(object):
         self.smu3_combo.setObjectName(_fromUtf8("smu3_combo"))
         self.smu3_layout.addWidget(self.smu3_combo)
         self.smu3_groupbox = QtGui.QGroupBox(self.centralwidget)
+        self.smu3_groupbox.setMinimumSize(QtCore.QSize(0, 200))
         self.smu3_groupbox.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.smu3_groupbox.setTitle(_fromUtf8(""))
         self.smu3_groupbox.setObjectName(_fromUtf8("smu3_groupbox"))
@@ -191,6 +192,8 @@ class Ui_mainWindow(object):
         self.smu4_combo.setObjectName(_fromUtf8("smu4_combo"))
         self.smu4_layout.addWidget(self.smu4_combo)
         self.smu4_groupbox = QtGui.QGroupBox(self.centralwidget)
+        self.smu4_groupbox.setEnabled(True)
+        self.smu4_groupbox.setMinimumSize(QtCore.QSize(0, 200))
         self.smu4_groupbox.setTitle(_fromUtf8(""))
         self.smu4_groupbox.setObjectName(_fromUtf8("smu4_groupbox"))
         self.smu4_layout.addWidget(self.smu4_groupbox)

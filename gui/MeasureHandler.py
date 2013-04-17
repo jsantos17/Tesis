@@ -1,15 +1,25 @@
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import QObject
 
 class MeasureHandler(QtGui.QMainWindow):
 
     def handle(self, event, ui, params):
-        active_combo = list()
-        for combo in [ui.smu1_combo, ui.smu2_combo, ui.smu3_combo, ui.smu4_combo]:
-            if "open" not in combo.currentText().toLower():
-                active_combo.append(combo)
-        
-        print [str(x.objectName()) for x in active_combo]
+        active = list()
+        mapping = [{'combo': ui.smu1_combo, 'groupbox': ui.smu1_groupbox},
+                   {'combo': ui.smu2_combo, 'groupbox': ui.smu2_groupbox},
+                   {'combo': ui.smu3_combo, 'groupbox': ui.smu3_groupbox},
+                   {'combo': ui.smu4_combo, 'groupbox': ui.smu4_groupbox}]
 
-        # Now we have the usable combo_boxes, do something with them!
+        for element in mapping:
+           if "open" not in element['combo'].currentText().toLower():
+               active.append(element)
 
+        for element in active:
+            combo = element['combo']
+            groupbox = element['groupbox']
+            if "current" in combo.currentText().toLower():
+                if "sweep" in combo.currentText().toLower():
+                    ch = int(str(combo.objectName())[3:4])
+                    print groupbox.findChildren(QtGui.QLineEdit, "*")
+            elif "voltage" in combo.currentText().toLower():
+                pass

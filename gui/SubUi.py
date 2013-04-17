@@ -2,7 +2,7 @@ from PyQt4 import QtGui, QtCore
 
 def get_step_groupbox():
     step_groupbox = QtGui.QGroupBox()
-    step_groupbox.setGeometry(QtCore.QRect(0, 10, 301, 151))
+    step_groupbox.setGeometry(QtCore.QRect(0, 10, 301, 140))
     step_groupbox.setTitle("")
     step_groupbox.setObjectName("step_groupbox")
     val_interval_field = QtGui.QLineEdit(step_groupbox)
@@ -38,7 +38,7 @@ def get_step_groupbox():
 
 def get_sweep_groupbox():
     sweep_groupbox = QtGui.QGroupBox()
-    sweep_groupbox.setGeometry(QtCore.QRect(30, 20, 271, 131))
+    sweep_groupbox.setGeometry(QtCore.QRect(30, 20, 271, 140))
     #sweep_groupbox.setGeometry(QtCore.QRect(0, 0, 271, 131))
     sweep_groupbox.setTitle("")
     sweep_groupbox.setObjectName("sweep_groupbox")
@@ -66,11 +66,25 @@ def get_sweep_groupbox():
     val_inicio_field = QtGui.QLineEdit(sweep_groupbox)
     val_inicio_field.setGeometry(QtCore.QRect(100, 50, 161, 25))
     val_inicio_field.setObjectName("val_inicio_field")
+    compliance_label = QtGui.QLabel(sweep_groupbox)
+    compliance_label.setGeometry(QtCore.QRect(10, 120, 80, 16))
+    compliance_label.setObjectName("compliance_label")
+    compliance_label.setText("Compliance: ")
+    compliance_field = QtGui.QLineEdit(sweep_groupbox)
+    compliance_field.setGeometry(QtCore.QRect(100, 110, 161, 25))
+
+    step_label = QtGui.QLabel(sweep_groupbox)
+    step_label.setGeometry(QtCore.QRect(10, 150, 80, 16))
+    step_label.setObjectName("step_label")
+    step_label.setText("Step: ")
+    step_field = QtGui.QLineEdit(sweep_groupbox)
+    step_field.setGeometry(QtCore.QRect(100, 140, 161, 25))
+
     return sweep_groupbox
 
 def get_constant_groupbox():
     constant_groupbox = QtGui.QGroupBox()
-    constant_groupbox.setGeometry(QtCore.QRect(10, 10, 181, 80))
+    constant_groupbox.setGeometry(QtCore.QRect(10, 10, 181, 140))
     constant_groupbox.setTitle("")
     constant_groupbox.setObjectName("constant_groupbox")
     constant_label = QtGui.QLabel(constant_groupbox)
@@ -85,7 +99,7 @@ def get_constant_groupbox():
 def get_list_groupbox():
     list_groupbox = QtGui.QGroupBox()
     textEdit = QtGui.QTextEdit(list_groupbox)
-    textEdit.setGeometry(QtCore.QRect(0, 20, 250, 71))
+    textEdit.setGeometry(QtCore.QRect(0, 20, 250, 140))
     textEdit.setObjectName("list_textedit")
     label = QtGui.QLabel(list_groupbox)
     label.setGeometry(QtCore.QRect(0, 0, 250, 19))
@@ -95,7 +109,7 @@ def get_list_groupbox():
 
 def get_start_stop_ui():
     freq_groupbox = QtGui.QGroupBox()
-    freq_groupbox.setGeometry(QtCore.QRect(10, 0, 373, 131))
+    freq_groupbox.setGeometry(QtCore.QRect(10, 0, 373, 140))
     freq_groupbox.setObjectName("freq_groupbox")
     verticalLayoutWidget = QtGui.QWidget(freq_groupbox)
     verticalLayoutWidget.setGeometry(QtCore.QRect(0, 20, 341, 107))
