@@ -16,7 +16,7 @@ def get_step_groupbox():
     value_init.setObjectName("value_init")
     val_inicio_field = QtGui.QLineEdit(step_groupbox)
     val_inicio_field.setGeometry(QtCore.QRect(120, 20, 151, 25))
-    val_inicio_field.setObjectName("val_inicio_field")
+    val_inicio_field.setObjectName("val_start_field")
     step_number = QtGui.QLabel(step_groupbox)
     step_number.setGeometry(QtCore.QRect(10, 70, 81, 31))
     step_number.setWordWrap(True)
@@ -71,6 +71,7 @@ def get_sweep_groupbox():
     compliance_label.setObjectName("compliance_label")
     compliance_label.setText("Compliance: ")
     compliance_field = QtGui.QLineEdit(sweep_groupbox)
+    compliance_field.setObjectName("compliance_field")
     compliance_field.setGeometry(QtCore.QRect(100, 110, 161, 25))
 
     step_label = QtGui.QLabel(sweep_groupbox)
@@ -78,6 +79,7 @@ def get_sweep_groupbox():
     step_label.setObjectName("step_label")
     step_label.setText("Step: ")
     step_field = QtGui.QLineEdit(sweep_groupbox)
+    step_field.setObjectName("step_field")
     step_field.setGeometry(QtCore.QRect(100, 140, 161, 25))
 
     return sweep_groupbox
