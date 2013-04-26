@@ -38,21 +38,21 @@ class SMUSweep(SMUBase):
 
     def _get_var1_cmd(self):
         if self.source_type == SourceType.VOLTAGE:
-            template = "VR{sweep_type},{start},{stop},{step},{compliance}"
+            template = "SS VR{sweep_type},{start},{stop},{step},{compliance}"
         elif self.source_type == SourceType.CURRENT:
-            template = "IR{sweep_type},{start},{stop},{step},{compliance}"
+            template = "SS IR{sweep_type},{start},{stop},{step},{compliance}"
 
         command = template.format(sweep_type=self.sweep_type, start=self.start, stop=self.stop, 
                                  step=self.step, compliance=self.compliance)
         return command
 
     def _get_chan_cmd(self):
-        command = "CH{ch_number},'{voltage_name}','{current_name}',{source_mode},1".format(ch_number=self.ch_number,
+        command = "DE CH{ch_number},'{voltage_name}','{current_name}',{source_mode},1".format(ch_number=self.ch_number,
                                     voltage_name=self.voltage_name, current_name=self.current_name, source_mode=self.source_mode)
         return command
 
     def get_commands(self):
-        return [self._get_chan_cmd(), self._get_var1_cmd()]
+        return [self._get_chan_cmd(), self._get_var1_cmd(), "MD ME1", "MD DO'I1'"]
 
 
 class SMUSweepConfigError(Exception):

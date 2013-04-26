@@ -53,7 +53,7 @@ class SMUStep(SMUBase):
         return command
 
     def get_commands(self):
-        return [self._get_chan_cmd(), self._get_var2_cmd()]
+        return ["DE", self._get_chan_cmd(), "SS", self._get_var2_cmd()]
 
 
 class SMUStepConfigError(Exception):
