@@ -14,6 +14,7 @@ class MeasureHandler(QtGui.QMainWindow):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((ip,1225))
         active = list()
+        inactive = list()
         mapping = [{'combo': ui.smu1_combo, 'layout': ui.smu1_layout},
                    {'combo': ui.smu2_combo, 'layout': ui.smu2_layout},
                    {'combo': ui.smu3_combo, 'layout': ui.smu3_layout},
@@ -22,6 +23,9 @@ class MeasureHandler(QtGui.QMainWindow):
         for element in mapping:
            if "open" not in element['combo'].currentText().toLower():
                active.append(element)
+           else:
+               inactive.append(element)
+
 
         for element in active:
             combo = element['combo']
