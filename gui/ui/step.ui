@@ -1,108 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>283</width>
-    <height>165</height>
+    <width>358</width>
+    <height>227</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
   <widget class="QGroupBox" name="step_groupbox">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>10</y>
+     <x>20</x>
+     <y>20</y>
      <width>301</width>
-     <height>151</height>
+     <height>171</height>
     </rect>
    </property>
    <property name="title">
     <string/>
    </property>
-   <widget class="QLineEdit" name="val_interval_field">
+   <widget class="QLineEdit" name="step_lineedit">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>50</y>
-      <width>151</width>
+      <x>100</x>
+      <y>60</y>
+      <width>171</width>
       <height>25</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="value_interval">
+   <widget class="QLineEdit" name="steps_lineedit">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Valor intervalo:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="value_init">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Valor inicio:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="val_inicio_field">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>20</y>
-      <width>151</width>
+      <x>100</x>
+      <y>90</y>
+      <width>171</width>
       <height>25</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="step_number">
+   <widget class="QLineEdit" name="start_lineedit">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>81</width>
-      <height>31</height>
+      <x>100</x>
+      <y>30</y>
+      <width>171</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="compliance_lineedit">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>120</y>
+      <width>171</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="start_label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>53</width>
+      <height>14</height>
      </rect>
     </property>
     <property name="text">
-     <string>Numero de pasos:</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
+     <string>Start:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="step_number_field">
+   <widget class="QLabel" name="step_label">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>80</y>
-      <width>151</width>
-      <height>25</height>
+      <x>20</x>
+      <y>60</y>
+      <width>53</width>
+      <height>14</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>Step:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="steps_label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>53</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Steps:</string>
     </property>
    </widget>
    <widget class="QLabel" name="compliance_label">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>110</y>
-      <width>81</width>
+      <x>20</x>
+      <y>120</y>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
@@ -110,18 +117,13 @@
      <string>Compliance:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="compliance_field">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>110</y>
-      <width>151</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>start_lineedit</tabstop>
+  <tabstop>step_lineedit</tabstop>
+  <tabstop>steps_lineedit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
