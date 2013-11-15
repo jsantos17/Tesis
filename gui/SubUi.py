@@ -5,30 +5,38 @@ def get_step_groupbox():
     step_groupbox.setGeometry(QtCore.QRect(20, 20, 301, 171))
     step_groupbox.setTitle("")
     step_groupbox.setObjectName("step_groupbox")
-    step_lineedit = QtGui.QLineEdit(step_groupbox)
-    step_lineedit.setGeometry(QtCore.QRect(100, 60, 171, 25))
-    step_lineedit.setObjectName("step_lineedit")
-    steps_lineedit = QtGui.QLineEdit(step_groupbox)
-    steps_lineedit.setGeometry(QtCore.QRect(100, 90, 171, 25))
-    steps_lineedit.setObjectName("steps_lineedit")
+
     start_lineedit = QtGui.QLineEdit(step_groupbox)
     start_lineedit.setGeometry(QtCore.QRect(100, 30, 171, 25))
     start_lineedit.setObjectName("start_lineedit")
+
+    step_lineedit = QtGui.QLineEdit(step_groupbox)
+    step_lineedit.setGeometry(QtCore.QRect(100, 60, 171, 25))
+    step_lineedit.setObjectName("step_lineedit")
+
+    steps_lineedit = QtGui.QLineEdit(step_groupbox)
+    steps_lineedit.setGeometry(QtCore.QRect(100, 90, 171, 25))
+    steps_lineedit.setObjectName("steps_lineedit")
+
     compliance_lineedit = QtGui.QLineEdit(step_groupbox)
     compliance_lineedit.setGeometry(QtCore.QRect(100, 120, 171, 25))
     compliance_lineedit.setObjectName("compliance_lineedit")
+
     start_label = QtGui.QLabel(step_groupbox)
     start_label.setGeometry(QtCore.QRect(20, 30, 53, 14))
     start_label.setObjectName("start_label")
+
     step_label = QtGui.QLabel(step_groupbox)
     step_label.setGeometry(QtCore.QRect(20, 60, 53, 14))
     step_label.setObjectName("step_label")
     steps_label = QtGui.QLabel(step_groupbox)
     steps_label.setGeometry(QtCore.QRect(20, 90, 53, 14))
     steps_label.setObjectName("steps_label")
+
     compliance_label = QtGui.QLabel(step_groupbox)
     compliance_label.setGeometry(QtCore.QRect(20, 120, 71, 16))
     compliance_label.setObjectName("compliance_label")
+
     start_label.setText("Start:")
     step_label.setText("Step:")
     steps_label.setText("Steps:")
@@ -40,15 +48,14 @@ def get_step_groupbox():
 def get_sweep_groupbox():
     sweep_groupbox = QtGui.QGroupBox()
     sweep_groupbox.setGeometry(QtCore.QRect(30, 20, 271, 140))
-    #sweep_groupbox.setGeometry(QtCore.QRect(0, 0, 271, 131))
     sweep_groupbox.setTitle("")
     sweep_groupbox.setObjectName("sweep_groupbox")
-    val_stop_field = QtGui.QLineEdit(sweep_groupbox)
-    val_stop_field.setGeometry(QtCore.QRect(100, 80, 161, 25))
-    val_stop_field.setObjectName("val_stop_field")
+
+    
     sweep_type_label = QtGui.QLabel(sweep_groupbox)
     sweep_type_label.setGeometry(QtCore.QRect(6, 10, 81, 20))
     sweep_type_label.setObjectName("sweep_type_label")
+
     combobox = QtGui.QComboBox(sweep_groupbox)
     combobox.setGeometry(QtCore.QRect(100, 10, 161, 25))
     combobox.setObjectName("sweep_type_combobox")
@@ -56,21 +63,31 @@ def get_sweep_groupbox():
     combobox.addItem("Log10")
     combobox.addItem("Log25")
     combobox.addItem("Log50")
+
     value_stop = QtGui.QLabel(sweep_groupbox)
     value_stop.setGeometry(QtCore.QRect(10, 90, 71, 16))
     value_stop.setObjectName("value_stop")
+    value_stop.setText("Valor final: ")
+
     value_init = QtGui.QLabel(sweep_groupbox)
     value_init.setGeometry(QtCore.QRect(10, 50, 71, 16))
     value_init.setObjectName("value_init")
     value_init.setText("Valor inicio: ")
-    value_stop.setText("Valor final: ")
+
     val_inicio_field = QtGui.QLineEdit(sweep_groupbox)
     val_inicio_field.setGeometry(QtCore.QRect(100, 50, 161, 25))
     val_inicio_field.setObjectName("val_inicio_field")
+
+    val_stop_field = QtGui.QLineEdit(sweep_groupbox)
+    val_stop_field.setGeometry(QtCore.QRect(100, 80, 161, 25))
+    val_stop_field.setObjectName("val_stop_field")
+ 
+
     compliance_label = QtGui.QLabel(sweep_groupbox)
     compliance_label.setGeometry(QtCore.QRect(10, 120, 80, 16))
     compliance_label.setObjectName("compliance_label")
     compliance_label.setText("Compliance: ")
+
     compliance_field = QtGui.QLineEdit(sweep_groupbox)
     compliance_field.setObjectName("compliance_field")
     compliance_field.setGeometry(QtCore.QRect(100, 110, 161, 25))
@@ -79,6 +96,7 @@ def get_sweep_groupbox():
     step_label.setGeometry(QtCore.QRect(10, 150, 80, 16))
     step_label.setObjectName("step_label")
     step_label.setText("Step: ")
+
     step_field = QtGui.QLineEdit(sweep_groupbox)
     step_field.setObjectName("step_field")
     step_field.setGeometry(QtCore.QRect(100, 140, 161, 25))
