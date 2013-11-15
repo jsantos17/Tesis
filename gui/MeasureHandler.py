@@ -4,6 +4,7 @@ from lib.util.SweepType import SweepType
 from lib.util.SourceType import SourceType
 from lib.util.SourceMode import SourceMode
 from lib.SMUSweep import SMUSweep
+from lib.SMUStep import SMUStep
 import socket
 import time
 
@@ -11,8 +12,8 @@ class MeasureHandler(QtGui.QMainWindow):
 
     def handle(self, event, ui, params):
         ip = ui.ipField.text()
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((ip,1225))
+        # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # s.connect((ip,1225))
         active = list()
         inactive = list()
         mapping = [{'combo': ui.smu1_combo, 'layout': ui.smu1_layout},
@@ -32,7 +33,10 @@ class MeasureHandler(QtGui.QMainWindow):
             layout = element['layout']
             groupbox = layout.itemAt(2).widget()
             if "current" in combo.currentText().toLower():
-                if "sweep" in combo.currentText().toLower():
+                if "list" in combo.currentText().toLower():
+                    pass
+                
+                elif "sweep" in combo.currentText().toLower():
                     ch = int(str(combo.objectName())[3:4])
                     stop = float(groupbox.findChild(QtGui.QLineEdit, "val_stop_field").text())
                     start = float(groupbox.findChild(QtGui.QLineEdit, "val_inicio_field").text())
@@ -42,8 +46,22 @@ class MeasureHandler(QtGui.QMainWindow):
                     for command in smu.get_commands():
                         time.sleep(1)
                         print command
-                        s.send(command)
-                    s.send('MD ME1')
-                    s.send('DO\'I1\'')  
+                    # s.send(command)
+                    # s.send('MD ME1')
+                    # s.send('DO\'I1\'')  
+                elif "step" in combo.currentText().toLower():
+                    ch = int(str(combo.objectName())[3:4])
+                    start = float(groupbox.findChild(QtGui.QLineEdit, "start_lineedit").text())
+                    step = float(groupbox.findChild(QtGui.QLineEdit, "step_lineedit").text())
+                    steps = int(groupbox.findChild(QtGui.QLineEdit, "steps_lineedit").text())
+                    compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_lineedit").text())
+
+                    smu = SMUStep('V1', 'I1', SourceMode.CURRENT, ch, SourceType.CURRENT, start, step, steps, compliance)
+
+                    for command in smu.get_commands():
+                        time.sleep(1)
+                        print command
+                    pass
+
             elif "voltage" in combo.currentText().toLower():
                 pass
