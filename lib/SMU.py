@@ -1,5 +1,8 @@
 from util.SourceMode import SourceMode
 
+# Abstract class that should NEVER be used by itself
+# Class hierarchy needs work to increase code re-use
+
 class SMUBase(object):
 
     def __init__(self, voltage_name, current_name, ch_number, source_mode=SourceMode.VOLTAGE):
