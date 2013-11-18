@@ -32,36 +32,38 @@ class MeasureHandler(QtGui.QMainWindow):
             combo = element['combo']
             layout = element['layout']
             groupbox = layout.itemAt(2).widget()
+            ch = int(str(combo.objectName())[3:4])
             if "current" in combo.currentText().toLower():
-                if "list" in combo.currentText().toLower():
+                
+                if "constant" in combo.currentText.toLower():
+                    # Constant current configuration for SMU
+                    pass
+                
+                elif "list" in combo.currentText().toLower():
+                    # Current list sweep configuration for SMU
                     pass
                 
                 elif "sweep" in combo.currentText().toLower():
-                    ch = int(str(combo.objectName())[3:4])
+                    # Current sweep configuration for SMU
                     stop = float(groupbox.findChild(QtGui.QLineEdit, "val_stop_field").text())
                     start = float(groupbox.findChild(QtGui.QLineEdit, "val_inicio_field").text())
                     step = float(groupbox.findChild(QtGui.QLineEdit, "step_field").text())
                     compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_field").text())
-                    smu = SMUSweep('V1','I1',SourceMode.CURRENT, ch, SourceType.CURRENT, start, stop, step, compliance, sweep_type=SweepType.LINEAR)
+                    smu = SMUSweep('V%s'%ch,'I%s'%ch,SourceMode.CURRENT, ch, SourceType.CURRENT, start, stop, step, compliance, sweep_type=SweepType.LINEAR)
                     for command in smu.get_commands():
-                        time.sleep(1)
-                        print command
-                    # s.send(command)
-                    # s.send('MD ME1')
-                    # s.send('DO\'I1\'')  
+                        pass
+                
                 elif "step" in combo.currentText().toLower():
-                    ch = int(str(combo.objectName())[3:4])
+                    # Current step configuration for SMU
                     start = float(groupbox.findChild(QtGui.QLineEdit, "start_lineedit").text())
                     step = float(groupbox.findChild(QtGui.QLineEdit, "step_lineedit").text())
                     steps = int(groupbox.findChild(QtGui.QLineEdit, "steps_lineedit").text())
                     compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_lineedit").text())
 
-                    smu = SMUStep('V1', 'I1', SourceMode.CURRENT, ch, SourceType.CURRENT, start, step, steps, compliance)
+                    smu = SMUStep('V%s'%ch, 'I%s'%ch, SourceMode.CURRENT, ch, SourceType.CURRENT, start, step, steps, compliance)
 
                     for command in smu.get_commands():
-                        time.sleep(1)
-                        print command
-                    pass
+                        pass
 
             elif "voltage" in combo.currentText().toLower():
                 pass
