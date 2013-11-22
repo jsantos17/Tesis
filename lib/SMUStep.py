@@ -39,9 +39,9 @@ class SMUStep(SMUBase):
 
     def _get_var2_cmd(self):
         if self.source_type == SourceType.VOLTAGE:
-            template = "SS VP{start},{step},{steps},{compliance}"
+            template = "SS VP {start},{step},{steps},{compliance}"
         elif self.source_type == SourceType.CURRENT:
-            template = "SS IP{start},{step},{steps},{compliance}"
+            template = "SS IP {start},{step},{steps},{compliance}"
 
         command = template.format(start=self.start, step=self.step, steps=self.steps, 
                                  compliance=self.compliance)
