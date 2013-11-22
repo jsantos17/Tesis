@@ -2,9 +2,10 @@ from SMU import SMUBase
 from util.SourceType import SourceType
 
 
-def SMUConstant(SMUBase):
+class SMUConstant(SMUBase):
+
     def __init__(self, voltage_name, current_name, source_mode, ch_number, source_type, output, compliance):
-        super(SMUStep, self).__init__(voltage_name, current_name, ch_number, source_mode)
+        super(SMUConstant, self).__init__(voltage_name, current_name, ch_number, source_mode)
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:
             raise SMUStepConfigError("source_type must be defined from SourceType enum")
 
@@ -30,15 +31,15 @@ def SMUConstant(SMUBase):
         self.compliance = compliance
 
     def _get_chan_cmd(self):
-        command = "DE CH{ch_number},'{voltage_name}','{current_name}',{source_mode},2".format(ch_number=self.ch_number,
+        command = "DE CH{ch_number},'{voltage_name}','{current_name}',{source_mode},3".format(ch_number=self.ch_number,
                           voltage_name=self.voltage_name, current_name=self.current_name, source_mode=self.source_mode)
         return command
 
     def _get_const_cmd(self):
         if self.source_type == SourceType.VOLTAGE:
-            template = "SS VC {ch},{output},{compliance}"
-        else if self.source_type == SourceType.CURRENT:
-            template = "SS IC {ch},{output},{compliance}"
+            template = "SS VC{ch},{output},{compliance}"
+        elif self.source_type == SourceType.CURRENT:
+            template = "SS IC{ch},{output},{compliance}"
 
         return template.format(ch=self.ch_number, output=self.output, compliance=self.compliance)
 
