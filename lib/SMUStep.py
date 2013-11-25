@@ -1,4 +1,5 @@
 from SMU import SMUBase
+from SMU import SMUConfigError
 from util.SourceType import SourceType
 
 class SMUStep(SMUBase):
@@ -7,26 +8,23 @@ class SMUStep(SMUBase):
         super(SMUStep, self).__init__(voltage_name, current_name, ch_number, source_mode)
         
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:
-            raise SMUStepConfigError("source_type must be defined from SourceType enum")
+            raise SMUConfigError("source_type must be defined from SourceType enum")
 
         self.source_type = source_type
         
         # TODO move validation to superclass
          
         if self.source_type == SourceType.VOLTAGE:
-            if start < -210  or step < -210 or compliance < -210:
-                raise SMUStepConfigError("Voltage must be above -210V")
-            if start > 210 or  step > 210 or compliance > 210:
-                raise SMUStepConfigError("Voltage must be below 210V")
-
+            self._validate_voltage(start)
+            self._validate_voltage(step)
+            self._validate_voltage(compliance)
         if self.source_type == SourceType.CURRENT:
-            if start < -0.105  or step < -0.105 or compliance < -0.105:
-                raise SMUStepConfigError("Current must be above -0.105A")
-            if start > 0.105  or step > 0.105 or compliance > 0.105:
-                raise SMUStepConfigError("Current must be below 0.105A")
+            self._validate_current(start)
+            self._validate_current(step)
+            self._validate_current(compliance)
 
         if steps > 32:
-            raise SMUStepConfigError("The max number of steps is 32")
+            raise SMUConfigError("The max number of steps is 32")
 
 
         # Validation passed! Create the object
@@ -56,5 +54,3 @@ class SMUStep(SMUBase):
         return [self._get_chan_cmd(), self._get_var2_cmd()]
 
 
-class SMUStepConfigError(Exception):
-    pass

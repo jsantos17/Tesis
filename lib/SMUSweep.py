@@ -1,4 +1,5 @@
 from SMU import SMUBase
+from SMU import SMUConfigError
 from util.SweepType import SweepType
 from util.SourceType import SourceType
 
@@ -8,24 +9,24 @@ class SMUSweep(SMUBase):
         super(SMUSweep, self).__init__(voltage_name, current_name, ch_number, source_mode)
         
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:
-            raise SMUSweepConfigError("source_type must be defined from SourceType enum")
+            raise SMUConfigError("source_type must be defined from SourceType enum")
 
         if sweep_type not in [SweepType.LINEAR, SweepType.LOG10, SweepType.LOG25, SweepType.LOG50]:
-            raise SMUSweepConfigError("sweep_type must be defined from SweepType enum")
+            raise SMUConfigError("sweep_type must be defined from SweepType enum")
 
         self.source_type = source_type
         
         if self.source_type == SourceType.VOLTAGE:
             if start < -210 or stop < -210 or step < -210 or compliance < -210:
-                raise SMUSweepConfigError("Voltage must be above -210V")
+                raise SMUConfigError("Voltage must be above -210V")
             if start > 210 or stop > 210 or step > 210 or compliance > 210:
-                raise SMUSweepConfigError("Voltage must be below 210V")
+                raise SMUConfigError("Voltage must be below 210V")
 
         if self.source_type == SourceType.CURRENT:
             if start < -0.105 or stop < -0.105 or step < -0.105 or compliance < -0.105:
                 raise SMUSweepConfigError("Current must be above -0.105A")
             if start > 0.105 or stop > 0.105 or step > 0.105 or compliance > 0.105:
-                raise SMUSweepConfigError("Current must be below 0.105A")
+                raise SMUConfigError("Current must be below 0.105A")
         
         # Validation passed! Create the object
 
@@ -54,6 +55,3 @@ class SMUSweep(SMUBase):
     def get_commands(self):
         return [self._get_chan_cmd(), self._get_var1_cmd(), "MD ME1", "MD DO'I1'"]
 
-
-class SMUSweepConfigError(Exception):
-    pass

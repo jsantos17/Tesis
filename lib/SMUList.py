@@ -1,5 +1,6 @@
 from SMU import SMUBase
 from util.SourceType import SourceType
+from util.CurrentVoltage import CurrentVoltage
 from util.SlaveMaster import SlaveMaster
 
 class SMUList(SMUBase):
@@ -8,31 +9,20 @@ class SMUList(SMUBase):
         super(SMUList, self).__init__(voltage_name, current_name, ch_number, source_mode)
         
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:
-            raise SMUSweepConfigError("source_type must be defined from SourceType enum")
+            raise SMUConfigError("source_type must be defined from SourceType enum")
 
         self.source_type = source_type
         
         if slave_master not in [SlaveMaster.SLAVE, SlaveMaster.MASTER]:
-            raise SMUListConfigError("Slave or master mode must be specified from SlaveMaster enum")
+            raise SMUConfigError("Slave or master mode must be specified from SlaveMaster enum")
 
         if self.source_type == SourceType.VOLTAGE:
-            if compliance < -210 or compliance > 210:
-                raise SMUListConfigError("Compliance must be between -210 and 210")
-            for value in sweep_values:
-                if value < -210:
-                    raise SMUListConfigError("Voltages in list must be all above -210V")
-                if value > 210:
-                    raise SMUListConfigError("Voltages in list must all be below 210V")
-
+            self._validate_voltage(compliance)
+            self._validate_list(sweep_values, CurrentVoltage.VOLTAGE)
         if self.source_type == SourceType.CURRENT:
-            if compliance < -0.105 or compliance > 0.105:
-                raise SMUListConfigError("Compliance must be between -0.105A and 0.105A")
-            for value in sweep_values:
-                if value < -0.105:
-                    raise SMUListConfigError("Currents in list must be above -0.105A")
-                if value > 0.105:
-                    raise SMUListConfigError("Currents in list must be below 0.105A")
-        
+            self._validate_current(compliance)
+            self._validate_list(sweep_values, CurrentVoltage.CURRENT)
+                    
 
 
         # Validation passed! Create the object
@@ -60,5 +50,3 @@ class SMUList(SMUBase):
         return [self._get_chan_cmd(), self._get_sweep_cmd(), "MD ME1", "MD DO'I1'"]
 
 
-class SMUListConfigError(Exception):
-    pass
