@@ -1,5 +1,6 @@
 import unittest
 from lib.SMUSweep import SMUSweep
+from lib.SMU import SMUConfigError
 from lib.SMUList import SMUList
 from lib.SMUStep import SMUStep
 from lib.util.SourceMode import SourceMode
@@ -21,9 +22,9 @@ class TestSweep(unittest.TestCase):
 
     def test_list_sweep(self):
         chan_command = "DE CH2 'V1','I1',1,1"
-        func_command = "SS VL2,1,0.01,1,5,2"
+        func_command = "SS VL2,1,0.01,1,5,2,1,3,2,3,4,2"
 
-        sweep_values = [1,5,2] # List of values to sweep
+        sweep_values = [1,5,2,1,3,2,3,4,2] # List of values to sweep
         compliance = 0.01 # Compliance
 
         list_smu = SMUList("V1", "I1", SourceMode.VOLTAGE, 2, SourceType.VOLTAGE, sweep_values, compliance, SlaveMaster.MASTER)
@@ -50,4 +51,13 @@ class TestSweep(unittest.TestCase):
         self.assertEqual(chan_command, step_smu._get_chan_cmd())
         self.assertEqual(func_command, step_smu._get_var2_cmd())
 
+    def test_validation(self):
+#       Validation should fail with SMUConfigError
+        with self.assertRaises(SMUConfigError):
+            sweep_smu = SMUSweep("V1", "I1",  SourceMode.VOLTAGE, 1, SourceType.VOLTAGE, 1, 5000, 1, 0.01, SweepType.LINEAR)
 
+        with self.assertRaises(SMUConfigError):
+            step_smu = SMUStep("V4", "I4", SourceMode.CURRENT, 1, SourceType.CURRENT, 0.01, 0.05, 0.4, 1000)
+
+        with self.assertRaises(SMUConfigError):
+            list_smu = SMUList("V1", "I1", SourceMode.VOLTAGE, 2, SourceType.VOLTAGE, [1000,1000,1000], -100, SlaveMaster.MASTER)

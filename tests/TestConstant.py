@@ -1,5 +1,6 @@
 import unittest
 from lib.SMUConstant import SMUConstant
+from lib.SMU import SMUConfigError
 from lib.util.SourceMode import SourceMode
 from lib.util.SourceType import SourceType
 from lib.util.SlaveMaster import SlaveMaster
@@ -20,4 +21,8 @@ class TestConstant(unittest.TestCase):
 
         self.assertEqual(chan_command, constant_smu._get_chan_cmd())
         self.assertEqual(func_command, constant_smu._get_const_cmd())
+    
+    def test_constant_validation(self):
+        with self.assertRaises(SMUConfigError):
+            constant_smu = SMUConstant("V1", "I1", SourceMode.CURRENT, 1, SourceType.CURRENT, 100, 0.01)
 
