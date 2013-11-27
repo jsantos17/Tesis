@@ -18,17 +18,17 @@ class SMUSweep(SMUBase):
         self.source_type = source_type
         
         if self.source_type == SourceType.VOLTAGE:
-            if start < -210 or stop < -210 or step < -210 or compliance < -210:
-                raise SMUConfigError("Voltage must be above -210V")
-            if start > 210 or stop > 210 or step > 210 or compliance > 210:
-                raise SMUConfigError("Voltage must be below 210V")
+            self._validate_voltage(start)
+            self._validate_voltage(stop)
+            self._validate_voltage(step)
+            self._validate_voltage(compliance)
 
         if self.source_type == SourceType.CURRENT:
-            if start < -0.105 or stop < -0.105 or step < -0.105 or compliance < -0.105:
-                raise SMUSweepConfigError("Current must be above -0.105A")
-            if start > 0.105 or stop > 0.105 or step > 0.105 or compliance > 0.105:
-                raise SMUConfigError("Current must be below 0.105A")
-        
+            self._validate_current(start)
+            self._validate_current(stop)
+            self._validate_current(step)
+            self._validate_current(compliance)
+
         # Validation passed! Create the object
 
         self.start = start
