@@ -1,5 +1,7 @@
 from util.SourceMode import SourceMode
 from util.CurrentVoltage import CurrentVoltage
+from util.funcs import random_id
+import string
 
 # Abstract class that should NEVER be used by itself
 # Class hierarchy needs work to increase code re-use
@@ -43,6 +45,9 @@ class SMUBase(object):
             for voltage in to_validate:
                 self._validate_voltage(voltage)
 
+    def _random_id(self, current_voltage):
+        return random_id(current_voltage)
+        
 
 class SMUConfigError(Exception):
     pass 

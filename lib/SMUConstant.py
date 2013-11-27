@@ -5,7 +5,7 @@ from util.SourceType import SourceType
 
 class SMUConstant(SMUBase):
 
-    def __init__(self, voltage_name, current_name, ch_number, source_mode, source_type, output, compliance):
+    def __init__(self, ch_number, source_mode, source_type, output, compliance, voltage_name=None, current_name=None):
         super(SMUConstant, self).__init__(voltage_name, current_name, ch_number, source_mode)
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:
             raise SMUConfigError("source_type must be defined from SourceType enum")

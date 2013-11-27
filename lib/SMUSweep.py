@@ -5,8 +5,8 @@ from util.SourceType import SourceType
 
 class SMUSweep(SMUBase):
     # Source mode is for channel definition, Source type for VAR1 definition
-    def __init__(self, voltage_name, current_name, ch_number, source_mode, source_type, start, stop, step, compliance,
-                 sweep_type=SweepType.LINEAR):
+    def __init__(self, ch_number, source_mode, source_type, start, stop, step, compliance, sweep_type=SweepType.LINEAR,
+                 voltage_name=None, current_name=None):
         super(SMUSweep, self).__init__(voltage_name, current_name, ch_number, source_mode)
         
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:

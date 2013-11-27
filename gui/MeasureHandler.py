@@ -49,8 +49,8 @@ class MeasureHandler(QtGui.QMainWindow):
                     start = float(groupbox.findChild(QtGui.QLineEdit, "val_inicio_field").text())
                     step = float(groupbox.findChild(QtGui.QLineEdit, "step_field").text())
                     compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_field").text())
-                    smu = SMUSweep('V%s' % ch, 'I%s' % ch, ch, SourceMode.CURRENT, SourceType.CURRENT, start, stop,
-                                   step, compliance, sweep_type=SweepType.LINEAR)
+                    smu = SMUSweep(ch, SourceMode.CURRENT, SourceType.CURRENT, start, stop, step, compliance,
+                                   sweep_type=SweepType.LINEAR, 'V%s' % ch)
                     for command in smu.get_commands():
                         pass
                 
@@ -61,8 +61,8 @@ class MeasureHandler(QtGui.QMainWindow):
                     steps = int(groupbox.findChild(QtGui.QLineEdit, "steps_lineedit").text())
                     compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_lineedit").text())
 
-                    smu = SMUStep('V%s' % ch, 'I%s' % ch, ch, SourceMode.CURRENT, SourceType.CURRENT, start, step,
-                                  steps, compliance)
+                    smu = SMUStep(ch, SourceMode.CURRENT, SourceType.CURRENT, start, step, steps, compliance,
+                                  'V%s' % ch, 'I%s' % ch)
 
                     for command in smu.get_commands():
                         pass
