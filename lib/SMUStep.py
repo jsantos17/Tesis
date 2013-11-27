@@ -4,7 +4,7 @@ from util.SourceType import SourceType
 
 class SMUStep(SMUBase):
     # Source mode is for channel definition, Source type for VAR2 definition
-    def __init__(self, voltage_name, current_name, source_mode, ch_number, source_type, start, step, steps, compliance):
+    def __init__(self, voltage_name, current_name, ch_number, source_mode, source_type, start, step, steps, compliance):
         super(SMUStep, self).__init__(voltage_name, current_name, ch_number, source_mode)
         
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:

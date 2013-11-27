@@ -17,12 +17,12 @@ class TestConstant(unittest.TestCase):
         output = 0.1
         compliance = 0.04
 
-        constant_smu = SMUConstant(volt_name, curr_name, SourceMode.CURRENT, ch, SourceType.CURRENT, output, compliance)
+        constant_smu = SMUConstant(volt_name, curr_name, ch, SourceMode.CURRENT, SourceType.CURRENT, output, compliance)
 
         self.assertEqual(chan_command, constant_smu._get_chan_cmd())
         self.assertEqual(func_command, constant_smu._get_const_cmd())
     
     def test_constant_validation(self):
         with self.assertRaises(SMUConfigError):
-            constant_smu = SMUConstant("V1", "I1", SourceMode.CURRENT, 1, SourceType.CURRENT, 100, 0.01)
+            constant_smu = SMUConstant("V1", "I1", 1, SourceMode.CURRENT, SourceType.CURRENT, 100, 0.01)
 

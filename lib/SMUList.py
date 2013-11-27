@@ -5,7 +5,8 @@ from util.SlaveMaster import SlaveMaster
 
 class SMUList(SMUBase):
     # Source mode is for channel definition, Source type for VAR1 definition
-    def __init__(self, voltage_name, current_name, source_mode, ch_number, source_type, sweep_values, compliance, slave_master):
+    def __init__(self, voltage_name, current_name, ch_number, source_mode, source_type, sweep_values, compliance,
+                 slave_master):
         super(SMUList, self).__init__(voltage_name, current_name, ch_number, source_mode)
         
         if source_type not in [SourceType.VOLTAGE, SourceType.CURRENT]:
