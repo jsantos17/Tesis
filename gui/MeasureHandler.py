@@ -50,7 +50,7 @@ class MeasureHandler(QtGui.QMainWindow):
                     step = float(groupbox.findChild(QtGui.QLineEdit, "step_field").text())
                     compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_field").text())
                     smu = SMUSweep(ch, SourceMode.CURRENT, SourceType.CURRENT, start, stop, step, compliance,
-                                   sweep_type=SweepType.LINEAR, 'V%s' % ch)
+                                   SweepType.LINEAR, 'V%s' % ch, "I%s"%ch)
                     for command in smu.get_commands():
                         pass
                 
@@ -62,7 +62,7 @@ class MeasureHandler(QtGui.QMainWindow):
                     compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_lineedit").text())
 
                     smu = SMUStep(ch, SourceMode.CURRENT, SourceType.CURRENT, start, step, steps, compliance,
-                                  'V%s' % ch, 'I%s' % ch)
+                                  voltage_name='V%s'%ch, current_name='I%s'%ch)
 
                     for command in smu.get_commands():
                         pass

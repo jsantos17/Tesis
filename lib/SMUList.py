@@ -18,10 +18,10 @@ class SMUList(SMUBase):
             raise SMUConfigError("Slave or master mode must be specified from SlaveMaster enum")
 
         if self.source_type == SourceType.VOLTAGE:
-            self._validate_voltage(compliance)
+            self._validate_current(compliance)
             self._validate_list(sweep_values, CurrentVoltage.VOLTAGE)
         if self.source_type == SourceType.CURRENT:
-            self._validate_current(compliance)
+            self._validate_voltage(compliance)
             self._validate_list(sweep_values, CurrentVoltage.CURRENT)
                     
 
@@ -48,6 +48,7 @@ class SMUList(SMUBase):
         return command
 
     def get_commands(self):
-        return [self._get_chan_cmd(), self._get_sweep_cmd(), "MD ME1", "MD DO'I1'"]
+        return [self._get_chan_cmd(), self._get_sweep_cmd()] + self._get_measure_commands()
+
 
 

@@ -17,11 +17,11 @@ class SMUStep(SMUBase):
         if self.source_type == SourceType.VOLTAGE:
             self._validate_voltage(start)
             self._validate_voltage(step)
-            self._validate_voltage(compliance)
+            self._validate_current(compliance)
         if self.source_type == SourceType.CURRENT:
             self._validate_current(start)
             self._validate_current(step)
-            self._validate_current(compliance)
+            self._validate_voltage(compliance)
 
         if steps > 32:
             raise SMUConfigError("The max number of steps is 32")
@@ -51,6 +51,6 @@ class SMUStep(SMUBase):
         return command
 
     def get_commands(self):
-        return [self._get_chan_cmd(), self._get_var2_cmd()]
+        return [self._get_chan_cmd(), self._get_var2_cmd()] + self._get_measure_commands()
 
 

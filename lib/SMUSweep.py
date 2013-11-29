@@ -21,13 +21,14 @@ class SMUSweep(SMUBase):
             self._validate_voltage(start)
             self._validate_voltage(stop)
             self._validate_voltage(step)
-            self._validate_voltage(compliance)
+            self._validate_current(compliance)
+
 
         if self.source_type == SourceType.CURRENT:
             self._validate_current(start)
             self._validate_current(stop)
             self._validate_current(step)
-            self._validate_current(compliance)
+            self._validate_voltage(compliance)
 
         # Validation passed! Create the object
 
@@ -37,16 +38,27 @@ class SMUSweep(SMUBase):
         self.compliance = compliance
         self.sweep_type = sweep_type
 
+    def _is_log(self, sweep_type):
+        return sweep_type in [SweepType.LOG10, SweepType.LOG25, SweepType.LOG50]
 
     def _get_var1_cmd(self):
-        if self.source_type == SourceType.VOLTAGE:
+        # We ignore the step parameter when doing LOG* sweeps    
+        if self.source_type == SourceType.VOLTAGE and not self._is_log(self.sweep_type):
             template = "SS VR{sweep_type},{start},{stop},{step},{compliance}"
-        elif self.source_type == SourceType.CURRENT:
+        elif self.source_type == SourceType.CURRENT and not self._is_log(self.sweep_type):
             template = "SS IR{sweep_type},{start},{stop},{step},{compliance}"
-
-        command = template.format(sweep_type=self.sweep_type, start=self.start, stop=self.stop, 
+        elif self.source_type == SourceType.VOLTAGE and self._is_log(self.sweep_type):
+            template = "SS VR{sweep_type},{start},{stop},{compliance}"
+        elif self.source_type == SourceType.CURRENT and self._is_log(self.sweep_type):
+            template = "SS IR{sweep_type},{start},{stop},{compliance}"
+        if self._is_log(self.sweep_type):
+            command = template.format(sweep_type=self.sweep_type, start=self.start, stop=self.stop, 
+                                 compliance=self.compliance)
+        elif not self._is_log(self.sweep_type):
+            command = template.format(sweep_type=self.sweep_type, start=self.start, stop=self.stop, 
                                  step=self.step, compliance=self.compliance)
         return command
+
 
     def _get_chan_cmd(self):
         command = "DE CH{ch_number} '{voltage_name}','{current_name}',{source_mode},1".format(ch_number=self.ch_number,
@@ -54,5 +66,5 @@ class SMUSweep(SMUBase):
         return command
 
     def get_commands(self):
-        return [self._get_chan_cmd(), self._get_var1_cmd(), "MD ME1", "MD DO'I1'"]
+        return [self._get_chan_cmd(), self._get_var1_cmd()] + self._get_measure_commands()
 

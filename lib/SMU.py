@@ -10,6 +10,12 @@ class SMUBase(object):
 
     def __init__(self, voltage_name, current_name, ch_number, source_mode=SourceMode.VOLTAGE):
         
+        if voltage_name is None:
+            voltage_name = random_id(CurrentVoltage.VOLTAGE)
+
+        if current_name is None:
+            current_name = random_id(CurrentVoltage.CURRENT)
+
         if source_mode not in [SourceMode.VOLTAGE, SourceMode.CURRENT, SourceMode.COMMON]:
             raise SMUConfigError("Source mode must be defined from SourceMode enum")
         
@@ -27,7 +33,7 @@ class SMUBase(object):
         self.voltage_name = voltage_name
         self.source_mode = source_mode
 
-    # In base class as we need to always set up a channel
+    # In base class, as we need to always set up a channel
 
     def _validate_voltage(self, voltage):
         if abs(voltage) > 210:
@@ -47,6 +53,9 @@ class SMUBase(object):
 
     def _random_id(self, current_voltage):
         return random_id(current_voltage)
+
+    def _get_measure_commands(self):
+        return ["MD ME1", "MD DO 'CH{ch}T'".format(ch=self.ch_number)]
         
 
 class SMUConfigError(Exception):
