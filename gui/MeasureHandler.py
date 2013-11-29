@@ -5,10 +5,15 @@ from lib.util.SourceType import SourceType
 from lib.util.SourceMode import SourceMode
 from lib.SMUSweep import SMUSweep
 from lib.SMUStep import SMUStep
+from lib.K4200 import K4200
 import socket
 import time
+import pprint
 
 class MeasureHandler(QtGui.QMainWindow):
+
+    def __init__(self, ip, port=2099):
+        self.device = K4200(ip, port)
 
     def handle(self, event, ui, params):
         ip = ui.ipField.text()
@@ -35,7 +40,7 @@ class MeasureHandler(QtGui.QMainWindow):
             ch = int(str(combo.objectName())[3:4])
             if "current" in combo.currentText().toLower():
                 
-                if "constant" in combo.currentText.toLower():
+                if "constant" in combo.currentText().toLower():
                     # Constant current configuration for SMU
                     pass
                 
@@ -51,9 +56,8 @@ class MeasureHandler(QtGui.QMainWindow):
                     compliance = float(groupbox.findChild(QtGui.QLineEdit, "compliance_field").text())
                     smu = SMUSweep(ch, SourceMode.CURRENT, SourceType.CURRENT, start, stop, step, compliance,
                                    SweepType.LINEAR, 'V%s' % ch, "I%s"%ch)
-                    for command in smu.get_commands():
-                        pass
-                
+                    self.device.attach(smu)
+
                 elif "step" in combo.currentText().toLower():
                     # Current step configuration for SMU
                     start = float(groupbox.findChild(QtGui.QLineEdit, "start_lineedit").text())
@@ -63,9 +67,10 @@ class MeasureHandler(QtGui.QMainWindow):
 
                     smu = SMUStep(ch, SourceMode.CURRENT, SourceType.CURRENT, start, step, steps, compliance,
                                   voltage_name='V%s'%ch, current_name='I%s'%ch)
-
-                    for command in smu.get_commands():
-                        pass
+                    self.device.attach(smu)
 
             elif "voltage" in combo.currentText().toLower():
                 pass
+
+            self.device.measure() # Execute actual measurement
+            pprint.pprint(self.device.smus)

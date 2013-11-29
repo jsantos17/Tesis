@@ -23,7 +23,7 @@ class SlotContainer(QtGui.QMainWindow):
         # We mostly prepare objects for the actual handlers
         
         params = self
-        handler = MeasureHandler()
+        handler = MeasureHandler(self.ui.ipField.text())
         handler.handle(event, self.ui, params)
 
     def on_measure_select(self, event):

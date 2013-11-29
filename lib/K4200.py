@@ -1,24 +1,17 @@
-from SMU import SMU
-from visa import instrument
+from MockExecutor import MockExecutor
 
 
 class K4200:
     
-    def __init__(self, ip, port):
+    def __init__(self, ip, port=2099):
         self.ip = ip
-        self.k4200 = instrument("TCPIP::{ip}::{port}::SOCKET".
-                            format(ip=self.ip, port=self.port))
+        self.executor = MockExecutor(ip, port) 
         self.smus = list()
     
     def attach(self, smu):
         self.smus.append(smu)
 
     def measure(self):
-        for commands in smus:
-            for command in smus.get_commands():
-                k4200.write(command)
-
-    def __str__(self):
-        pass
-        
-
+        for smu in self.smus:
+            for command in smu.get_commands():
+                self.executor.execute_command(command)
