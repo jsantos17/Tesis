@@ -29,7 +29,7 @@ def do_measure(ip, port):
     print ip
     print port
     try:
-        executor = VisaExecutor("192.168.0.5","")
+        executor = VisaExecutor(ip, int(port))
         for command in smu_sweep.get_commands():
             executor.execute_command(command)
     except VisaIOError:
