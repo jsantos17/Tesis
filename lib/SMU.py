@@ -54,8 +54,11 @@ class SMUBase(object):
     def _random_id(self, current_voltage):
         return random_id(current_voltage)
 
+#   def _get_measure_commands(self):
+#       return ["MD ME1", "MD DO 'CH{ch}T'".format(ch=self.ch_number)]
+
     def _get_measure_commands(self):
-        return ["MD ME1", "MD DO 'CH{ch}T'".format(ch=self.ch_number)]
+        return []
         
 
 class SMUConfigError(Exception):

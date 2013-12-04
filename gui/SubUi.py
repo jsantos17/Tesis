@@ -112,9 +112,16 @@ def get_constant_groupbox():
     constant_label.setGeometry(QtCore.QRect(10, 30, 61, 14))
     constant_label.setObjectName("constant_label")
     constant_textbox = QtGui.QLineEdit(constant_groupbox)
-    constant_textbox.setGeometry(QtCore.QRect(60, 25, 113, 22))
+    constant_textbox.setGeometry(QtCore.QRect(100, 25, 113, 22))
     constant_textbox.setObjectName("constant_textbox") 
-    constant_label.setText("Valor") 
+    constant_label.setText("Valor: ") 
+    compliance_label = QtGui.QLabel(constant_groupbox)
+    compliance_label.setGeometry(QtCore.QRect(10, 70, 90, 14))
+    compliance_label.setText("Compliance: ")
+    compliance_label.setObjectName("compliance_label")
+    compliance_textbox = QtGui.QLineEdit(constant_groupbox)
+    compliance_textbox.setGeometry(QtCore.QRect(100, 70, 113, 22))
+    compliance_textbox.setObjectName("compliance_textbox")
     return constant_groupbox
 
 def get_list_groupbox():
