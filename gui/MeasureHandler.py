@@ -11,7 +11,7 @@ from lib.K4200 import K4200
 
 class MeasureHandler(QtGui.QMainWindow):
 
-    def __init__(self, ip, port=2099):
+    def __init__(self, ip, port=1225):
         self.device = K4200(ip, port)
 
     def handle(self, event, ui, params):
@@ -84,6 +84,7 @@ class MeasureHandler(QtGui.QMainWindow):
 
                 print "Attached SMUs: %s" % len(self.device.smus)
                 self.device.configure() # Configure for measure
+                self.device.measure() # Configure for measure
 
         except SMUConfigError as e:
             QtGui.QMessageBox.information(ui.centralwidget, "Revisar valores", e.message)

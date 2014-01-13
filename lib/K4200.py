@@ -1,5 +1,6 @@
 from MockExecutor import MockExecutor
-
+from VisaExecutor import VisaExecutor
+import time
 
 class K4200:
     
@@ -15,11 +16,11 @@ class K4200:
     def configure(self):
         for smu in self.smus:
             for command in smu.get_commands():
+                command = command + "\0"
                 self.executor.execute_command(command)
         self.configured = True
 
     def measure(self):
-#       TODO implement measure commands
-        pass
+        self.executor.execute_command("MD ME1\0")
 
 

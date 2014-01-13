@@ -43,7 +43,7 @@ class SMUList(SMUBase):
         return command
 
     def _get_chan_cmd(self):
-        command = "DE CH{ch_number} '{voltage_name}','{current_name}',{source_mode},1".format(ch_number=self.ch_number,
+        command = "DE CH{ch_number}, '{voltage_name}','{current_name}',{source_mode},1".format(ch_number=self.ch_number,
                                     voltage_name=self.voltage_name, current_name=self.current_name, source_mode=self.source_mode)
         return command
 
