@@ -1,4 +1,3 @@
-import visa
 
 class CommandExecutor:
     def __init__(self, ip):

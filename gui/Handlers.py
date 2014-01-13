@@ -8,6 +8,8 @@ class SlotContainer(QtGui.QMainWindow):
     def __init__(self, ui):
         QtGui.QMainWindow.__init__(self)
         self.ui = ui
+        self.handler = MeasureHandler()
+        
 
     def selected_start_stop(self, event):
         print "Selected start stop"
@@ -20,11 +22,13 @@ class SlotContainer(QtGui.QMainWindow):
         self.ui.bottom_layout.addWidget(LayoutUtil.get_center_span_groupbox())
     
     def on_measure(self, event):
-        # We mostly prepare objects for the actual handlers
-        
+        ip_port = str(self.ui.ipField.text()).split(":")
+        ip = ip_port[0]
+        port = int(ip_port[1])
+        self.handler.ip = ip
+        self.handler.port = port
         params = self
-        handler = MeasureHandler(self.ui.ipField.text())
-        handler.handle(event, self.ui, params)
+        self.handler.handle(event, self.ui, params)
 
     def on_measure_select(self, event):
         # Two SMUs can't be in sweep mode or step mode at the same time! 

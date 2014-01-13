@@ -66,5 +66,5 @@ class SMUSweep(SMUBase):
         return command
 
     def get_commands(self):
-        return ["DE", self._get_chan_cmd(), "SS", self._get_var1_cmd()] + self._get_measure_commands()
+        return ["DE " + self._get_chan_cmd(), "SS " + self._get_var1_cmd()] 
 
