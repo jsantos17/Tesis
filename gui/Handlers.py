@@ -1,7 +1,9 @@
 from PyQt4 import QtGui
 from PyQt4.QtCore import QObject
+from PyQt4.QtGui import QFileDialog
 import SubUi
 import LayoutUtil
+import os
 from MeasureHandler import MeasureHandler
 
 class SlotContainer(QtGui.QMainWindow):
@@ -9,7 +11,15 @@ class SlotContainer(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.ui = ui
         self.handler = MeasureHandler()
-        
+       
+    def browse(self, event):
+        directory = QFileDialog.getExistingDirectory(self, 
+                "Donde guardar?", "~", options=QFileDialog.ShowDirsOnly)
+        data_file = os.path.join(str(directory), str(self.ui.fileField.text()))
+        self.ui.fileField.setText(data_file)
+
+    def save_data(self, event):
+        print "Save data"
 
     def selected_start_stop(self, event):
         print "Selected start stop"

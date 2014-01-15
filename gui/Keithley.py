@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
+# Form implementation generated from reading ui file 'Keithley.ui'
 #
-# Created: Tue Apr 16 21:23:39 2013
-#      by: PyQt4 UI code generator 4.10
+# Created: Wed Jan 15 11:49:52 2014
+#      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         mainWindow.setObjectName(_fromUtf8("mainWindow"))
-        mainWindow.resize(1150, 564)
+        mainWindow.resize(1150, 641)
         mainWindow.setMinimumSize(QtCore.QSize(1150, 500))
         self.centralwidget = QtGui.QWidget(mainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -127,9 +127,12 @@ class Ui_mainWindow(object):
         self.fileField.setMaximumSize(QtCore.QSize(16777215, 25))
         self.fileField.setObjectName(_fromUtf8("fileField"))
         self.horizontalLayout_2.addWidget(self.fileField)
-        self.pushButton = QtGui.QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.horizontalLayout_2.addWidget(self.pushButton)
+        self.browse_button = QtGui.QPushButton(self.centralwidget)
+        self.browse_button.setObjectName(_fromUtf8("browse_button"))
+        self.horizontalLayout_2.addWidget(self.browse_button)
+        self.save_button = QtGui.QPushButton(self.centralwidget)
+        self.save_button.setObjectName(_fromUtf8("save_button"))
+        self.horizontalLayout_2.addWidget(self.save_button)
         self.ip_file_layout.addLayout(self.horizontalLayout_2)
         self.gridLayout.addLayout(self.ip_file_layout, 0, 0, 1, 1)
         self.mainLayout = QtGui.QHBoxLayout()
@@ -232,7 +235,8 @@ class Ui_mainWindow(object):
         self.ipLabel.setText(_translate("mainWindow", "IP:", None))
         self.connect_button.setText(_translate("mainWindow", "Conectar", None))
         self.label.setText(_translate("mainWindow", "Archivo:", None))
-        self.pushButton.setText(_translate("mainWindow", "Examinar", None))
+        self.browse_button.setText(_translate("mainWindow", "Examinar", None))
+        self.save_button.setText(_translate("mainWindow", "Guardar datos", None))
         self.smu1_label.setText(_translate("mainWindow", "SMU 1", None))
         self.smu2_label.setText(_translate("mainWindow", "SMU 2", None))
         self.smu3_label.setText(_translate("mainWindow", "SMU 3", None))

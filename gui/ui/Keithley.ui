@@ -253,9 +253,16 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="browse_button">
           <property name="text">
            <string>Examinar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="save_button">
+          <property name="text">
+           <string>Guardar datos</string>
           </property>
          </widget>
         </item>
