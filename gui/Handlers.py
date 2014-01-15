@@ -32,13 +32,17 @@ class SlotContainer(QtGui.QMainWindow):
         self.ui.bottom_layout.addWidget(LayoutUtil.get_center_span_groupbox())
     
     def on_measure(self, event):
-        ip_port = str(self.ui.ipField.text()).split(":")
-        ip = ip_port[0]
-        port = int(ip_port[1])
-        self.handler.ip = ip
-        self.handler.port = port
-        params = self
-        self.handler.handle(event, self.ui, params)
+        try:
+            ip_port = str(self.ui.ipField.text()).split(":")
+            ip = ip_port[0]
+            port = int(ip_port[1])
+            self.handler.ip = ip
+            self.handler.port = port
+            params = self
+            self.handler.handle(event, self.ui, params)
+        except IndexError:
+            QtGui.QMessageBox.information(self.ui.centralwidget, 
+                    "IP no especificado", "Es necesario especifcar un IP y puerto en el formato IP:puerto")
 
     def on_measure_select(self, event):
         # Two SMUs can't be in sweep mode or step mode at the same time! 

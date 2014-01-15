@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Keithley.ui'
 #
-# Created: Wed Jan 15 11:49:52 2014
+# Created: Wed Jan 15 12:48:40 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -131,6 +131,7 @@ class Ui_mainWindow(object):
         self.browse_button.setObjectName(_fromUtf8("browse_button"))
         self.horizontalLayout_2.addWidget(self.browse_button)
         self.save_button = QtGui.QPushButton(self.centralwidget)
+        self.save_button.setEnabled(False)
         self.save_button.setObjectName(_fromUtf8("save_button"))
         self.horizontalLayout_2.addWidget(self.save_button)
         self.ip_file_layout.addLayout(self.horizontalLayout_2)

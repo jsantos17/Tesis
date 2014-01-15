@@ -261,6 +261,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="save_button">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Guardar datos</string>
           </property>

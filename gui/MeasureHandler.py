@@ -86,7 +86,8 @@ class MeasureHandler(QtGui.QMainWindow):
 
             print "Attached SMUs: %s" % len(self.device.smus)
             self.device.configure() # Configure for measure
-            self.device.measure() # Configure for measure
+            self.device.measure() # Measure
+            ui.save_button.setEnabled(True)
 
         except SMUConfigError as e:
             QtGui.QMessageBox.information(ui.centralwidget, "Revisar valores", e.message)
