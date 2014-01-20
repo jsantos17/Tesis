@@ -8,6 +8,10 @@ from lib.SMUStep import SMUStep
 from lib.SMUConstant import SMUConstant
 from lib.SMU import SMUConfigError
 from lib.K4200 import K4200
+from lib.SocketExecutor import SocketExecutor
+import socket
+import thread
+import time
 
 class MeasureHandler(QtGui.QMainWindow):
 
@@ -16,7 +20,12 @@ class MeasureHandler(QtGui.QMainWindow):
 
 
     def handle(self, event, ui, params):
-        self.device = K4200(self.ip, self.port)
+        try:
+            self.device = K4200(self.ip, self.port)
+        except socket.error as e:
+            QtGui.QMessageBox.critical(ui.centralwidget, "No se pudo conectar",
+                    "Verifique el IP y puerto y vuelva a intentar")
+
         ip = ui.ipField.text()
         active = list()
         inactive = list()
@@ -85,10 +94,40 @@ class MeasureHandler(QtGui.QMainWindow):
 
 
             print "Attached SMUs: %s" % len(self.device.smus)
-            self.device.configure() # Configure for measure
-            self.device.measure() # Measure
-            ui.save_button.setEnabled(True)
+            try:
+                self.device.configure() # Configure for measure
+                self.device.measure() # Measure
+                self.device.executor.close() # Close socket
+                thread.start_new_thread(poll_for_data, (self.ip, self.port, ui, active))
+            except socket.error as e:
+                QtGui.QMessageBox.critical(ui.centralwidget, "No se pudo conectar", 
+                        "Verifique el IP y puerto y vuelva a intentar")
 
         except SMUConfigError as e:
-            QtGui.QMessageBox.information(ui.centralwidget, "Revisar valores", e.message)
+            QtGui.QMessageBox.information(ui.centralwidget, "Revisar valores",
+                    "Verifique el IP y puerto y vuelva a intentar")
 
+def poll_for_data(ip, port, ui, active):
+    executor = SocketExecutor(ip, port)
+    while True:
+        executor.execute_command("SP")
+        is_ready = executor.get_data()
+        is_ready = is_ready.replace("\0","")
+        if 0b00000001 & int(is_ready):
+            ui.save_button.setEnabled(True)
+            # Data is ready. Break out of this function
+            break
+        time.sleep(1)
+    # Retrieve data and save it to file
+    for element in active:
+        print "Run once per channel"
+        combo = element['combo']
+        ch = int(str(combo.objectName())[3:4])
+        template = "DO 'CH{ch}T'"
+        cmd = template.format(ch=ch)
+        executor.execute_command(cmd)
+        data = executor.get_data()
+        with open(str(ui.fileField.text())+ str(ch),'w+') as f:
+            f.write(data)
+
+    executor.close()

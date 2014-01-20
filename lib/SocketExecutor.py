@@ -23,3 +23,7 @@ class SocketExecutor(CommandExecutor):
     def get_data(self):
         return self.data
 
+    def close(self):
+        self.s.shutdown(socket.SHUT_RDWR)
+        self.s.close()
+
