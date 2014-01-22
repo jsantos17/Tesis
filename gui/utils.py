@@ -1,8 +1,9 @@
 import yaml
 import pprint
 from PyQt4 import QtGui
-
-def save_ui(ui):
+from PyQt4.QtCore import QString
+def ui_state(ui):
+    """ Returns the current state of the GUI in an easily usable dict """
     state = dict()
     ip = str(ui.ipField.text())
     f = str(ui.fileField.text())
@@ -49,11 +50,73 @@ def save_ui(ui):
             hdict["sfun"] = "list"
 
         state["combos"].append(hdict)
+    return state
 
 
+def save_ui(ui):
     # Serialize dict to disk
     with open("ui_state.yml", "w+") as stream:
-        yaml.dump(state, stream)
+        yaml.dump(ui_state(ui), stream)
             
 def restore_ui(ui):
-    pass
+    mapping = [(ui.smu1_combo, ui.smu1_layout),
+               (ui.smu2_combo, ui.smu2_layout),
+               (ui.smu3_combo, ui.smu3_layout),
+               (ui.smu4_combo, ui.smu4_layout)]
+    try:
+        with open('ui_state.yml', 'r') as stream:
+            state = yaml.load(stream)
+    except IOError as e:
+        # Start with empty interface as there's no saved configuration
+        pass
+    ui.ipField.setText(state["ip"])
+    ui.fileField.setText(state["f"])
+
+    for combo in state["combos"]:
+        # Get the combo object in the Qt GUI that corresponds to the
+        # combo object in the yml representation. Do the same with the layout
+        wcombo = mapping[int(combo["num"])][0] 
+        wlayout = mapping[int(combo["num"])][1]
+        groupbox = wlayout.itemAt(2).widget()
+        if combo["sfun"] == "sweep":
+            if combo["type"] == "voltage":
+                wcombo.setCurrentIndex(6)
+            elif combo["type"] == "current":
+                wcombo.setCurrentIndex(2)
+            groupbox.findChild(QtGui.QLineEdit, "val_stop_field").setText(combo["stop"])
+            groupbox.findChild(QtGui.QLineEdit, "val_inicio_field").setText(combo["start"])
+            groupbox.findChild(QtGui.QLineEdit, "val_step_field").setText(combo["step"])
+            groupbox.findChild(QtGui.QLineEdit, "val_compliance_field").setText(combo["compliance"])
+            if combo["sweep_type"] == "Linear":
+                groupbox.findChild(QtGui.QComboBox, "sweep_type_combobox").setCurrentIndex(0)
+            if combo["sweep_type"] == "Log10":
+                groupbox.findChild(QtGui.QComboBox, "sweep_type_combobox").setCurrentIndex(1)
+            if combo["sweep_type"] == "Log25":
+                groupbox.findChild(QtGui.QComboBox, "sweep_type_combobox").setCurrentIndex(2)
+            if combo["sweep_type"] == "Log50":
+                groupbox.findChild(QtGui.QComboBox, "sweep_type_combobox").setCurrentIndex(3)
+
+        if combo["sfun"] == "step":
+            if combo["type"] == "voltage":
+               wcombo.setCurrentIndex(8) 
+            if combo["type"] == "current":
+               wcombo.setCurrentIndex(4) 
+            groupbox.findChild(QtGui.QLineEdit, "start_field").setText(combo["stop"])
+            groupbox.findChild(QtGui.QLineEdit, "step_field").setText(combo["start"])
+            groupbox.findChild(QtGui.QLineEdit, "steps_field").setText(combo["step"])
+            groupbox.findChild(QtGui.QLineEdit, "compliance_field").setText(combo["compliance"])
+
+        if combo["sfun"] == "constant":
+            if combo["type"] == "voltage":
+                wcombo.setCurrentIndex(5)
+            if combo["type"] == "current":
+                wcombo.setCurrentIndex(1)
+            groupbox.findChild(QtGui.QLineEdit, "constant_textbox").setText(combo["value"])
+            groupbox.findChild(QtGui.QLineEdit, "compliance_textbox").setText(combo["compliance"])
+   
+        if combo["sfun"] == "list":
+            if combo["type"] == "voltage":
+                wcombo.setCurrentIndex(3)
+            if combo["type"] == "current":
+                wcombo.setCurrentIndex(7)
+            groupbox.findChild(QtGui.QTextEdit, "list_textedit").setText(combo["value_list"])
