@@ -5,13 +5,15 @@ import SubUi
 import LayoutUtil
 import os
 from MeasureHandler import MeasureHandler
+from utils import restore_ui
+from utils import save_ui 
 
 class SlotContainer(QtGui.QMainWindow):
     def __init__(self, ui):
         QtGui.QMainWindow.__init__(self)
         self.ui = ui
         self.handler = MeasureHandler()
-       
+
     def browse(self, event):
         directory = QFileDialog.getExistingDirectory(self, 
                 "Donde guardar?", "~", options=QFileDialog.ShowDirsOnly)
@@ -55,3 +57,8 @@ class SlotContainer(QtGui.QMainWindow):
                  
         LayoutUtil.layout_update(self.sender(), self.ui)
        
+    def restore_ui(self):
+        restore_ui(self.ui)
+
+    def save_ui(self):
+        save_ui(self.ui)

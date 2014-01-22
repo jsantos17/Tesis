@@ -3,6 +3,7 @@ from PyQt4.QtGui import QApplication, QMainWindow
 from PyQt4 import QtGui
 from gui.Keithley import Ui_mainWindow
 from gui.Handlers import SlotContainer
+from gui.utils import restore_ui
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -26,5 +27,6 @@ if __name__ == "__main__":
     ui.measure_button.clicked.connect(container.on_measure)
     ui.browse_button.clicked.connect(container.browse)
     ui.save_button.clicked.connect(container.save_data)
+    app.aboutToQuit.connect(container.save_ui)
     window.show()
     sys.exit(app.exec_())
