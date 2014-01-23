@@ -58,7 +58,7 @@ class Vna(object):
         self.executor.execute_command(cmd)
        
     def set_traces(self, channel, trace):
-        template = ":CALC{ch}:PAR:COUNT {trace}"
+        template = ":CALC{ch}:PAR:COUN {trace}"
         cmd = template.format(ch=channel, trace=trace)
         self.executor.execute_command(cmd)
 

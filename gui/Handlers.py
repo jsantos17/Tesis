@@ -56,7 +56,7 @@ class SlotContainer(QtGui.QMainWindow):
         # Pass the sender to the handling function
                  
         LayoutUtil.layout_update(self.sender(), self.ui)
-       
+    
     def restore_ui(self):
         restore_ui(self.ui)
 
