@@ -2,6 +2,7 @@ import yaml
 import pprint
 from PyQt4 import QtGui
 from PyQt4.QtCore import QString
+
 def ui_state(ui):
     """ Returns the current state of the GUI in an easily usable dict """
     state = dict()
@@ -75,14 +76,15 @@ def restore_ui(ui):
     for combo in state["combos"]:
         # Get the combo object in the Qt GUI that corresponds to the
         # combo object in the yml representation. Do the same with the layout
-        wcombo = mapping[int(combo["num"])][0] 
-        wlayout = mapping[int(combo["num"])][1]
+        wcombo = mapping[int(combo["num"])-1][0] 
+        wlayout = mapping[int(combo["num"])-1][1]
         groupbox = wlayout.itemAt(2).widget()
         if combo["sfun"] == "sweep":
             if combo["type"] == "voltage":
                 wcombo.setCurrentIndex(6)
             elif combo["type"] == "current":
                 wcombo.setCurrentIndex(2)
+            
             groupbox.findChild(QtGui.QLineEdit, "val_stop_field").setText(combo["stop"])
             groupbox.findChild(QtGui.QLineEdit, "val_inicio_field").setText(combo["start"])
             groupbox.findChild(QtGui.QLineEdit, "val_step_field").setText(combo["step"])
