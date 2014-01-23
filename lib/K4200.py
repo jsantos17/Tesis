@@ -1,5 +1,4 @@
 from MockExecutor import MockExecutor
-from VisaExecutor import VisaExecutor
 from SocketExecutor import SocketExecutor
 import time
 
