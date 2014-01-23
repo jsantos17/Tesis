@@ -1,5 +1,4 @@
 from CommandExecutor import CommandExecutor
-import visa
 
 class MockExecutor(CommandExecutor):
     def __init__(self, ip, port=2049):
