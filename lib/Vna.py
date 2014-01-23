@@ -1,10 +1,11 @@
 from SocketExecutor import SocketExecutor
-from lib.util.VnaEnums import VnaSweepType
+from MockExecutor import MockExecutor
+from lib.util.VnaEnums import SweepType
 from lib.util.VnaEnums import SParameters 
 
-class Vna:
+class Vna(object):
     def __init__(self, ip, port):
-        self.executor = SocketExecutor(ip, port)
+        self.executor = MockExecutor(ip, port)
 
     def reset(self):
         self.executor.execute_command(":SYST:PRES")
@@ -18,13 +19,13 @@ class Vna:
         self.executor.execute_command(cmd)
 
     def set_sweep_type(self, channel, sweep_type):
-        if sweep_type == VnaSweepType.LINEAR:
+        if sweep_type == SweepType.LINEAR:
             stype = "LIN"
-        elif sweep_type == VnaSweepType.LOG:
+        elif sweep_type == SweepType.LOG:
             stype = "LOG"
-        elif sweep_type == VnaSweepType.SEGM:
+        elif sweep_type == SweepType.SEGM:
             stype = "SEGM"
-        elif sweep_type == VnaSweepType.POW:
+        elif sweep_type == SweepType.POW:
             stype = "POW"
         template = ":SENS{ch}:SWE:TYPE {stype}"
         cmd = template.format(ch=channel, stype=stype)
@@ -33,8 +34,8 @@ class Vna:
     def set_center_span(self, channel, center, span):
         template_center = ":SENS{ch}:FREQ:CENT {center}"
         template_span = ":SENS{ch}:FREQ:SPAN {span}"
-        cmd_center = template_start.format(ch=channel, center=center)
-        cmd_span = template_stop.format(ch=channel, span=span)
+        cmd_center = template_center.format(ch=channel, center=center)
+        cmd_span = template_span.format(ch=channel, span=span)
         self.executor.execute_command(cmd_center)
         self.executor.execute_command(cmd_span)
 
@@ -56,9 +57,9 @@ class Vna:
         cmd = template.format(ch=channel, tr=trace)
         self.executor.execute_command(cmd)
        
-    def set_traces(self, trace):
-        template = ":CALC{trace}:PAR:COUNT"
-        cmd = template.format(trace=trace)
+    def set_traces(self, channel, trace):
+        template = ":CALC{ch}:PAR:COUNT {trace}"
+        cmd = template.format(ch=channel, trace=trace)
         self.executor.execute_command(cmd)
 
     def add_marker(self, channel, trace, marker):
@@ -66,8 +67,8 @@ class Vna:
                 channel=channel, trace=trace, marker=marker)
         self.executor.execute_command(cmd)
 
-    def set_sparam_for_chan(self, channel, sparam)
-        template = "CALC{ch}:PAR:DEF '{ch}_{sparam}',{sparam}"
+    def set_sparam_for_chan(self, channel, sparam):
+        template = ":CALC{ch}:PAR:DEF '{sparam}_ch{ch}',{sparam}"
         if sparam == SParameters.S11:
             sparam = "S11"
         elif sparam == SParameters.S12:
@@ -79,4 +80,8 @@ class Vna:
 
         cmd = template.format(ch=channel, sparam=sparam)
         self.executor.execute_command(cmd)
+
+    def set_points(self, channel, points):
+        template = ":SENS{ch}:SWE:POIN {points}"
+        template.format(ch=channel, points=points)
 
