@@ -25,6 +25,7 @@ if __name__ == "__main__":
     ui.start_stop_radio.clicked.connect(container.selected_start_stop)
     ui.center_span_radio.clicked.connect(container.selected_center_span)
     ui.measure_button.clicked.connect(container.on_measure)
+    ui.measure_vna.clicked.connect(container.on_vna_measure)
     ui.browse_button.clicked.connect(container.browse)
     ui.save_button.clicked.connect(container.save_data)
     app.aboutToQuit.connect(container.save_ui)

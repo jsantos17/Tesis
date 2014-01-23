@@ -5,7 +5,7 @@ from lib.util.VnaEnums import SParameters
 
 class Vna(object):
     def __init__(self, ip, port):
-        self.executor = MockExecutor(ip, port)
+        self.executor = SocketExecutor(ip, port)
 
     def reset(self):
         self.executor.execute_command(":SYST:PRES")
