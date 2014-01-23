@@ -9,4 +9,3 @@ def random_id(current_voltage):
 
         if current_voltage == CurrentVoltage.CURRENT:
             return "I-" + idf
-
