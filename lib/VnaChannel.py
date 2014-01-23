@@ -33,9 +33,8 @@ class VnaChannel(Vna):
     def add_marker(self, channel, trace, marker):
         super(VnaChannel, self).add_marker(self.channel, trace, marker)
 
-    def set_sparam_for_chan(self, sparam):
-        super(VnaChannel, self).set_sparam_for_chan(self.channel, sparam)
+    def set_sparam(self, trace, sparam):
+        super(VnaChannel, self).set_sparam(self.channel, trace, sparam)
 
     def set_points(self, points):
         super(VnaChannel, self).set_points(self.channel, points)
-

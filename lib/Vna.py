@@ -67,8 +67,8 @@ class Vna(object):
                 channel=channel, trace=trace, marker=marker)
         self.executor.execute_command(cmd)
 
-    def set_sparam_for_chan(self, channel, sparam):
-        template = ":CALC{ch}:PAR:DEF '{sparam}_ch{ch}',{sparam}"
+    def set_sparam(self, channel, trace, sparam):
+        template = ":CALC{ch}:PAR{tr}:DEF {sparam}"
         if sparam == SParameters.S11:
             sparam = "S11"
         elif sparam == SParameters.S12:
@@ -78,10 +78,15 @@ class Vna(object):
         elif sparam == SParameters.S22:
             sparam = "S22"
 
-        cmd = template.format(ch=channel, sparam=sparam)
+        cmd = template.format(ch=channel, sparam=sparam, tr=trace)
         self.executor.execute_command(cmd)
 
     def set_points(self, channel, points):
         template = ":SENS{ch}:SWE:POIN {points}"
         template.format(ch=channel, points=points)
 
+    def turn_on(self):
+        self.executor.execute_command(":OUTP")
+
+    def trigger(self):
+        self.executor.execute_command(":TRIG:IMM")

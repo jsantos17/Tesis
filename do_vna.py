@@ -9,8 +9,10 @@ def do_measure():
     channel.set_center_span(1E9, 5E6)
     channel.set_points(21)
     channel.set_traces(2)
-    channel.set_sparam_for_chan(SParameters.S11)
+    channel.set_sparam(1, SParameters.S11)
     channel.activate_trace(1)
+    channel.turn_on()
+    channel.trigger()
 
 if __name__ == "__main__":
     do_measure()
