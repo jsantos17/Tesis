@@ -21,9 +21,6 @@ class SlotContainer(QtGui.QMainWindow):
         data_file = os.path.join(str(directory), str(self.ui.fileField.text()))
         self.ui.fileField.setText(data_file)
 
-    def save_data(self, event):
-        print "Save data"
-
     def selected_start_stop(self, event):
         print "Selected start stop"
         self.ui.bottom_layout.itemAt(2).widget().setParent(None)

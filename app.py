@@ -27,7 +27,6 @@ if __name__ == "__main__":
     ui.measure_button.clicked.connect(container.on_measure)
     ui.measure_vna.clicked.connect(container.on_vna_measure)
     ui.browse_button.clicked.connect(container.browse)
-    ui.save_button.clicked.connect(container.save_data)
     app.aboutToQuit.connect(container.save_ui)
     restore_ui(ui)
     window.show()

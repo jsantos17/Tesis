@@ -114,8 +114,7 @@ def poll_for_data(ip, port, ui, active):
         is_ready = executor.get_data()
         is_ready = is_ready.replace("\0","")
         if 0b00000001 & int(is_ready):
-            ui.save_button.setEnabled(True)
-            # Data is ready. Break out of this function
+            # Data is ready. Break out of this loop 
             break
         time.sleep(1)
     # Retrieve data and save it to file

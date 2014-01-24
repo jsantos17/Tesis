@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Thu Jan 23 16:14:30 2014
+# Created: Fri Jan 24 17:00:55 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -117,9 +117,6 @@ class Ui_mainWindow(object):
         self.ipField.setMaximumSize(QtCore.QSize(16777215, 25))
         self.ipField.setObjectName(_fromUtf8("ipField"))
         self.horizontalLayout.addWidget(self.ipField)
-        self.connect_button = QtGui.QPushButton(self.centralwidget)
-        self.connect_button.setObjectName(_fromUtf8("connect_button"))
-        self.horizontalLayout.addWidget(self.connect_button)
         self.ip_file_layout.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
@@ -134,10 +131,6 @@ class Ui_mainWindow(object):
         self.browse_button = QtGui.QPushButton(self.centralwidget)
         self.browse_button.setObjectName(_fromUtf8("browse_button"))
         self.horizontalLayout_2.addWidget(self.browse_button)
-        self.save_button = QtGui.QPushButton(self.centralwidget)
-        self.save_button.setEnabled(False)
-        self.save_button.setObjectName(_fromUtf8("save_button"))
-        self.horizontalLayout_2.addWidget(self.save_button)
         self.ip_file_layout.addLayout(self.horizontalLayout_2)
         self.gridLayout.addLayout(self.ip_file_layout, 0, 0, 1, 1)
         self.bottom_layout = QtGui.QHBoxLayout()
@@ -229,10 +222,8 @@ class Ui_mainWindow(object):
         self.smu3_label.setText(_translate("mainWindow", "SMU 3", None))
         self.smu4_label.setText(_translate("mainWindow", "SMU 4", None))
         self.ipLabel.setText(_translate("mainWindow", "IP:", None))
-        self.connect_button.setText(_translate("mainWindow", "Conectar", None))
         self.label.setText(_translate("mainWindow", "Archivo:", None))
         self.browse_button.setText(_translate("mainWindow", "Examinar", None))
-        self.save_button.setText(_translate("mainWindow", "Guardar datos", None))
         self.s_groupbox.setTitle(_translate("mainWindow", "Parámetros S a medir", None))
         self.s11_radio.setText(_translate("mainWindow", "S11", None))
         self.s12_radio.setText(_translate("mainWindow", "S12", None))

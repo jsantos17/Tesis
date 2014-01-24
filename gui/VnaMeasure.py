@@ -55,15 +55,12 @@ def retrieve_data(ip, port, fname):
     sleep(5)
     executor = SocketExecutor(ip, port, expect_reply=False)
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
-    executor.execute_command(":CALC1:DATA:FDAT?")
-    data = executor.get_data()
+    data = executor.ask(":CALC1:DATA:FDAT?")
 
     with open(fname + "_vna", "w+") as f:
-        print data
         f.write(data)
 
-    executor.execute_command("SENS1:FREQ:DATA?")
-    freq_data = executor.get_data()
+    freq_data = executor.ask("SENS1:FREQ:DATA?")
     
     with open(fname + "_freqdata", "w+") as f:
         f.write(freq_data)
