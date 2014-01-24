@@ -5,17 +5,12 @@ import string
 class Echo(protocol.Protocol):
     
     def dataReceived(self, data):
-        """ Reply with ACK to anything """
+        """ Echo everything """
         print data
-        if random.randint(0,10) > 5:
-            wt = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(20))
-            self.transport.write(wt)
-        else:
-            self.transport.write("ACK\n\0")
 
 
 def main():
-    """This runs the protocol on port 8000"""
+    """This runs the protocol on port 1225"""
     factory = protocol.ServerFactory()
     factory.protocol = Echo
     reactor.listenTCP(8000,factory)
