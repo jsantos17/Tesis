@@ -4,6 +4,7 @@ from lib.VnaChannel import VnaChannel
 from lib.util.VnaEnums import SParameters
 from lib.util.VnaEnums import SweepType
 from time import sleep
+from lib.SocketExecutor import SocketExecutor
 
 def VnaMeasure(ui):
     try:
@@ -46,18 +47,19 @@ def VnaMeasure(ui):
         channel.activate_trace(1)
         channel.trigger()
 
-    f = str(i.fileField.text())
+    f = str(ui.fileField.text())
     thread.start_new_thread(retrieve_data, (ip, port, f))
 
 def retrieve_data(ip, port, fname):
     print "Will wait 5 seconds before retrieving data"
     sleep(5)
-    executor = SocketExecutor(ip, port)
+    executor = SocketExecutor(ip, port, expect_reply=False)
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
     executor.execute_command(":CALC1:DATA:FDAT?")
     data = executor.get_data()
 
     with open(fname + "_vna", "w+") as f:
+        print data
         f.write(data)
 
     executor.execute_command("SENS1:FREQ:DATA?")
