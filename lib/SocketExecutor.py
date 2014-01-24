@@ -21,6 +21,14 @@ class SocketExecutor(CommandExecutor):
             self.data = ''
             self.data = data
 
+    def ask(self, command):
+        self.s.send(command + "\0")
+        time.sleep(0.5)
+        data = self.s.recv(8192)
+        self.data = ''
+        self.data = data
+
+
     # Should be called after command execution
     def get_data(self):
         return self.data
