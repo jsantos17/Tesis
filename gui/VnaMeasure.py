@@ -1,7 +1,9 @@
+import thread
 from PyQt4 import QtGui
 from lib.VnaChannel import VnaChannel
 from lib.util.VnaEnums import SParameters
 from lib.util.VnaEnums import SweepType
+from time import sleep
 
 def VnaMeasure(ui):
     try:
@@ -10,7 +12,6 @@ def VnaMeasure(ui):
         port = int(ip_port[1])
     except IndexError as e:
         QtGui.QMessageBox.information(ui.centralwidget,"IP", "Se debe especificar un puerto y un IP en formato IP:puerto")
-    print "Ran"
     channel = VnaChannel(ip, port, 1) # One channel
     channel.reset()
     channel.set_sweep_type(SweepType.LINEAR)
@@ -44,4 +45,26 @@ def VnaMeasure(ui):
         channel.activate_channel()
         channel.activate_trace(1)
         channel.trigger()
+
+    f = str(i.fileField.text())
+    thread.start_new_thread(retrieve_data, (ip, port, f))
+
+def retrieve_data(ip, port, fname):
+    print "Will wait 5 seconds before retrieving data"
+    sleep(5)
+    executor = SocketExecutor(ip, port)
+    executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
+    executor.execute_command(":CALC1:DATA:FDAT?")
+    data = executor.get_data()
+
+    with open(fname + "_vna", "w+") as f:
+        f.write(data)
+
+    executor.execute_command("SENS1:FREQ:DATA?")
+    freq_data = executor.get_data()
+    
+    with open(fname + "_freqdata", "w+") as f:
+        f.write(freq_data)
+
+    executor.close()
 
