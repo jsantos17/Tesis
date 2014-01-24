@@ -28,6 +28,8 @@ class SocketExecutor(CommandExecutor):
         self.data = ''
         self.data = data
 
+        return data
+
 
     # Should be called after command execution
     def get_data(self):
