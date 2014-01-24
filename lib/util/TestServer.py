@@ -6,7 +6,14 @@ class Echo(protocol.Protocol):
     
     def dataReceived(self, data):
         """ Echo everything """
-        print data
+        if data.replace("\0", "")  == ":CALC1:DATA:FDAT?":
+            print "Sending data"
+            self.transport.write(", ".join([str(1000*random.random()) for i in xrange(10000)]))
+        elif data.replace("\0", "") == "SENS1:FREQ:DATA?":
+            print "Sending data"
+            self.transport.write(", ".join([str(1000*random.random()) for i in xrange(10000)]))
+        else:
+            print data
 
 
 def main():
