@@ -31,6 +31,7 @@ def VnaMeasure(ui):
         span_freq = float(groupbox.findChild(QtGui.QLineEdit, "span_field").text())
         channel.set_center_span(center_freq, span_freq)
         channel.set_traces(1)
+        channel.set_points(200)
         channel.set_sparam(1, spar)
         channel.activate_channel()
         channel.activate_trace(1)
@@ -42,28 +43,38 @@ def VnaMeasure(ui):
         freq_stop = float(groupbox.findChild(QtGui.QLineEdit, "freqstop_field").text())
         channel.set_start_stop(freq_start, freq_stop)
         channel.set_traces(1)
+        channel.set_points(200)
         channel.set_sparam(1, spar)
         channel.activate_channel()
         channel.activate_trace(1)
-        channel.trigger()
+        channel.set_continuous()
 
     f = str(ui.fileField.text())
+    channel.executor.close()
     thread.start_new_thread(retrieve_data, (ip, port, f))
 
 def retrieve_data(ip, port, fname):
     print "Will wait 5 seconds before retrieving data"
     sleep(5)
-    executor = SocketExecutor(ip, port, expect_reply=False)
+    executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")
+    executor.execute_command(":INIT1:CONT OFF") # Turn off output 
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
+
     data = executor.ask(":CALC1:DATA:FDAT?")
-
     with open(fname + "_vna", "w+") as f:
-        f.write(data)
+        data = data.split(",")
+        data = [float(i) for i in data]
+        for line in data:
+            if int(line) == 0:
+                continue # skip this iteration if value is zero
+            f.write(str(line)+"\r\n")
 
-    freq_data = executor.ask("SENS1:FREQ:DATA?")
-    
+    freq_data = executor.ask(":SENS1:FREQ:DATA?")
     with open(fname + "_freqdata", "w+") as f:
-        f.write(freq_data)
+        freq_data = freq_data.split(",")
+        freq_data = [float(i) for i in freq_data]
+        for line in freq_data:
+            f.write(str(line)+"\r\n")
 
     executor.close()
 
