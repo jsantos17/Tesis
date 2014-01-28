@@ -2,6 +2,7 @@ from SocketExecutor import SocketExecutor
 from MockExecutor import MockExecutor
 from lib.util.VnaEnums import SweepType
 from lib.util.VnaEnums import SParameters 
+from lib.util.VnaEnums import DataFormat 
 
 class Vna(object):
     def __init__(self, ip, port):
@@ -90,3 +91,35 @@ class Vna(object):
 
     def trigger(self):
         self.executor.execute_command(":TRIG:IMM")
+
+    def set_format(self, channel, fmat):
+        if fmat not in [DataFormat.LOG, DataFormat.LIN, DataFormat.LIN_PHASE, DataFormat.PHASE,
+                    DataFormat.GDELAY, DataFormat.SMITH_LIN_PHASE, DataFormat.SMITH_LOG_PHASE,
+                    DataFormat.SMITH_RE_IM, DataFormat.SMITH_R_JX, DataFormat.SMITH_G_JB]:
+            raise VnaConfigError("Data format should be defined from DataFormat enum")
+
+        template = ":CALC{ch}:SEL:FORM {fmat}"
+
+        if fmat == DataFormat.LOG:
+            cmd_fmat = "MLOG"
+        elif fmat == DataFormat.LIN:
+            cmd_fmat = "MLIN"
+        elif fmat == DataFormat.LIN_PHASE:
+            cmd_fmat = "PLIN"
+        elif fmat == DataFormat.GDELAY:
+            cmd_fmat = "GDEL"
+        elif fmat == DataFormat.SMITH_LIN_PHASE:
+            cmd_fmat = "SLIN"
+        elif fmat == DataFormat.SMITH_LOG_PHASE:
+            cmd_fmat = "SLOG"
+        elif fmat == DataFormat.SMITH_RE_IM:
+            cmd_fmat = "SCOM"
+        elif fmat == DataFormat.SMITH_R_JX:
+            cmd_fmat = "SMIT"
+        elif fmat == DataFormat.SMITH_G_JB:
+            cmd_fmat = "SADM"
+
+        self.executor.execute_command(template.format(ch=channel, fmat=cmd_fmat))
+
+class VnaConfigError(Exception):
+    pass

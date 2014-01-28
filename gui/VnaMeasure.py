@@ -3,6 +3,7 @@ from PyQt4 import QtGui
 from lib.VnaChannel import VnaChannel
 from lib.util.VnaEnums import SParameters
 from lib.util.VnaEnums import SweepType
+from lib.util.VnaEnums import DataFormat
 from time import sleep
 from lib.SocketExecutor import SocketExecutor
 
@@ -25,26 +26,43 @@ def VnaMeasure(ui):
     elif ui.s22_radio.isChecked():
         spar = SParameters.S22
 
+    fmat = DataFormat.LOG # By default we use MLOG
+    fmat_index = ui.format_combobox.currentIndex()
+    formats = [DataFormat.LOG, 
+               DataFormat.LIN, 
+               DataFormat.LIN_PHASE, 
+               DataFormat.PHASE, 
+               DataFormat.GDELAY, 
+               DataFormat.SMITH_LIN_PHASE, 
+               DataFormat.SMITH_LOG_PHASE, 
+               DataFormat.SMITH_RE_IM, 
+               DataFormat.SMITH_R_JX, 
+               DataFormat.SMITH_G_JB]
+
+    fmat = formats[fmat_index]
+
     if ui.center_span_radio.isChecked():
-        groupbox = ui.bottom_layout.itemAt(2).widget()
+        groupbox = ui.bottom_layout.itemAt(3).widget()
         center_freq = float(groupbox.findChild(QtGui.QLineEdit, "center_field").text())
         span_freq = float(groupbox.findChild(QtGui.QLineEdit, "span_field").text())
         channel.set_center_span(center_freq, span_freq)
         channel.set_traces(1)
         channel.set_points(200)
         channel.set_sparam(1, spar)
+        channel.set_format(fmat) # set the selected format
         channel.activate_channel()
         channel.activate_trace(1)
         channel.trigger()
         
     elif ui.start_stop_radio.isChecked():
-        groupbox = ui.bottom_layout.itemAt(2).widget()
+        groupbox = ui.bottom_layout.itemAt(3).widget()
         freq_start = float(groupbox.findChild(QtGui.QLineEdit, "freqstart_field").text())
         freq_stop = float(groupbox.findChild(QtGui.QLineEdit, "freqstop_field").text())
         channel.set_start_stop(freq_start, freq_stop)
         channel.set_traces(1)
         channel.set_points(200)
         channel.set_sparam(1, spar)
+        channel.set_format(fmat) # set the selected format
         channel.activate_channel()
         channel.activate_trace(1)
         channel.set_continuous()
