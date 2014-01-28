@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Tue Jan 28 13:27:40 2014
+# Created: Tue Jan 28 15:02:58 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -184,7 +184,7 @@ class Ui_mainWindow(object):
         self.freq_groupbox = QtGui.QGroupBox(self.centralwidget)
         self.freq_groupbox.setObjectName(_fromUtf8("freq_groupbox"))
         self.verticalLayoutWidget = QtGui.QWidget(self.freq_groupbox)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 20, 341, 107))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 261, 107))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setMargin(0)

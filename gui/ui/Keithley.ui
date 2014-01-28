@@ -315,11 +315,6 @@
           <string>S22</string>
          </property>
         </widget>
-        <zorder>s11_radio</zorder>
-        <zorder>s12_radio</zorder>
-        <zorder>s21_radio</zorder>
-        <zorder>s22_radio</zorder>
-        <zorder>format_groupbox</zorder>
        </widget>
       </item>
       <item>
@@ -442,9 +437,9 @@
         <widget class="QWidget" name="verticalLayoutWidget">
          <property name="geometry">
           <rect>
-           <x>0</x>
+           <x>10</x>
            <y>20</y>
-           <width>341</width>
+           <width>261</width>
            <height>107</height>
           </rect>
          </property>
