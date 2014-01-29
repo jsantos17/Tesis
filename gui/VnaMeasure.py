@@ -25,7 +25,7 @@ def VnaMeasure(ui):
         spar = SParameters.S21
     elif ui.s22_radio.isChecked():
         spar = SParameters.S22
-
+    points = str(ui.points_field.text())
     fmat = DataFormat.LOG # By default we use MLOG
     fmat_index = ui.format_combobox.currentIndex()
     formats = [DataFormat.LOG, 
@@ -39,7 +39,7 @@ def VnaMeasure(ui):
                DataFormat.SMITH_R_JX, 
                DataFormat.SMITH_G_JB]
 
-    fmat = formats[fmat_index]
+    fmat = formats[fmat_index-1]
 
     if ui.center_span_radio.isChecked():
         groupbox = ui.bottom_layout.itemAt(3).widget()
@@ -47,12 +47,11 @@ def VnaMeasure(ui):
         span_freq = float(groupbox.findChild(QtGui.QLineEdit, "span_field").text())
         channel.set_center_span(center_freq, span_freq)
         channel.set_traces(1)
-        channel.set_points(200)
+        channel.set_points(points)
         channel.set_sparam(1, spar)
         channel.set_format(fmat) # set the selected format
         channel.activate_channel()
         channel.activate_trace(1)
-        channel.trigger()
         
     elif ui.start_stop_radio.isChecked():
         groupbox = ui.bottom_layout.itemAt(3).widget()
@@ -60,7 +59,7 @@ def VnaMeasure(ui):
         freq_stop = float(groupbox.findChild(QtGui.QLineEdit, "freqstop_field").text())
         channel.set_start_stop(freq_start, freq_stop)
         channel.set_traces(1)
-        channel.set_points(200)
+        channel.set_points(points)
         channel.set_sparam(1, spar)
         channel.set_format(fmat) # set the selected format
         channel.activate_channel()
@@ -75,7 +74,6 @@ def retrieve_data(ip, port, fname):
     print "Will wait 5 seconds before retrieving data"
     sleep(5)
     executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")
-    executor.execute_command(":INIT1:CONT OFF") # Turn off output 
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
 
     data = executor.ask(":CALC1:DATA:FDAT?")
@@ -83,8 +81,6 @@ def retrieve_data(ip, port, fname):
         data = data.split(",")
         data = [float(i) for i in data]
         for line in data:
-            if int(line) == 0:
-                continue # skip this iteration if value is zero
             f.write(str(line)+"\r\n")
 
     freq_data = executor.ask(":SENS1:FREQ:DATA?")

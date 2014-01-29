@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Tue Jan 28 15:02:58 2014
+# Created: Wed Jan 29 11:37:37 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -154,7 +154,7 @@ class Ui_mainWindow(object):
         self.format_groupbox = QtGui.QGroupBox(self.centralwidget)
         self.format_groupbox.setObjectName(_fromUtf8("format_groupbox"))
         self.format_combobox = QtGui.QComboBox(self.format_groupbox)
-        self.format_combobox.setGeometry(QtCore.QRect(30, 40, 231, 31))
+        self.format_combobox.setGeometry(QtCore.QRect(90, 40, 181, 31))
         self.format_combobox.setObjectName(_fromUtf8("format_combobox"))
         self.format_combobox.addItem(_fromUtf8(""))
         self.format_combobox.addItem(_fromUtf8(""))
@@ -167,6 +167,15 @@ class Ui_mainWindow(object):
         self.format_combobox.addItem(_fromUtf8(""))
         self.format_combobox.addItem(_fromUtf8(""))
         self.format_combobox.addItem(_fromUtf8(""))
+        self.format_label = QtGui.QLabel(self.format_groupbox)
+        self.format_label.setGeometry(QtCore.QRect(20, 50, 61, 14))
+        self.format_label.setObjectName(_fromUtf8("format_label"))
+        self.points_label = QtGui.QLabel(self.format_groupbox)
+        self.points_label.setGeometry(QtCore.QRect(20, 80, 61, 14))
+        self.points_label.setObjectName(_fromUtf8("points_label"))
+        self.points_field = QtGui.QLineEdit(self.format_groupbox)
+        self.points_field.setGeometry(QtCore.QRect(90, 80, 181, 22))
+        self.points_field.setObjectName(_fromUtf8("points_field"))
         self.bottom_layout.addWidget(self.format_groupbox)
         self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
@@ -246,7 +255,7 @@ class Ui_mainWindow(object):
         self.s12_radio.setText(_translate("mainWindow", "S12", None))
         self.s21_radio.setText(_translate("mainWindow", "S21", None))
         self.s22_radio.setText(_translate("mainWindow", "S22", None))
-        self.format_groupbox.setTitle(_translate("mainWindow", "Formato de Datos", None))
+        self.format_groupbox.setTitle(_translate("mainWindow", "Configuración", None))
         self.format_combobox.setItemText(0, _translate("mainWindow", "Log", None))
         self.format_combobox.setItemText(1, _translate("mainWindow", "Lin", None))
         self.format_combobox.setItemText(2, _translate("mainWindow", "Lin/Phase", None))
@@ -258,6 +267,8 @@ class Ui_mainWindow(object):
         self.format_combobox.setItemText(8, _translate("mainWindow", "Smith (Re/Im)", None))
         self.format_combobox.setItemText(9, _translate("mainWindow", "Smith (R+jX)", None))
         self.format_combobox.setItemText(10, _translate("mainWindow", "Smith (G+jB)", None))
+        self.format_label.setText(_translate("mainWindow", "Formato:", None))
+        self.points_label.setText(_translate("mainWindow", "Puntos:", None))
         self.measuretype_groupbox.setTitle(_translate("mainWindow", "Tipo de medición", None))
         self.start_stop_radio.setText(_translate("mainWindow", "Inicio-final", None))
         self.center_span_radio.setText(_translate("mainWindow", "Centro-span", None))

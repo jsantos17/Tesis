@@ -69,6 +69,8 @@ def ui_state(ui):
         state["start"] = str(ui.centralwidget.findChild(QtGui.QLineEdit, "freqstart_field").text())
         state["stop"] = str(ui.centralwidget.findChild(QtGui.QLineEdit, "freqstop_field").text())
 
+    state["points"] = str(ui.points_field.text())
+
     return state
 
 
@@ -182,3 +184,4 @@ def restore_ui(ui):
         ui.centralwidget.findChild(QtGui.QLineEdit, "freqstart_field").setText(state["start"])
         ui.centralwidget.findChild(QtGui.QLineEdit, "freqstop_field").setText(state["stop"])
 
+    ui.points_field.setText(str(state["points"]))

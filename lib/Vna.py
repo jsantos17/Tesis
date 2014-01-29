@@ -84,7 +84,8 @@ class Vna(object):
 
     def set_points(self, channel, points):
         template = ":SENS{ch}:SWE:POIN {points}"
-        template.format(ch=channel, points=points)
+        cmd = template.format(ch=channel, points=points)
+        self.executor.execute_command(cmd)
 
     def turn_on(self):
         self.executor.execute_command(":OUTP")

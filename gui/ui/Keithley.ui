@@ -320,14 +320,14 @@
       <item>
        <widget class="QGroupBox" name="format_groupbox">
         <property name="title">
-         <string>Formato de Datos</string>
+         <string>Configuración</string>
         </property>
         <widget class="QComboBox" name="format_combobox">
          <property name="geometry">
           <rect>
-           <x>30</x>
+           <x>90</x>
            <y>40</y>
-           <width>231</width>
+           <width>181</width>
            <height>31</height>
           </rect>
          </property>
@@ -386,6 +386,42 @@
            <string>Smith (G+jB)</string>
           </property>
          </item>
+        </widget>
+        <widget class="QLabel" name="format_label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>61</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Formato:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="points_label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>80</y>
+           <width>61</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Puntos:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="points_field">
+         <property name="geometry">
+          <rect>
+           <x>90</x>
+           <y>80</y>
+           <width>181</width>
+           <height>22</height>
+          </rect>
+         </property>
         </widget>
        </widget>
       </item>
