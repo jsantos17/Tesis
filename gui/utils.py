@@ -51,6 +51,24 @@ def ui_state(ui):
             hdict["sfun"] = "list"
 
         state["combos"].append(hdict)
+
+    # VNA GUI saving from here
+
+    a = map(lambda option_box: option_box if option_box.isChecked() else None, [ui.s11_radio, ui.s12_radio, ui.s21_radio, ui.s22_radio])
+    a = filter(lambda option_box: option_box is not None,a)
+    state["spar"] = str(a[0].objectName()[0:3])
+    state["format_idx"] = ui.format_combobox.currentIndex()
+
+    if ui.center_span_radio.isChecked():
+        state["vna_type"] = "center_span"
+        state["center"] = str(ui.centralwidget.findChild(QtGui.QLineEdit, "center_field").text())
+        state["span"] = str(ui.centralwidget.findChild(QtGui.QLineEdit, "span_field").text())
+
+    elif ui.start_stop_radio.isChecked():
+        state["vna_type"] = "start_stop"
+        state["start"] = str(ui.centralwidget.findChild(QtGui.QLineEdit, "freqstart_field").text())
+        state["stop"] = str(ui.centralwidget.findChild(QtGui.QLineEdit, "freqstop_field").text())
+
     return state
 
 
@@ -136,3 +154,31 @@ def restore_ui(ui):
    
         if combo["sfun"] == "list":
             groupbox.findChild(QtGui.QTextEdit, "list_textedit").setText(combo["value_list"])
+
+    # Restore VNA GUI
+
+    if state["spar"] == "s11":
+        ui.s11_radio.setChecked(True)
+    elif state["spar"] == "s21":
+        ui.s21_radio.setChecked(True)
+    elif state["spar"] == "s12":
+        ui.s12_radio.setChecked(True)
+    elif state["spar"] == "s22":
+        ui.s22_radio.setChecked(True)
+
+    # Restore data format combobox
+
+    ui.format_combobox.setCurrentIndex(int(state["format_idx"]))
+
+    # Set center-span or start-stop
+
+    if state["vna_type"] == "center_span":
+        ui.center_span_radio.setChecked(True)
+        ui.centralwidget.findChild(QtGui.QLineEdit, "center_field").setText(state["center"])
+        ui.centralwidget.findChild(QtGui.QLineEdit, "span_field").setText(state["span"])
+   
+    elif state["vna_type"] == "start_stop":
+        ui.start_stop_radio.setChecked(True)
+        ui.centralwidget.findChild(QtGui.QLineEdit, "freqstart_field").setText(state["start"])
+        ui.centralwidget.findChild(QtGui.QLineEdit, "freqstop_field").setText(state["stop"])
+

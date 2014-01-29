@@ -137,10 +137,10 @@ def get_list_groupbox():
 
 def get_start_stop_ui():
     freq_groupbox = QtGui.QGroupBox()
-    freq_groupbox.setGeometry(QtCore.QRect(10, 0, 373, 140))
+    freq_groupbox.setGeometry(QtCore.QRect(20, 20, 250, 140))
     freq_groupbox.setObjectName("freq_groupbox")
     verticalLayoutWidget = QtGui.QWidget(freq_groupbox)
-    verticalLayoutWidget.setGeometry(QtCore.QRect(0, 20, 341, 107))
+    verticalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 250, 107))
     verticalLayoutWidget.setObjectName("verticalLayoutWidget")
     verticalLayout = QtGui.QVBoxLayout(verticalLayoutWidget)
     verticalLayout.setMargin(0)
@@ -180,10 +180,10 @@ def get_start_stop_ui():
 
 def get_center_span_ui():
     freq_groupbox = QtGui.QGroupBox()
-    freq_groupbox.setGeometry(QtCore.QRect(0, 0, 373, 148))
+    freq_groupbox.setGeometry(QtCore.QRect(20, 20, 250, 148))
     freq_groupbox.setObjectName("freq_groupbox")
     verticalLayoutWidget = QtGui.QWidget(freq_groupbox)
-    verticalLayoutWidget.setGeometry(QtCore.QRect(0, 20, 341, 107))
+    verticalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 250, 107))
     verticalLayoutWidget.setObjectName("verticalLayoutWidget")
     verticalLayout = QtGui.QVBoxLayout(verticalLayoutWidget)
     verticalLayout.setMargin(0)

@@ -22,14 +22,16 @@ class SlotContainer(QtGui.QMainWindow):
         self.ui.fileField.setText(data_file)
 
     def selected_start_stop(self, event):
-        print "Selected start stop"
-        self.ui.bottom_layout.itemAt(2).widget().setParent(None)
-        self.ui.bottom_layout.addWidget(LayoutUtil.get_start_stop_groupbox())
+        if self.ui.start_stop_radio.isChecked():
+            print "Selected start stop"
+            self.ui.bottom_layout.itemAt(3).widget().setParent(None)
+            self.ui.bottom_layout.addWidget(LayoutUtil.get_start_stop_groupbox())
 
     def selected_center_span(self, event):
-        print "Selected center span"
-        self.ui.bottom_layout.itemAt(2).widget().setParent(None)
-        self.ui.bottom_layout.addWidget(LayoutUtil.get_center_span_groupbox())
+        if self.ui.center_span_radio.isChecked():
+            print "Selected center span"
+            self.ui.bottom_layout.itemAt(3).widget().setParent(None)
+            self.ui.bottom_layout.addWidget(LayoutUtil.get_center_span_groupbox())
     
     def on_measure(self, event):
         try:

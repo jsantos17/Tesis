@@ -22,8 +22,8 @@ if __name__ == "__main__":
             box.addItem(element)
         box.currentIndexChanged.connect(container.on_measure_select)
     
-    ui.start_stop_radio.clicked.connect(container.selected_start_stop)
-    ui.center_span_radio.clicked.connect(container.selected_center_span)
+    ui.start_stop_radio.toggled.connect(container.selected_start_stop)
+    ui.center_span_radio.toggled.connect(container.selected_center_span)
     ui.measure_button.clicked.connect(container.on_measure)
     ui.measure_vna.clicked.connect(container.on_vna_measure)
     ui.browse_button.clicked.connect(container.browse)
