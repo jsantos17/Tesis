@@ -42,6 +42,12 @@ class VnaChannel(Vna):
     def get_stop_x(self):
         return super(VnaChannel, self).get_stop_x(self.channel)
 
+    def get_x(self, mark=1):
+        return super(VnaChannel, self).get_x(self.channel, mark)
+
+    def get_y(self, mark=1):
+        return super(VnaChannel, self).get_y(self.channel, mark)
+
     def set_sparam(self, trace, sparam):
         super(VnaChannel, self).set_sparam(self.channel, trace, sparam)
 
