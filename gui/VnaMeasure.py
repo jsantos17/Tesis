@@ -68,7 +68,10 @@ def VnaMeasure(ui):
         channel.activate_channel()
         channel.activate_trace(1)
         channel.set_continuous()
-    # channel.auto_scale() # Autoscale
+
+    if ui.autoscale_checkbox.isChecked():
+        channel.auto_scale() # Autoscale
+
     f = str(ui.fileField.text())
     channel.executor.close()
     thread.start_new_thread(retrieve_data, (ip, port, f))
@@ -84,8 +87,8 @@ def retrieve_data(ip, port, fname):
         data = data.split(",")
         data = [float(i) for i in data]
         for line in data:
-            if int(line) == 0:
-                continue
+#           if int(line) == 0:
+#               continue
             f.write(str(line)+"\r\n")
 
     freq_data = executor.ask(":SENS1:FREQ:DATA?")

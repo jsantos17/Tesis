@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Thu Jan 30 12:17:36 2014
+# Created: Thu Jan 30 12:35:48 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -175,6 +175,9 @@ class Ui_mainWindow(object):
         self.points_field = QtGui.QLineEdit(self.format_groupbox)
         self.points_field.setGeometry(QtCore.QRect(90, 80, 181, 22))
         self.points_field.setObjectName(_fromUtf8("points_field"))
+        self.autoscale_checkbox = QtGui.QCheckBox(self.format_groupbox)
+        self.autoscale_checkbox.setGeometry(QtCore.QRect(90, 110, 89, 21))
+        self.autoscale_checkbox.setObjectName(_fromUtf8("autoscale_checkbox"))
         self.bottom_layout.addWidget(self.format_groupbox)
         self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
@@ -267,6 +270,7 @@ class Ui_mainWindow(object):
         self.format_combobox.setItemText(9, _translate("mainWindow", "Smith (G+jB)", None))
         self.format_label.setText(_translate("mainWindow", "Formato:", None))
         self.points_label.setText(_translate("mainWindow", "Puntos:", None))
+        self.autoscale_checkbox.setText(_translate("mainWindow", "Autoscale", None))
         self.measuretype_groupbox.setTitle(_translate("mainWindow", "Tipo de medición", None))
         self.start_stop_radio.setText(_translate("mainWindow", "Inicio-final", None))
         self.center_span_radio.setText(_translate("mainWindow", "Centro-span", None))

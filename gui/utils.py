@@ -71,6 +71,8 @@ def ui_state(ui):
 
     state["points"] = str(ui.points_field.text())
 
+    state["autoscale"] = bool(ui.autoscale_checkbox.isChecked())
+
     return state
 
 
@@ -185,3 +187,5 @@ def restore_ui(ui):
         ui.centralwidget.findChild(QtGui.QLineEdit, "freqstop_field").setText(state["stop"])
 
     ui.points_field.setText(str(state["points"]))
+
+    ui.autoscale_checkbox.setChecked(bool(state["autoscale"]))
