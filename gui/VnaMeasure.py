@@ -7,6 +7,9 @@ from lib.util.VnaEnums import DataFormat
 from time import sleep
 from lib.SocketExecutor import SocketExecutor
 
+def VnaMeasureThreaded(ui):
+    thread.start_new_thread(VnaMeasure, (ui,))
+
 def VnaMeasure(ui):
     try:
         ip_port = str(ui.ipField.text()).split(":")

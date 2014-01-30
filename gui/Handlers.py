@@ -5,7 +5,7 @@ import SubUi
 import LayoutUtil
 import os
 from MeasureHandler import MeasureHandler
-from VnaMeasure import VnaMeasure
+from VnaMeasure import VnaMeasureThreaded
 from utils import restore_ui
 from utils import save_ui 
 
@@ -58,7 +58,7 @@ class SlotContainer(QtGui.QMainWindow):
         LayoutUtil.layout_update(self.sender(), self.ui)
    
     def on_vna_measure(self):
-        VnaMeasure(self.ui)
+        VnaMeasureThreaded(self.ui)
 
     def restore_ui(self):
         restore_ui(self.ui)
