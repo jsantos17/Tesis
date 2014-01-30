@@ -30,8 +30,17 @@ class VnaChannel(Vna):
     def set_traces(self, trace):
         super(VnaChannel, self).set_traces(self.channel, trace)
 
-    def add_marker(self, channel, trace, marker):
+    def add_marker(self, marker, trace=1):
         super(VnaChannel, self).add_marker(self.channel, trace, marker)
+
+    def set_x(self, new_x, mark=1):
+        super(VnaChannel, self).set_x(self.channel, new_x, mark)
+
+    def get_start_x(self):
+        return super(VnaChannel, self).get_start_x(self.channel)
+
+    def get_stop_x(self):
+        return super(VnaChannel, self).get_stop_x(self.channel)
 
     def set_sparam(self, trace, sparam):
         super(VnaChannel, self).set_sparam(self.channel, trace, sparam)

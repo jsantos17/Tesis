@@ -73,6 +73,31 @@ class Vna(object):
                 channel=channel, trace=trace, marker=marker)
         self.executor.execute_command(cmd)
 
+    def set_x(self, channel, new_x, mark):
+        cmd = ":CALC{ch}:MARK{mark}:X {new_x}".format(ch=channel, mark=mark, new_x = new_x)
+        self.executor.execute_command(cmd)
+
+    def get_x(self, channel, mark):
+        cmd = ":CALC{ch}:MARK{mark}:X?".format(ch=channel, mark=mark)
+        return float(self.executor.ask(cmd))
+
+    def get_y(self, channel, mark):
+        cmd = ":CALC{ch}:MARK{mark}:Y?".format(ch=channel, mark=mark)
+        result = str(self.executor.ask(cmd))
+        result = result.split(",")
+        y_re = float(result[0])
+        y_im = float(result[1])
+
+        return (y_re, y_im) # We return a tuple with a real part and and an imaginary part 
+
+    def get_start_x(self, channel):
+        x = ":SENS{ch}:FREQ:STAR?".format(ch=channel)
+        return float(self.executor.ask(x))
+
+    def get_stop_x(self, channel):
+        x = ":SENS{ch}:FREQ:STOP?".format(ch=channel)
+        return float(self.executor.ask(x))
+
     def set_sparam(self, channel, trace, sparam):
         template = ":CALC{ch}:PAR{tr}:DEF {sparam}"
         if sparam == SParameters.S11:

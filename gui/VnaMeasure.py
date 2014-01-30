@@ -8,15 +8,16 @@ from time import sleep
 from lib.SocketExecutor import SocketExecutor
 
 def VnaMeasureThreaded(ui):
-    thread.start_new_thread(VnaMeasure, (ui,))
-
-def VnaMeasure(ui):
     try:
         ip_port = str(ui.ipField.text()).split(":")
         ip = ip_port[0]
         port = int(ip_port[1])
     except IndexError as e:
         QtGui.QMessageBox.information(ui.centralwidget,"IP", "Se debe especificar un puerto y un IP en formato IP:puerto")
+ 
+    thread.start_new_thread(VnaMeasure, (ui,ip, port))
+
+def VnaMeasure(ui, ip, port):
     channel = VnaChannel(ip, port, 1) # One channel
     channel.reset()
     channel.set_sweep_type(SweepType.LINEAR)

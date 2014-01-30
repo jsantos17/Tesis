@@ -16,7 +16,7 @@ if __name__ == "__main__":
                       "Current List Sweep", "Current Step",
                       "Voltage Constant", "Voltage Sweep",
                       "Voltage List Sweep", "Voltage Step",]
-    container = SlotContainer(ui)
+    container = SlotContainer(ui) # We use a container to save state between callbacks
     for box in combo_boxes:
         for element in combo_elements:
             box.addItem(element)
@@ -27,6 +27,8 @@ if __name__ == "__main__":
     ui.measure_button.clicked.connect(container.on_measure)
     ui.measure_vna.clicked.connect(container.on_vna_measure)
     ui.browse_button.clicked.connect(container.browse)
+    ui.left_button.clicked.connect(container.move_left)
+    ui.right_button.clicked.connect(container.move_right)
     app.aboutToQuit.connect(container.save_ui)
     restore_ui(ui)
     window.show()
