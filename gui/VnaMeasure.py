@@ -18,6 +18,12 @@ def VnaMeasureThreaded(ui):
     thread.start_new_thread(VnaMeasure, (ui,ip, port))
 
 def VnaMeasure(ui, ip, port):
+    # Disable button after click
+
+    ui.measure_vna.setEnabled(False)
+    ui.left_button.setEnabled(False)
+    ui.right_button.setEnabled(False)
+
     channel = VnaChannel(ip, port, 1) # One channel
     channel.reset()
     channel.set_sweep_type(SweepType.LINEAR)
@@ -75,6 +81,10 @@ def VnaMeasure(ui, ip, port):
 
     f = str(ui.fileField.text())
     channel.executor.close()
+    ui.measure_vna.setEnabled(True)
+    ui.left_button.setEnabled(True)
+    ui.right_button.setEnabled(True)
+
     thread.start_new_thread(retrieve_data, (ip, port, f))
 
 def retrieve_data(ip, port, fname):

@@ -97,6 +97,8 @@ class SlotContainer(QtGui.QMainWindow):
         self.ui.y_im_label.setText(str(y[1]))
         self.ui.x_label.setText(str(self.curr_x))
 
+        channel.executor.close() # Close socket
+
     def move_left(self):
         self.move(Direction.LEFT)  
 
