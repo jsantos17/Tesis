@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Wed Jan 29 11:37:37 2014
+# Created: Thu Jan 30 12:17:36 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -166,7 +166,6 @@ class Ui_mainWindow(object):
         self.format_combobox.addItem(_fromUtf8(""))
         self.format_combobox.addItem(_fromUtf8(""))
         self.format_combobox.addItem(_fromUtf8(""))
-        self.format_combobox.addItem(_fromUtf8(""))
         self.format_label = QtGui.QLabel(self.format_groupbox)
         self.format_label.setGeometry(QtCore.QRect(20, 50, 61, 14))
         self.format_label.setObjectName(_fromUtf8("format_label"))
@@ -259,14 +258,13 @@ class Ui_mainWindow(object):
         self.format_combobox.setItemText(0, _translate("mainWindow", "Log", None))
         self.format_combobox.setItemText(1, _translate("mainWindow", "Lin", None))
         self.format_combobox.setItemText(2, _translate("mainWindow", "Lin/Phase", None))
-        self.format_combobox.setItemText(3, _translate("mainWindow", "Log/Phase", None))
-        self.format_combobox.setItemText(4, _translate("mainWindow", "Phase", None))
-        self.format_combobox.setItemText(5, _translate("mainWindow", "Group Delay", None))
-        self.format_combobox.setItemText(6, _translate("mainWindow", "Smith Chart (Lin/Phase)", None))
-        self.format_combobox.setItemText(7, _translate("mainWindow", "Smith Chart (Log/Phase)", None))
-        self.format_combobox.setItemText(8, _translate("mainWindow", "Smith (Re/Im)", None))
-        self.format_combobox.setItemText(9, _translate("mainWindow", "Smith (R+jX)", None))
-        self.format_combobox.setItemText(10, _translate("mainWindow", "Smith (G+jB)", None))
+        self.format_combobox.setItemText(3, _translate("mainWindow", "Phase", None))
+        self.format_combobox.setItemText(4, _translate("mainWindow", "Group Delay", None))
+        self.format_combobox.setItemText(5, _translate("mainWindow", "Smith Chart (Lin/Phase)", None))
+        self.format_combobox.setItemText(6, _translate("mainWindow", "Smith Chart (Log/Phase)", None))
+        self.format_combobox.setItemText(7, _translate("mainWindow", "Smith (Re/Im)", None))
+        self.format_combobox.setItemText(8, _translate("mainWindow", "Smith (R+jX)", None))
+        self.format_combobox.setItemText(9, _translate("mainWindow", "Smith (G+jB)", None))
         self.format_label.setText(_translate("mainWindow", "Formato:", None))
         self.points_label.setText(_translate("mainWindow", "Puntos:", None))
         self.measuretype_groupbox.setTitle(_translate("mainWindow", "Tipo de medición", None))

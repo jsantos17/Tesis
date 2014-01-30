@@ -19,6 +19,11 @@ class Vna(object):
         cmd = template.format(ch=channel)
         self.executor.execute_command(cmd)
 
+    def auto_scale(self, channel):
+        template = ":DISP:WIND{ch}:TRAC1:Y:AUTO"
+        cmd = template.format(ch=channel)
+        self.executor.execute_command(cmd)
+
     def set_sweep_type(self, channel, sweep_type):
         if sweep_type == SweepType.LINEAR:
             stype = "LIN"

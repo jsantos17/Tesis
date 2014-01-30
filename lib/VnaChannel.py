@@ -39,5 +39,8 @@ class VnaChannel(Vna):
     def set_points(self, points):
         super(VnaChannel, self).set_points(self.channel, points)
 
+    def auto_scale(self):
+        super(VnaChannel, self).auto_scale(self.channel)
+
     def set_format(self, fmt):
         super(VnaChannel, self).set_format(self.channel, fmt)

@@ -348,11 +348,6 @@
          </item>
          <item>
           <property name="text">
-           <string>Log/Phase</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
            <string>Phase</string>
           </property>
          </item>

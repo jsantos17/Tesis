@@ -42,8 +42,8 @@ def VnaMeasure(ui):
                DataFormat.SMITH_R_JX, 
                DataFormat.SMITH_G_JB]
 
-    fmat = formats[fmat_index-1]
-
+    fmat = formats[fmat_index]
+    
     if ui.center_span_radio.isChecked():
         groupbox = ui.bottom_layout.itemAt(3).widget()
         center_freq = float(groupbox.findChild(QtGui.QLineEdit, "center_field").text())
@@ -68,14 +68,14 @@ def VnaMeasure(ui):
         channel.activate_channel()
         channel.activate_trace(1)
         channel.set_continuous()
-
+    # channel.auto_scale() # Autoscale
     f = str(ui.fileField.text())
     channel.executor.close()
     thread.start_new_thread(retrieve_data, (ip, port, f))
 
 def retrieve_data(ip, port, fname):
-    print "Will wait 5 seconds before retrieving data"
-    sleep(5)
+    print "Will wait 2 seconds before retrieving data"
+    sleep(2)
     executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
 
@@ -84,6 +84,8 @@ def retrieve_data(ip, port, fname):
         data = data.split(",")
         data = [float(i) for i in data]
         for line in data:
+            if int(line) == 0:
+                continue
             f.write(str(line)+"\r\n")
 
     freq_data = executor.ask(":SENS1:FREQ:DATA?")
