@@ -15,18 +15,14 @@ class SocketExecutor(CommandExecutor):
         self.expect_reply = expect_reply
 
     def execute_command(self, command):
-        print command
         self.s.send(command + self.endline)
-        time.sleep(1)
         if self.expect_reply:
             data = self.s.recv(8192)
             self.data = ''
             self.data = data
 
     def ask(self, command):
-        print command
         self.s.send(command + self.endline)
-        time.sleep(1)
         self.data = ""
         data = ""
         pdata = ""
@@ -39,7 +35,6 @@ class SocketExecutor(CommandExecutor):
             data += pdata
         data = data[:-1] # For some reason there's a comma at the end of the transmission. Delete it
         self.data = data
-        print data
         return self.data
 
 

@@ -17,6 +17,7 @@ class SlotContainer(QtGui.QMainWindow):
         self.ui = ui
         self.handler = MeasureHandler()
         self.curr_x = 0
+        self.channel = None
 
     def browse(self, event):
         directory = QFileDialog.getExistingDirectory(self, 
@@ -68,6 +69,7 @@ class SlotContainer(QtGui.QMainWindow):
         LayoutUtil.layout_update(self.sender(), self.ui)
    
     def on_vna_measure(self):
+        self.curr_x = 0
         VnaMeasureThreaded(self.ui)
 
     def restore_ui(self):
@@ -78,10 +80,11 @@ class SlotContainer(QtGui.QMainWindow):
 
     def move(self, direction):
         (port, ip) = self.get_port_ip()
-        channel = VnaChannel(port, ip, 1)
-        channel.add_marker(1)
-        start_x = channel.get_start_x()
-        stop_x = channel.get_stop_x()
+        if self.channel is None:
+            self.channel = VnaChannel(port, ip, 1)
+        self.channel.add_marker(1)
+        start_x = self.channel.get_start_x()
+        stop_x = self.channel.get_stop_x()
         bandwidth = stop_x - start_x
         gran = bandwidth/100 # By default 1/100th bandwidth granularity
         if self.curr_x == 0:
@@ -90,14 +93,12 @@ class SlotContainer(QtGui.QMainWindow):
             self.curr_x = self.curr_x - gran # Save curr_x in container for future use
         elif direction == Direction.RIGHT:
             self.curr_x = self.curr_x + gran # Save curr_x in container for future use
-        channel.set_x(self.curr_x)
-        y = channel.get_y()
+        self.channel.set_x(self.curr_x)
+        y = self.channel.get_y()
 
         self.ui.y_re_label.setText(str(y[0]))
         self.ui.y_im_label.setText(str(y[1]))
         self.ui.x_label.setText(str(self.curr_x))
-
-        channel.executor.close() # Close socket
 
     def move_left(self):
         self.move(Direction.LEFT)  
