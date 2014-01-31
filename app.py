@@ -1,6 +1,9 @@
 import sys
 from PyQt4.QtGui import QApplication, QMainWindow
 from PyQt4 import QtGui
+from PyQt4 import QtCore
+from PyQt4.QtGui import QKeySequence
+from PyQt4.QtGui import QShortcut
 from gui.Keithley import Ui_mainWindow
 from gui.Handlers import SlotContainer
 from gui.utils import restore_ui
@@ -28,7 +31,16 @@ if __name__ == "__main__":
     ui.measure_vna.clicked.connect(container.on_vna_measure)
     ui.browse_button.clicked.connect(container.browse)
     ui.left_button.clicked.connect(container.move_left)
+    left_shortcut = QShortcut(QKeySequence(QtCore.Qt.ControlModifier + QtCore.Qt.Key_Left), 
+            ui.centralwidget)
+    left_shortcut.setContext(QtCore.Qt.ApplicationShortcut)
+    left_shortcut.activated.connect(container.move_left)
+
     ui.right_button.clicked.connect(container.move_right)
+    right_shortcut = QShortcut(QKeySequence(QtCore.Qt.ControlModifier + QtCore.Qt.Key_Right),
+            ui.centralwidget)
+    right_shortcut.setContext(QtCore.Qt.ApplicationShortcut)
+    right_shortcut.activated.connect(container.move_right)
     app.aboutToQuit.connect(container.save_ui)
     restore_ui(ui)
     window.show()
