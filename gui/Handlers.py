@@ -69,7 +69,9 @@ class SlotContainer(QtGui.QMainWindow):
         LayoutUtil.layout_update(self.sender(), self.ui)
    
     def on_vna_measure(self):
-        self.curr_x = 0
+        if self.channel is not None:
+            self.channel.executor.close()
+            self.channel = None # Makes sure move recreates its executor
         VnaMeasureThreaded(self.ui)
 
     def restore_ui(self):
@@ -87,8 +89,7 @@ class SlotContainer(QtGui.QMainWindow):
         stop_x = self.channel.get_stop_x()
         bandwidth = stop_x - start_x
         gran = bandwidth/100 # By default 1/100th bandwidth granularity
-        if self.curr_x == 0:
-            self.curr_x = start_x
+        self.curr_x = self.channel.get_x()
         if direction == Direction.LEFT:
             self.curr_x = self.curr_x - gran # Save curr_x in container for future use
         elif direction == Direction.RIGHT:
