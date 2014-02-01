@@ -14,8 +14,8 @@ class TestSweep(unittest.TestCase):
    
 
     def test_linear_sweep(self):
-        chan_command = "DE CH1 '{voltage_name}','{current_name}',1,1"
-        func_command = "SS VR1,1,5,1,0.01"
+        chan_command = "DE CH1, '{voltage_name}','{current_name}',1,1"
+        func_command = "VR1,1,5,1,0.01"
         voltage_name = random_id(CurrentVoltage.VOLTAGE) 
         current_name = random_id(CurrentVoltage.CURRENT)
         chan_command = chan_command.format(voltage_name = voltage_name, 
@@ -27,7 +27,7 @@ class TestSweep(unittest.TestCase):
         self.assertEqual(func_command, sweep_smu._get_var1_cmd())
 
     def test_list_sweep(self):
-        chan_command = "DE CH2 '{voltage_name}','{current_name}',1,1"
+        chan_command = "DE CH2, '{voltage_name}','{current_name}',1,1"
         func_command = "SS VL2,1,0.01,1,5,2,1,3,2,3,4,2"
         voltage_name = random_id(CurrentVoltage.VOLTAGE) 
         current_name = random_id(CurrentVoltage.CURRENT)
