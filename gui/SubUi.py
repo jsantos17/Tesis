@@ -127,10 +127,10 @@ def get_constant_groupbox():
 def get_list_groupbox():
     list_groupbox = QtGui.QGroupBox()
     textEdit = QtGui.QTextEdit(list_groupbox)
-    textEdit.setGeometry(QtCore.QRect(0, 20, 250, 140))
+    textEdit.setGeometry(QtCore.QRect(20, 30, 250, 140))
     textEdit.setObjectName("list_textedit")
     label = QtGui.QLabel(list_groupbox)
-    label.setGeometry(QtCore.QRect(0, 0, 250, 19))
+    label.setGeometry(QtCore.QRect(20, 5, 250, 19))
     label.setObjectName("label_description")
     label.setText("Lista de valores separados por comas")
     return list_groupbox
