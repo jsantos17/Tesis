@@ -9,7 +9,8 @@ from VnaMeasure import VnaMeasureThreaded
 from lib.VnaChannel import VnaChannel
 from lib.util.VnaEnums import Direction
 from utils import restore_ui
-from utils import save_ui 
+from utils import save_ui
+from gui import MenuHandlers
 
 class SlotContainer(QtGui.QMainWindow):
     def __init__(self, ui):
@@ -22,8 +23,12 @@ class SlotContainer(QtGui.QMainWindow):
     def browse(self, event):
         directory = QFileDialog.getExistingDirectory(self, 
                 "Donde guardar?", "~", options=QFileDialog.ShowDirsOnly)
-        data_file = os.path.join(str(directory), str(self.ui.fileField.text()))
-        self.ui.fileField.setText(data_file)
+        if self.sender().objectName() == "browse_button":
+            data_file = os.path.join(str(directory), str(self.ui.fileField.text()))
+            self.ui.fileField.setText(data_file)
+        elif self.sender().objectName() == "vna_browse_button":
+            data_file = os.path.join(str(directory), str(self.ui.vna_file_field.text()))
+            self.ui.vna_file_field.setText(data_file)
 
     def selected_start_stop(self, event):
         if self.ui.start_stop_radio.isChecked():
@@ -107,3 +112,15 @@ class SlotContainer(QtGui.QMainWindow):
     def move_right(self):
         self.move(Direction.RIGHT)
 
+    
+    def open_file(self):
+        MenuHandlers.handle_open(self.ui)
+
+    def save_file(self):
+        MenuHandlers.handle_save(self.ui)
+
+    def save_as_file(self):
+        MenuHandlers.handle_save_as(self.ui)
+
+    def close(self):
+        MenuHandlers.handle_close(self.ui)

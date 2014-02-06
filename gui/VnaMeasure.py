@@ -9,7 +9,7 @@ from lib.SocketExecutor import SocketExecutor
 
 def VnaMeasureThreaded(ui):
     try:
-        ip_port = str(ui.ipField.text()).split(":")
+        ip_port = str(ui.vna_ip_field.text()).split(":")
         ip = ip_port[0]
         port = int(ip_port[1])
     except IndexError as e:
@@ -79,8 +79,9 @@ def VnaMeasure(ui, ip, port):
     if ui.autoscale_checkbox.isChecked():
         channel.auto_scale() # Autoscale
 
-    f = str(ui.fileField.text())
+    f = str(ui.vna_file_field.text())
     channel.executor.close()
+    # Reenable buttons once measure has finished
     ui.measure_vna.setEnabled(True)
     ui.left_button.setEnabled(True)
     ui.right_button.setEnabled(True)

@@ -480,17 +480,6 @@
             <string>0</string>
            </property>
           </widget>
-          <zorder>start_stop_radio</zorder>
-          <zorder>center_span_radio</zorder>
-          <zorder>left_button</zorder>
-          <zorder>right_button</zorder>
-          <zorder>x_label</zorder>
-          <zorder>y_re_label</zorder>
-          <zorder>xdesc_label</zorder>
-          <zorder>ydesc_re_label</zorder>
-          <zorder>ydesc_re_label_2</zorder>
-          <zorder>y_im_label</zorder>
-          <zorder>format_groupbox</zorder>
          </widget>
         </item>
        </layout>
@@ -700,6 +689,47 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1150</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionAbrir"/>
+    <addaction name="actionGuardar"/>
+    <addaction name="actionGuardar_como"/>
+    <addaction name="separator"/>
+    <addaction name="actionSalir"/>
+   </widget>
+   <addaction name="menuArchivo"/>
+  </widget>
+  <action name="actionGuardar">
+   <property name="text">
+    <string>Guardar</string>
+   </property>
+  </action>
+  <action name="actionGuardar_como">
+   <property name="text">
+    <string>Guardar como...</string>
+   </property>
+  </action>
+  <action name="actionAbrir">
+   <property name="text">
+    <string>Abrir...</string>
+   </property>
+  </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>Salir</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

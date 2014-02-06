@@ -8,8 +8,16 @@ def ui_state(ui):
     state = dict()
     ip = str(ui.ipField.text())
     f = str(ui.fileField.text())
+
+    ip_vna = str(ui.vna_ip_field.text())
+    file_vna = str(ui.vna_file_field.text())
+
     state["ip"] = ip
     state["f"] = f
+
+    state["ip_vna"] = ip_vna
+    state["file_vna"] = file_vna
+
     state["combos"] = list()
 
     for index, combo in enumerate(
@@ -76,18 +84,21 @@ def ui_state(ui):
     return state
 
 
-def save_ui(ui):
+def save_ui_file(ui, fname):
     # Serialize dict to disk
-    with open("ui_state.yml", "w+") as stream:
+    with open(fname, "w+") as stream:
         yaml.dump(ui_state(ui), stream)
-            
-def restore_ui(ui):
+
+def save_ui(ui):
+    save_ui_file(ui, "ui_state.yml")
+
+def restore_ui_file(ui, fname):
     mapping = [(ui.smu1_combo, ui.smu1_layout),
                (ui.smu2_combo, ui.smu2_layout),
                (ui.smu3_combo, ui.smu3_layout),
                (ui.smu4_combo, ui.smu4_layout)]
     try:
-        with open('ui_state.yml', 'r') as stream:
+        with open(fname, 'r') as stream:
             state = yaml.load(stream)
     except IOError as e:
         # Start with empty interface as there's no saved configuration
@@ -95,6 +106,9 @@ def restore_ui(ui):
     
     ui.ipField.setText(state["ip"])
     ui.fileField.setText(state["f"])
+    ui.vna_ip_field.setText(state["ip_vna"])
+    ui.vna_file_field.setText(state["file_vna"])
+
 
     for combo in state["combos"]:
         # Get the combo object in the Qt GUI that corresponds to the
@@ -189,3 +203,8 @@ def restore_ui(ui):
     ui.points_field.setText(str(state["points"]))
 
     ui.autoscale_checkbox.setChecked(bool(state["autoscale"]))
+
+
+def restore_ui(ui):
+    restore_ui_file(ui, "ui_state.yml")
+

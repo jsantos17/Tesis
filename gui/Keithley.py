@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Thu Feb  6 12:42:20 2014
+# Created: Thu Feb  6 15:04:37 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -282,6 +282,26 @@ class Ui_mainWindow(object):
         self.statusbar = QtGui.QStatusBar(mainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         mainWindow.setStatusBar(self.statusbar)
+        self.menuBar = QtGui.QMenuBar(mainWindow)
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1150, 20))
+        self.menuBar.setObjectName(_fromUtf8("menuBar"))
+        self.menuArchivo = QtGui.QMenu(self.menuBar)
+        self.menuArchivo.setObjectName(_fromUtf8("menuArchivo"))
+        mainWindow.setMenuBar(self.menuBar)
+        self.actionGuardar = QtGui.QAction(mainWindow)
+        self.actionGuardar.setObjectName(_fromUtf8("actionGuardar"))
+        self.actionGuardar_como = QtGui.QAction(mainWindow)
+        self.actionGuardar_como.setObjectName(_fromUtf8("actionGuardar_como"))
+        self.actionAbrir = QtGui.QAction(mainWindow)
+        self.actionAbrir.setObjectName(_fromUtf8("actionAbrir"))
+        self.actionSalir = QtGui.QAction(mainWindow)
+        self.actionSalir.setObjectName(_fromUtf8("actionSalir"))
+        self.menuArchivo.addAction(self.actionAbrir)
+        self.menuArchivo.addAction(self.actionGuardar)
+        self.menuArchivo.addAction(self.actionGuardar_como)
+        self.menuArchivo.addSeparator()
+        self.menuArchivo.addAction(self.actionSalir)
+        self.menuBar.addAction(self.menuArchivo.menuAction())
 
         self.retranslateUi(mainWindow)
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
@@ -334,4 +354,9 @@ class Ui_mainWindow(object):
         self.smu2_label.setText(_translate("mainWindow", "SMU 2", None))
         self.smu3_label.setText(_translate("mainWindow", "SMU 3", None))
         self.smu4_label.setText(_translate("mainWindow", "SMU 4", None))
+        self.menuArchivo.setTitle(_translate("mainWindow", "Archivo", None))
+        self.actionGuardar.setText(_translate("mainWindow", "Guardar", None))
+        self.actionGuardar_como.setText(_translate("mainWindow", "Guardar como...", None))
+        self.actionAbrir.setText(_translate("mainWindow", "Abrir...", None))
+        self.actionSalir.setText(_translate("mainWindow", "Salir", None))
 

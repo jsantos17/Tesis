@@ -30,6 +30,13 @@ if __name__ == "__main__":
     ui.measure_button.clicked.connect(container.on_measure)
     ui.measure_vna.clicked.connect(container.on_vna_measure)
     ui.browse_button.clicked.connect(container.browse)
+    ui.vna_browse_button.clicked.connect(container.browse)
+
+    ui.actionAbrir.triggered.connect(container.open_file)
+    ui.actionGuardar.triggered.connect(container.save_file)
+    ui.actionGuardar_como.triggered.connect(container.save_as_file)
+    ui.actionSalir.triggered.connect(container.close)
+
     ui.left_button.clicked.connect(container.move_left)
     left_shortcut = QShortcut(QKeySequence(QtCore.Qt.ControlModifier + QtCore.Qt.Key_Left), 
             ui.centralwidget)
