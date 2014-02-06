@@ -126,7 +126,9 @@ def poll_for_data(ip, port, ui, active):
         cmd = template.format(ch=ch)
         executor.execute_command(cmd)
         data = executor.get_data()
-        with open(str(ui.fileField.text())+ str(ch),'w+') as f:
-            f.write(data)
+        with open(str(ui.fileField.text())+ str(ch) + ".csv",'w+') as f:
+            data = data.split(",")
+            for line in data:
+                f.write(line+"\r\n")
 
     executor.close()
