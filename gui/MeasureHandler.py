@@ -124,8 +124,7 @@ def poll_for_data(ip, port, ui, active):
         ch = int(str(combo.objectName())[3:4])
         template = "DO 'CH{ch}T'"
         cmd = template.format(ch=ch)
-        executor.execute_command(cmd)
-        data = executor.get_data()
+        data = executor.ask(cmd)
         with open(str(ui.fileField.text())+ str(ch) + ".csv",'w+') as f:
             data = data.split(",")
             for line in data:

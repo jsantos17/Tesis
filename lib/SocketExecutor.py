@@ -28,10 +28,11 @@ class SocketExecutor(CommandExecutor):
         pdata = ""
         while True:
             pdata = self.s.recv(8192)
-            if pdata[len(pdata)-1] == "\n": # Check if pdata includes LF at the end. Indicates end of transmission
+            if pdata[len(pdata)-1] == "\n" or pdata[len(pdata)-1] == "\0": # Check if pdata includes LF at the end. Indicates end of transmission
                 data += pdata
                 break
             print "Receive length: {leng}".format(leng=len(pdata))
+            print repr(pdata)
             data += pdata
         data = data[:-1] # For some reason there's a comma at the end of the transmission. Delete it
         self.data = data
