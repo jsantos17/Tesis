@@ -5,11 +5,11 @@ from PyQt4.QtGui import QApplication
 
     
 def handle_save_as(ui):
-    file_name = QFileDialog.getSaveFileName(ui.centralwidget, "Nombre del archivo", "~/untitled.yml", "YAML files (*.yaml, *.yml)")
+    file_name = QFileDialog.getSaveFileName(ui.centralwidget, "Nombre del archivo", "~/untitled.config", "config files (*.config)")
     save_ui_file(ui, file_name)
 
 def handle_open(ui):
-    file_name = QFileDialog.getOpenFileName(ui.centralwidget, "Nombre del archivo", "~", "YAML files (*.yaml, *.yml)")
+    file_name = QFileDialog.getOpenFileName(ui.centralwidget, "Nombre del archivo", "~", "config files (*.config)")
     restore_ui_file(ui, file_name)
 
 def handle_close(ui):

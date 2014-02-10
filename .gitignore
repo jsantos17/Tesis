@@ -4,5 +4,6 @@ __pycache__
 venv
 .idea
 ui_state.yml
+ui_state.config
 ex.txt
 

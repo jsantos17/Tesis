@@ -1,4 +1,5 @@
 import yaml
+import gzip
 import pprint
 from PyQt4 import QtGui
 from PyQt4.QtCore import QString
@@ -86,19 +87,21 @@ def ui_state(ui):
 
 def save_ui_file(ui, fname):
     # Serialize dict to disk
-    with open(fname, "w+") as stream:
+    fname = str(fname)
+    with gzip.open(fname, "wb") as stream:
         yaml.dump(ui_state(ui), stream)
 
 def save_ui(ui):
-    save_ui_file(ui, "ui_state.yml")
+    save_ui_file(ui, "ui_state.config")
 
 def restore_ui_file(ui, fname):
+    fname = str(fname)
     mapping = [(ui.smu1_combo, ui.smu1_layout),
                (ui.smu2_combo, ui.smu2_layout),
                (ui.smu3_combo, ui.smu3_layout),
                (ui.smu4_combo, ui.smu4_layout)]
     try:
-        with open(fname, 'r') as stream:
+        with gzip.open(fname, 'rb') as stream:
             state = yaml.load(stream)
     except IOError as e:
         # Start with empty interface as there's no saved configuration
@@ -206,5 +209,5 @@ def restore_ui_file(ui, fname):
 
 
 def restore_ui(ui):
-    restore_ui_file(ui, "ui_state.yml")
+    restore_ui_file(ui, "ui_state.config")
 
