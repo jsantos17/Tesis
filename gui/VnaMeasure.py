@@ -89,13 +89,11 @@ def VnaMeasure(ui, ip, port):
     thread.start_new_thread(retrieve_data, (ip, port, f))
 
 def retrieve_data(ip, port, fname):
-    print "Will wait 2 seconds before retrieving data"
-    sleep(2)
     executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
 
     data = executor.ask(":CALC1:DATA:FDAT?")
-    with open(fname + "_vna", "w+") as f:
+    with open(fname + "_vna.csv", "w+") as f:
         data = data.split(",")
         data = [float(i) for i in data]
         for line in data:
@@ -104,7 +102,7 @@ def retrieve_data(ip, port, fname):
             f.write(str(line)+"\r\n")
 
     freq_data = executor.ask(":SENS1:FREQ:DATA?")
-    with open(fname + "_freqdata", "w+") as f:
+    with open(fname + "_freqdata.csv", "w+") as f:
         freq_data = freq_data.split(",")
         freq_data = [float(i) for i in freq_data]
         for line in freq_data:

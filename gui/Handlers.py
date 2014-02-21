@@ -86,9 +86,11 @@ class SlotContainer(QtGui.QMainWindow):
         save_ui(self.ui)
 
     def move(self, direction):
-        (port, ip) = self.get_port_ip()
+        ip_port = str(self.ui.vna_ip_field.text()).split(":")
+        ip = ip_port[0]
+        port = int(ip_port[1])
         if self.channel is None:
-            self.channel = VnaChannel(port, ip, 1)
+            self.channel = VnaChannel(ip, port, 1)
         self.channel.add_marker(1)
         start_x = self.channel.get_start_x()
         stop_x = self.channel.get_stop_x()
