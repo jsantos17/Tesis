@@ -2,6 +2,7 @@ from SocketExecutor import SocketExecutor
 from MockExecutor import MockExecutor
 from lib.util.VnaEnums import SweepType
 from lib.util.VnaEnums import SParameters 
+from lib.util.VnaEnums import CalType 
 from lib.util.VnaEnums import DataFormat 
 
 class Vna(object):
@@ -13,6 +14,39 @@ class Vna(object):
 
     def set_one_channel(self):
         self.executor.execute_command(":DISP:SPL D1")
+
+    def set_cal_kit(self, channel, kit):
+        template = ":SENS{ch}:CORR:COLL:CKIT {kit}"
+        cmd = template.format(ch=channel,kit=kit)
+        self.executor.execute_command(cmd)
+
+    def set_cal_type(self, channel, cal_type):
+        if cal_type == CalType.OPEN:
+            template = ":SENS{ch}:CORR:COLL:METH:OPEN"
+        elif cal_type == CalType.SHORT:
+            template = ":SENS{ch}:CORR:COLL:METH:SHORT"
+        elif cal_type == CalType.THRU:
+            template = ":SENS{ch}:CORR:COLL:METH:THRU"
+
+        cmd = template.format(ch=channel)
+        self.executor.execute_command(cmd)
+
+    def cal_measure_open(self, channel):
+        template = ":SENS{ch}:CORR:COLL:OPEN"
+        self.executor.execute_command(template.format(ch=channel))
+
+    def cal_measure_short(self, channel):
+        template = ":SENS{ch}:CORR:COLL:SHOR"
+        self.executor.execute_command(template.format(ch=channel))
+
+    def cal_measure_load(self, channel):
+        template = ":SENS{ch}:CORR:COLL:LOAD"
+        self.executor.execute_command(template.format(ch=channel))
+
+    def save_cal(self, channel):
+        template = ":SENS{ch}:CORR:COLL:SAVE"
+        template.format(ch=channel)
+        self.executor.execute_command(template.format(ch=channel))
 
     def set_continuous(self, channel):
         template = ":INIT{ch}:CONT ON"

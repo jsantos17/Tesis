@@ -5,6 +5,7 @@ from PyQt4 import QtCore
 from PyQt4.QtGui import QKeySequence
 from PyQt4.QtGui import QShortcut
 from gui.Keithley import Ui_mainWindow
+from gui.Calibration import Ui_cal_dialog
 from gui.Handlers import SlotContainer
 from gui.utils import restore_ui
 
@@ -36,6 +37,7 @@ if __name__ == "__main__":
     ui.actionGuardar.triggered.connect(container.save_file)
     ui.actionGuardar_como.triggered.connect(container.save_as_file)
     ui.actionSalir.triggered.connect(container.close)
+    ui.actionCalibration.triggered.connect(container.launch_calibration)
 
     ui.left_button.clicked.connect(container.move_left)
     left_shortcut = QShortcut(QKeySequence(QtCore.Qt.ControlModifier + QtCore.Qt.Key_Left), 

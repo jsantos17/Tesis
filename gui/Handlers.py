@@ -1,6 +1,6 @@
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import QObject
-from PyQt4.QtGui import QFileDialog
+from PyQt4.QtGui import QFileDialog, QDialog
 import SubUi
 import LayoutUtil
 import os
@@ -11,6 +11,8 @@ from lib.util.VnaEnums import Direction
 from utils import restore_ui
 from utils import save_ui
 from gui import MenuHandlers
+from Calibration import Ui_cal_dialog
+from CalHandlers import CalHandler 
 
 class SlotContainer(QtGui.QMainWindow):
     def __init__(self, ui):
@@ -85,6 +87,17 @@ class SlotContainer(QtGui.QMainWindow):
     def save_ui(self):
         save_ui(self.ui)
 
+    def launch_calibration(self):
+        self.ui.cal_ui = Ui_cal_dialog() # Make the calibration dialog available app-wise
+        dialog = QDialog()
+        dialog.ui = self.ui.cal_ui
+        dialog.ui.setupUi(dialog)
+        dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        handler = CalHandler(self.ui)
+        handler.connect_signals()
+        dialog.exec_()
+
+    # Move this elsewhere
     def move(self, direction):
         ip_port = str(self.ui.vna_ip_field.text()).split(":")
         ip = ip_port[0]

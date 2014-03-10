@@ -705,6 +705,7 @@
     <addaction name="actionAbrir"/>
     <addaction name="actionGuardar"/>
     <addaction name="actionGuardar_como"/>
+    <addaction name="actionCalibration"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
@@ -728,6 +729,11 @@
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionCalibration">
+   <property name="text">
+    <string>Calibration VNA</string>
    </property>
   </action>
  </widget>

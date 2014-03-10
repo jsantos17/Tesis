@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Thu Feb  6 15:04:37 2014
+# Created: Mon Mar 10 11:40:21 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -296,9 +296,12 @@ class Ui_mainWindow(object):
         self.actionAbrir.setObjectName(_fromUtf8("actionAbrir"))
         self.actionSalir = QtGui.QAction(mainWindow)
         self.actionSalir.setObjectName(_fromUtf8("actionSalir"))
+        self.actionCalibration = QtGui.QAction(mainWindow)
+        self.actionCalibration.setObjectName(_fromUtf8("actionCalibration"))
         self.menuArchivo.addAction(self.actionAbrir)
         self.menuArchivo.addAction(self.actionGuardar)
         self.menuArchivo.addAction(self.actionGuardar_como)
+        self.menuArchivo.addAction(self.actionCalibration)
         self.menuArchivo.addSeparator()
         self.menuArchivo.addAction(self.actionSalir)
         self.menuBar.addAction(self.menuArchivo.menuAction())
@@ -359,4 +362,5 @@ class Ui_mainWindow(object):
         self.actionGuardar_como.setText(_translate("mainWindow", "Guardar como...", None))
         self.actionAbrir.setText(_translate("mainWindow", "Abrir...", None))
         self.actionSalir.setText(_translate("mainWindow", "Salir", None))
+        self.actionCalibration.setText(_translate("mainWindow", "Calibration VNA", None))
 
