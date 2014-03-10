@@ -39,14 +39,25 @@ class CalHandler(object):
         return {"cal_type": cal_type, "cal_kit": cal_kit} 
 
     def calibrate_open(self):
+        ret = QtGui.QMessageBox.information(self.ui.centralwidget, 
+                "Conectar", "Conectar Open", buttons=QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
+        if ret == QtGui.QMessageBox.Cancel:
+            return
+        QtGui.QMessageBox.information(self.ui.centralwidget, "Conectar", "Conectar Open")
         self._connect_to_vna()
         cal_data = self._get_cal_data()
         self.channel.set_cal_kit(cal_data["cal_kit"])
         self.channel.set_cal_type(cal_data["cal_type"])
         self.channel.cal_measure_open()
+
         print "Calibrate open"
 
     def calibrate_short(self):
+        ret = QtGui.QMessageBox.information(self.ui.centralwidget, 
+                "Conectar", "Conectar Short", buttons=QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
+        if ret == QtGui.QMessageBox.Cancel:
+            return
+        QtGui.QMessageBox.information(self.ui.centralwidget, "Conectar", "Conectar Short")
         self._connect_to_vna()
         cal_data = self._get_cal_data()
         self.channel.set_cal_kit(cal_data["cal_kit"])
@@ -55,6 +66,10 @@ class CalHandler(object):
         print "Calibrate short"
 
     def calibrate_load(self):
+        ret = QtGui.QMessageBox.information(self.ui.centralwidget, 
+                "Conectar", "Conectar Load", buttons=QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
+        if ret == QtGui.QMessageBox.Cancel:
+            return
         self._connect_to_vna()
         cal_data = self._get_cal_data()
         self.channel.set_cal_kit(cal_data["cal_kit"])
