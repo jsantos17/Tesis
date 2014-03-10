@@ -94,7 +94,6 @@ class SlotContainer(QtGui.QMainWindow):
         dialog.ui.setupUi(dialog)
         dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         handler = CalHandler(self.ui)
-        handler.connect_signals()
         dialog.exec_()
 
     # Move this elsewhere

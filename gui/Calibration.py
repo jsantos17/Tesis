@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/calibration.ui'
 #
-# Created: Mon Mar 10 11:40:09 2014
+# Created: Mon Mar 10 16:55:14 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,6 +34,7 @@ class Ui_cal_dialog(object):
         self.cal_kit_combo = QtGui.QComboBox(cal_dialog)
         self.cal_kit_combo.setGeometry(QtCore.QRect(130, 30, 151, 31))
         self.cal_kit_combo.setObjectName(_fromUtf8("cal_kit_combo"))
+        self.cal_kit_combo.addItem(_fromUtf8(""))
         self.cal_kit_label = QtGui.QLabel(cal_dialog)
         self.cal_kit_label.setGeometry(QtCore.QRect(20, 40, 91, 16))
         self.cal_kit_label.setObjectName(_fromUtf8("cal_kit_label"))
@@ -60,6 +61,7 @@ class Ui_cal_dialog(object):
     def retranslateUi(self, cal_dialog):
         cal_dialog.setWindowTitle(_translate("cal_dialog", "Calibration VNA", None))
         self.open_button.setText(_translate("cal_dialog", "Open", None))
+        self.cal_kit_combo.setItemText(0, _translate("cal_dialog", "85033E", None))
         self.cal_kit_label.setText(_translate("cal_dialog", "Calibration kit:", None))
         self.cal_type_label.setText(_translate("cal_dialog", "Calibration type:", None))
         self.cal_type_combo.setItemText(0, _translate("cal_dialog", "Open", None))
