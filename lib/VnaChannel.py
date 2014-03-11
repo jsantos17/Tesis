@@ -12,6 +12,9 @@ class VnaChannel(Vna):
     def set_continuous(self):
         super(VnaChannel, self).set_continuous(self.channel)
 
+    def is_ready(self):
+        return super(VnaChannel, self).is_ready()
+
     def set_sweep_type(self, sweep_type):
         super(VnaChannel, self).set_sweep_type(self.channel, sweep_type)
 

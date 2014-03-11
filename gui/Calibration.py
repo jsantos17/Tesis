@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/calibration.ui'
 #
-# Created: Mon Mar 10 16:55:14 2014
+# Created: Mon Mar 10 17:44:20 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,11 @@ class Ui_cal_dialog(object):
         cal_dialog.setObjectName(_fromUtf8("cal_dialog"))
         cal_dialog.setWindowModality(QtCore.Qt.ApplicationModal)
         cal_dialog.resize(293, 286)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(cal_dialog.sizePolicy().hasHeightForWidth())
+        cal_dialog.setSizePolicy(sizePolicy)
         self.open_button = QtGui.QPushButton(cal_dialog)
         self.open_button.setGeometry(QtCore.QRect(10, 120, 271, 41))
         self.open_button.setObjectName(_fromUtf8("open_button"))

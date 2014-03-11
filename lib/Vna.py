@@ -12,6 +12,9 @@ class Vna(object):
     def reset(self):
         self.executor.execute_command(":SYST:PRES")
 
+    def is_ready(self):
+        return "+1" in self.executor.ask("*OPC?")
+
     def set_one_channel(self):
         self.executor.execute_command(":DISP:SPL D1")
 

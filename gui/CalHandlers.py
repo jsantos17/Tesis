@@ -1,6 +1,8 @@
 from lib.VnaChannel import VnaChannel
 from lib.util.VnaEnums import CalType
 from PyQt4 import QtGui
+import thread
+import time
 
 class CalHandler(object):
 
@@ -24,7 +26,6 @@ class CalHandler(object):
                     "IP no especificado", 
                     "Es necesario especificar un IP y puerto en el formato IP:puerto")
 
-
     def _get_cal_data(self):
         if self.ui.cal_ui.cal_type_combo.currentIndex() == 0:
             cal_type = CalType.OPEN
@@ -38,13 +39,20 @@ class CalHandler(object):
         
         return {"cal_type": cal_type, "cal_kit": cal_kit} 
 
+    def _disable_buttons(self):
+        self.ui.cal_ui.open_button.setEnabled(False)
+        self.ui.cal_ui.short_button.setEnabled(False)
+        self.ui.cal_ui.load_button.setEnabled(False)
+        buttons = [self.ui.cal_ui.open_button, self.ui.cal_ui.short_button, self.ui.cal_ui.load_button]
+        thread.start_new_thread(enable_when_ready, buttons)
+
     def calibrate_open(self):
         ret = QtGui.QMessageBox.information(self.ui.centralwidget, 
                 "Conectar", "Conectar Open", buttons=QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
         if ret == QtGui.QMessageBox.Cancel:
             return
-        QtGui.QMessageBox.information(self.ui.centralwidget, "Conectar", "Conectar Open")
         self._connect_to_vna()
+        self._disable_buttons()
         cal_data = self._get_cal_data()
         self.channel.set_cal_kit(cal_data["cal_kit"])
         self.channel.set_cal_type(cal_data["cal_type"])
@@ -57,8 +65,8 @@ class CalHandler(object):
                 "Conectar", "Conectar Short", buttons=QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
         if ret == QtGui.QMessageBox.Cancel:
             return
-        QtGui.QMessageBox.information(self.ui.centralwidget, "Conectar", "Conectar Short")
         self._connect_to_vna()
+        self._disable_buttons()
         cal_data = self._get_cal_data()
         self.channel.set_cal_kit(cal_data["cal_kit"])
         self.channel.set_cal_type(cal_data["cal_type"])
@@ -71,8 +79,17 @@ class CalHandler(object):
         if ret == QtGui.QMessageBox.Cancel:
             return
         self._connect_to_vna()
+        self._disable_buttons()
         cal_data = self._get_cal_data()
         self.channel.set_cal_kit(cal_data["cal_kit"])
         self.channel.set_cal_type(cal_data["cal_type"])
         self.channel.cal_measure_load()
         print "Calibrate load"
+
+def enable_when_ready(buttons):
+    
+    while not is_ready():
+        time.sleep(1)
+
+    for button in buttons:
+        button.setEnabled(True)
