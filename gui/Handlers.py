@@ -54,7 +54,7 @@ class SlotContainer(QtGui.QMainWindow):
             return (ip, port)
         except IndexError:
             QtGui.QMessageBox.information(self.ui.centralwidget, 
-                    "IP no especificado", "Es necesario especifcar un IP y puerto en el formato IP:puerto")
+                    "IP no especificado", "Es necesario especificar un IP y puerto en el formato IP:puerto")
 
     def on_measure(self, event):
             # WARNING: MAGIC AHEAD
