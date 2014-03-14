@@ -1,4 +1,5 @@
 from lib.VnaChannel import VnaChannel
+from lib.MockExecutor import MockExecutor
 from lib.util.VnaEnums import CalType
 from PyQt4 import QtGui
 import thread
@@ -44,29 +45,28 @@ class CalHandler(object):
         self.ui.cal_ui.open_button.setEnabled(False)
         self.ui.cal_ui.short_button.setEnabled(False)
         self.ui.cal_ui.load_button.setEnabled(False)
+    
+    def _selected_port(self):
+        return self.ui.cal_ui.port_combo.currentIndex() + 1
         
     def calibrate_open(self):
         ret = QtGui.QMessageBox.information(self.ui.centralwidget, 
                 "Conectar", "Conectar Open", buttons=QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
         if ret == QtGui.QMessageBox.Cancel:
             return
-        self._connect_to_vna()
-        self._disable_buttons()
-        cal_data = self._get_cal_data()
-        self.channel.set_cal_kit(cal_data["cal_kit"])
-        self.channel.set_cal_type(cal_data["cal_type"])
-        
+                
         def measure():
             self._connect_to_vna()
             self._disable_buttons()
             buttons = [self.ui.cal_ui.open_button, self.ui.cal_ui.short_button, self.ui.cal_ui.load_button]
-            thread.start_new_thread(enable_when_ready, buttons, self.cals_done.push("open"))
+            self.cals_done.append("open")
+            thread.start_new_thread(enable_when_ready, (buttons, self.channel, self.cals_done))
             cal_data = self._get_cal_data()
             self.channel.set_cal_kit(cal_data["cal_kit"])
-            self.channel.set_cal_type(cal_data["cal_type"])
-            self.channel.cal_measure_open()
+            self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+            self.channel.cal_measure_open(self._selected_port())
 
-        Thread.start_new_thread(measure)
+        thread.start_new_thread(measure, ())
         print "Calibrate open"
 
     def calibrate_short(self):
@@ -79,13 +79,14 @@ class CalHandler(object):
             self._connect_to_vna()
             self._disable_buttons()
             buttons = [self.ui.cal_ui.open_button, self.ui.cal_ui.short_button, self.ui.cal_ui.load_button]
-            thread.start_new_thread(enable_when_ready, buttons, self.cals_done.push("short"))
+            self.cals_done.append("short")
+            thread.start_new_thread(enable_when_ready, (buttons, self.channel, self.cals_done))
             cal_data = self._get_cal_data()
             self.channel.set_cal_kit(cal_data["cal_kit"])
-            self.channel.set_cal_type(cal_data["cal_type"])
-            self.channel.cal_measure_short()
+            self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+            self.channel.cal_measure_short(self._selected_port())
 
-        Thread.start_new_thread(measure)
+        thread.start_new_thread(measure, ())
         print "Calibrate short"
 
     def calibrate_load(self):
@@ -98,18 +99,18 @@ class CalHandler(object):
             self._connect_to_vna()
             self._disable_buttons()
             buttons = [self.ui.cal_ui.open_button, self.ui.cal_ui.short_button, self.ui.cal_ui.load_button]
-            thread.start_new_thread(enable_when_ready, buttons, self.cals_done.push("load"))
+            self.cals_done.append("load")
+            thread.start_new_thread(enable_when_ready, (buttons, self.channel, self.cals_done))
             cal_data = self._get_cal_data()
             self.channel.set_cal_kit(cal_data["cal_kit"])
-            self.channel.set_cal_type(cal_data["cal_type"])
-            self.channel.cal_measure_load()
+            self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+            self.channel.cal_measure_load(self._selected_port())
         
-        Thread.start_new_thread(measure)
+        thread.start_new_thread(measure, ())
 
         print "Calibrate load"
 
 def enable_when_ready(buttons, channel, cals_done):
-    
     while not channel.is_ready():
         time.sleep(1)
 
@@ -117,6 +118,5 @@ def enable_when_ready(buttons, channel, cals_done):
         button.setEnabled(True)
 
     # Save when all calibrations have finished 
-
     if all(["open" in cals_done, "short" in cals_done, "load" in cals_done]):
-        channel.save_cal()
+        pass

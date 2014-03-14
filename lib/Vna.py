@@ -23,28 +23,28 @@ class Vna(object):
         cmd = template.format(ch=channel,kit=kit)
         self.executor.execute_command(cmd)
 
-    def set_cal_type(self, channel, cal_type):
+    def set_cal_type(self, channel, cal_type, port):
         if cal_type == CalType.OPEN:
-            template = ":SENS{ch}:CORR:COLL:METH:OPEN"
+            template = ":SENS{ch}:CORR:COLL:METH:OPEN {port}"
         elif cal_type == CalType.SHORT:
-            template = ":SENS{ch}:CORR:COLL:METH:SHORT"
+            template = ":SENS{ch}:CORR:COLL:METH:SHORT {port}"
         elif cal_type == CalType.THRU:
-            template = ":SENS{ch}:CORR:COLL:METH:THRU"
+            template = ":SENS{ch}:CORR:COLL:METH:THRU {port}"
 
-        cmd = template.format(ch=channel)
+        cmd = template.format(ch=channel, port=port)
         self.executor.execute_command(cmd)
 
-    def cal_measure_open(self, channel):
-        template = ":SENS{ch}:CORR:COLL:OPEN"
-        self.executor.execute_command(template.format(ch=channel))
+    def cal_measure_open(self, channel, port):
+        template = ":SENS{ch}:CORR:COLL:OPEN {port}"
+        self.executor.execute_command(template.format(ch=channel, port=port))
 
-    def cal_measure_short(self, channel):
-        template = ":SENS{ch}:CORR:COLL:SHOR"
-        self.executor.execute_command(template.format(ch=channel))
+    def cal_measure_short(self, channel, port):
+        template = ":SENS{ch}:CORR:COLL:SHOR {port}"
+        self.executor.execute_command(template.format(ch=channel, port=port))
 
-    def cal_measure_load(self, channel):
-        template = ":SENS{ch}:CORR:COLL:LOAD"
-        self.executor.execute_command(template.format(ch=channel))
+    def cal_measure_load(self, channel, port):
+        template = ":SENS{ch}:CORR:COLL:LOAD {port}"
+        self.executor.execute_command(template.format(ch=channel, port=port))
 
     def save_cal(self, channel):
         template = ":SENS{ch}:CORR:COLL:SAVE"

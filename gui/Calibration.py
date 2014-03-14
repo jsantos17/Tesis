@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/calibration.ui'
 #
-# Created: Mon Mar 10 17:44:20 2014
+# Created: Fri Mar 14 12:53:31 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,14 +27,14 @@ class Ui_cal_dialog(object):
     def setupUi(self, cal_dialog):
         cal_dialog.setObjectName(_fromUtf8("cal_dialog"))
         cal_dialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        cal_dialog.resize(293, 286)
+        cal_dialog.resize(297, 351)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(cal_dialog.sizePolicy().hasHeightForWidth())
         cal_dialog.setSizePolicy(sizePolicy)
         self.open_button = QtGui.QPushButton(cal_dialog)
-        self.open_button.setGeometry(QtCore.QRect(10, 120, 271, 41))
+        self.open_button.setGeometry(QtCore.QRect(10, 160, 271, 41))
         self.open_button.setObjectName(_fromUtf8("open_button"))
         self.cal_kit_combo = QtGui.QComboBox(cal_dialog)
         self.cal_kit_combo.setGeometry(QtCore.QRect(130, 30, 151, 31))
@@ -54,11 +54,19 @@ class Ui_cal_dialog(object):
         self.cal_type_combo.addItem(_fromUtf8(""))
         self.cal_type_combo.addItem(_fromUtf8(""))
         self.short_button = QtGui.QPushButton(cal_dialog)
-        self.short_button.setGeometry(QtCore.QRect(10, 170, 271, 41))
+        self.short_button.setGeometry(QtCore.QRect(10, 210, 271, 41))
         self.short_button.setObjectName(_fromUtf8("short_button"))
         self.load_button = QtGui.QPushButton(cal_dialog)
-        self.load_button.setGeometry(QtCore.QRect(10, 220, 271, 41))
+        self.load_button.setGeometry(QtCore.QRect(10, 260, 271, 41))
         self.load_button.setObjectName(_fromUtf8("load_button"))
+        self.label = QtGui.QLabel(cal_dialog)
+        self.label.setGeometry(QtCore.QRect(20, 120, 61, 14))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.port_combo = QtGui.QComboBox(cal_dialog)
+        self.port_combo.setGeometry(QtCore.QRect(130, 110, 151, 31))
+        self.port_combo.setObjectName(_fromUtf8("port_combo"))
+        self.port_combo.addItem(_fromUtf8(""))
+        self.port_combo.addItem(_fromUtf8(""))
 
         self.retranslateUi(cal_dialog)
         QtCore.QMetaObject.connectSlotsByName(cal_dialog)
@@ -68,10 +76,13 @@ class Ui_cal_dialog(object):
         self.open_button.setText(_translate("cal_dialog", "Open", None))
         self.cal_kit_combo.setItemText(0, _translate("cal_dialog", "85033E", None))
         self.cal_kit_label.setText(_translate("cal_dialog", "Calibration kit:", None))
-        self.cal_type_label.setText(_translate("cal_dialog", "Calibration type:", None))
+        self.cal_type_label.setText(_translate("cal_dialog", "Response type:", None))
         self.cal_type_combo.setItemText(0, _translate("cal_dialog", "Open", None))
         self.cal_type_combo.setItemText(1, _translate("cal_dialog", "Short", None))
         self.cal_type_combo.setItemText(2, _translate("cal_dialog", "Through", None))
         self.short_button.setText(_translate("cal_dialog", "Short", None))
         self.load_button.setText(_translate("cal_dialog", "Load", None))
+        self.label.setText(_translate("cal_dialog", "Port:", None))
+        self.port_combo.setItemText(0, _translate("cal_dialog", "1", None))
+        self.port_combo.setItemText(1, _translate("cal_dialog", "2", None))
 

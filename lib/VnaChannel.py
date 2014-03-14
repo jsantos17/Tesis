@@ -66,17 +66,17 @@ class VnaChannel(Vna):
     def set_cal_kit(self, kit):
         super(VnaChannel, self).set_cal_kit(self.channel, kit)
 
-    def set_cal_type(self, cal_type):
-        super(VnaChannel, self).set_cal_type(self.channel, cal_type)
+    def set_cal_type(self, cal_type, port):
+        super(VnaChannel, self).set_cal_type(self.channel, cal_type, port)
 
-    def cal_measure_open(self):
-        super(VnaChannel, self).cal_measure_open(self.channel)
+    def cal_measure_open(self, port):
+        super(VnaChannel, self).cal_measure_open(self.channel, port)
 
-    def cal_measure_short(self):
-        super(VnaChannel, self).cal_measure_short(self.channel)
+    def cal_measure_short(self, port):
+        super(VnaChannel, self).cal_measure_short(self.channel, port)
 
-    def cal_measure_load(self):
-        super(VnaChannel, self).cal_measure_load(self.channel)
+    def cal_measure_load(self, port):
+        super(VnaChannel, self).cal_measure_load(self.channel, port)
 
     def save_cal(self):
         super(VnaChannel, self).save_cal(self.channel)
