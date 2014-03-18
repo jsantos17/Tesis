@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>297</width>
-    <height>351</height>
+    <width>294</width>
+    <height>385</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -162,6 +162,32 @@
      <string>2</string>
     </property>
    </item>
+  </widget>
+  <widget class="Line" name="sepline">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>310</y>
+     <width>291</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="savecal_button">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>330</y>
+     <width>271</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save Calibration</string>
+   </property>
   </widget>
  </widget>
  <resources/>

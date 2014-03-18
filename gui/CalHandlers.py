@@ -12,6 +12,7 @@ class CalHandler(object):
         self.ui.cal_ui.open_button.clicked.connect(self.calibrate_open)
         self.ui.cal_ui.short_button.clicked.connect(self.calibrate_short)
         self.ui.cal_ui.load_button.clicked.connect(self.calibrate_load)
+        self.ui.cal_ui.savecal_button.clicked.connect(self.save_cal)
         self.channel = None
         self.cals_done = []
 
@@ -45,10 +46,14 @@ class CalHandler(object):
         self.ui.cal_ui.open_button.setEnabled(False)
         self.ui.cal_ui.short_button.setEnabled(False)
         self.ui.cal_ui.load_button.setEnabled(False)
+        self.ui.cal_ui.savecal_button.setEnabled(False)
     
     def _selected_port(self):
         return self.ui.cal_ui.port_combo.currentIndex() + 1
-        
+       
+    def save_cal(self):
+        self.channel.save_cal()
+
     def calibrate_open(self):
         ret = QtGui.QMessageBox.information(self.ui.centralwidget, 
                 "Conectar", "Conectar Open", buttons=QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui/ui/calibration.ui'
+# Form implementation generated from reading ui file 'ui/calibration.ui'
 #
-# Created: Fri Mar 14 12:53:31 2014
+# Created: Tue Mar 18 12:25:42 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_cal_dialog(object):
     def setupUi(self, cal_dialog):
         cal_dialog.setObjectName(_fromUtf8("cal_dialog"))
         cal_dialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        cal_dialog.resize(297, 351)
+        cal_dialog.resize(294, 385)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -67,6 +67,14 @@ class Ui_cal_dialog(object):
         self.port_combo.setObjectName(_fromUtf8("port_combo"))
         self.port_combo.addItem(_fromUtf8(""))
         self.port_combo.addItem(_fromUtf8(""))
+        self.sepline = QtGui.QFrame(cal_dialog)
+        self.sepline.setGeometry(QtCore.QRect(0, 310, 291, 20))
+        self.sepline.setFrameShape(QtGui.QFrame.HLine)
+        self.sepline.setFrameShadow(QtGui.QFrame.Sunken)
+        self.sepline.setObjectName(_fromUtf8("sepline"))
+        self.savecal_button = QtGui.QPushButton(cal_dialog)
+        self.savecal_button.setGeometry(QtCore.QRect(10, 330, 271, 41))
+        self.savecal_button.setObjectName(_fromUtf8("savecal_button"))
 
         self.retranslateUi(cal_dialog)
         QtCore.QMetaObject.connectSlotsByName(cal_dialog)
@@ -85,4 +93,5 @@ class Ui_cal_dialog(object):
         self.label.setText(_translate("cal_dialog", "Port:", None))
         self.port_combo.setItemText(0, _translate("cal_dialog", "1", None))
         self.port_combo.setItemText(1, _translate("cal_dialog", "2", None))
+        self.savecal_button.setText(_translate("cal_dialog", "Save Calibration", None))
 
