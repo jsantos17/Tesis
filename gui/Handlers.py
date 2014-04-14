@@ -12,6 +12,8 @@ from utils import restore_ui
 from utils import save_ui
 from gui import MenuHandlers
 from Calibration import Ui_cal_dialog
+from Ri import Ui_RI_dialog
+from RiHandlers import RiHandler
 from CalHandlers import CalHandler 
 
 class SlotContainer(QtGui.QMainWindow):
@@ -96,7 +98,17 @@ class SlotContainer(QtGui.QMainWindow):
         handler = CalHandler(self.ui)
         dialog.exec_()
 
-    # Move this elsewhere
+    def launch_ri(self):
+        self.ui.ri_ui = Ui_RI_dialog() 
+        dialog = QDialog()
+        dialog.ui = self.ui.ri_ui
+        dialog.ui.setupUi(dialog)
+        dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        handler = RiHandler(self.ui)
+        dialog.exec_()
+        
+
+    # TODO Move this elsewhere
     def move(self, direction):
         ip_port = str(self.ui.vna_ip_field.text()).split(":")
         ip = ip_port[0]
