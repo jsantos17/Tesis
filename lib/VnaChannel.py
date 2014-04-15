@@ -84,6 +84,16 @@ class VnaChannel(Vna):
     def cal_measure_isol(self, port_x, port_y):
         super(VnaChannel, self).cal_measure_isol(self.channel, port_x, port_y)
 
+    def trl_thru_line(self, port_x, port_y):
+        super(VnaChannel, self).trl_thru_line(self.channel, port_x, port_y)
+
+    def trl_reflect(self, channel, port):
+        super(VnaChannel, self).trl_reflect(self.channel, port)
+
+    def trl_line_match(self, port_x, port_y):
+        super(VnaChannel, self).trl_line_match(self.channel, port_x, port_y)
+    
+
     def save_cal(self):
         super(VnaChannel, self).save_cal(self.channel)
 

@@ -34,6 +34,8 @@ class Vna(object):
             template = ":SENS{ch}:CORR:COLL:METH:SOLT2 1, 2"
         elif cal_type == CalType.FULL_1PORT:
             template = ":SENS{ch}:CORR:COLL:METH:SOLT1 {port}"
+        elif cal_type == CalType.TRL_2PORT:
+            template = ":SENS{ch}:CORR:COLL:METH:TRL2 1, 2"
 
         cmd = template.format(ch=channel, port=port)
         self.executor.execute_command(cmd)
@@ -57,6 +59,18 @@ class Vna(object):
     def cal_measure_isol(self, channel, port_x, port_y):
         template = ":SENS{ch}:CORR:COLL:ISOL {port_x},{port_y}"
         self.executor.execute_command(template.format(port_x = port_x, port_y = port_y, ch = channel))
+
+    def trl_thru_line(self, channel, port_x, port_y):
+        template = ":SENS{ch}:CORR:COLL:METH:TRLT {port_x}, {port_y}"
+        self.executor.execute_command(template.format(port_x = port_x, port_y = port_y, ch = channel))
+
+    def trl_reflect(self, channel, port):
+        template = ":SENS{ch}:CORR:COLL:ACQ:TRLR {port}"
+        self.executor.execute_command(template.format(port=port))
+
+    def trl_line_match(self, channel, port_x, port_y):
+        template = ":SENS{ch}:CORR:COLL:ACQ:TRLL {port_x},{port_y}"
+        self.executor.execute_command(template.format(port=port))
 
     def save_cal(self, channel):
         template = ":SENS{ch}:CORR:COLL:SAVE"

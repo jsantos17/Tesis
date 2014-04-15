@@ -1,11 +1,13 @@
 from twisted.internet import reactor, protocol
 import random
+from time import sleep
 import string
 
 class Echo(protocol.Protocol):
     
     def dataReceived(self, data):
         """ Echo everything """
+        sleep(1) # emulate slow server
         print data
 
 
