@@ -87,7 +87,7 @@ class VnaChannel(Vna):
     def trl_thru_line(self, port_x, port_y):
         super(VnaChannel, self).trl_thru_line(self.channel, port_x, port_y)
 
-    def trl_reflect(self, channel, port):
+    def trl_reflect(self, port):
         super(VnaChannel, self).trl_reflect(self.channel, port)
 
     def trl_line_match(self, port_x, port_y):

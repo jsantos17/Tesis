@@ -66,11 +66,11 @@ class Vna(object):
 
     def trl_reflect(self, channel, port):
         template = ":SENS{ch}:CORR:COLL:ACQ:TRLR {port}"
-        self.executor.execute_command(template.format(port=port))
+        self.executor.execute_command(template.format(ch=channel, port=port))
 
     def trl_line_match(self, channel, port_x, port_y):
         template = ":SENS{ch}:CORR:COLL:ACQ:TRLL {port_x},{port_y}"
-        self.executor.execute_command(template.format(port=port))
+        self.executor.execute_command(template.format(ch=channel, port_x=port_x, port_y=port_y))
 
     def save_cal(self, channel):
         template = ":SENS{ch}:CORR:COLL:SAVE"

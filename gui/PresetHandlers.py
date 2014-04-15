@@ -58,7 +58,7 @@ class PresetHandler(object):
             QtGui.QMessageBox.information(self.ui.centralwidget,"Isolation", "Conectar load en 1 y 2")
             self.channel.cal_measure_isol(1, 2)
 
-        should_save = QtGui.QMessageBox.question(self.ui.centralwidth, "Guardar?" "Guardar calibracion?",
+        should_save = QtGui.QMessageBox.question(self.ui.centralwidget, "Guardar?", "Guardar calibracion?",
                 QtGui.QMessageBox.Yes| QtGui.QMessageBox.No)
 
         if should_save == QtGui.QMessageBox.Yes:
@@ -67,8 +67,8 @@ class PresetHandler(object):
         
     def trl_2port_cal(self):
         self._connect()
-        self.channel.set_cal_type(CalType.TRL_2PORT)
         self.channel.set_cal_kit(1) # Calkit 85033E
+        self.channel.set_cal_type(CalType.TRL_2PORT)
         QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Thru de 1 a 2")
         self.channel.trl_thru_line(1, 2)
         QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Thru de 2 a 1")
@@ -82,7 +82,7 @@ class PresetHandler(object):
         QtGui.QMessageBox.information(self.ui.centralwidget,"Line/Match", "Line/Match de 2 a 1")
         self.channel.trl_line_match(2,1)
 
-        should_save = QtGui.QMessageBox.question(self.ui.centralwidth, "Guardar?" "Guardar calibracion?",
+        should_save = QtGui.QMessageBox.question(self.ui.centralwidget, "Guardar?", "Guardar calibracion?",
                 QtGui.QMessageBox.Yes| QtGui.QMessageBox.No)
 
         if should_save == QtGui.QMessageBox.Yes:
