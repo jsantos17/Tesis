@@ -38,6 +38,7 @@ if __name__ == "__main__":
     ui.actionGuardar_como.triggered.connect(container.save_as_file)
     ui.actionSalir.triggered.connect(container.close)
     ui.actionCalibration.triggered.connect(container.launch_calibration)
+    ui.actionCalibration_Presets.triggered.connect(container.launch_preset_calibration)
     ui.actionRI.triggered.connect(container.launch_ri)
 
     ui.left_button.clicked.connect(container.move_left)

@@ -13,8 +13,10 @@ from utils import save_ui
 from gui import MenuHandlers
 from Calibration import Ui_cal_dialog
 from Ri import Ui_RI_dialog
+from CalPresets import Ui_cal_presets
 from RiHandlers import RiHandler
 from CalHandlers import CalHandler 
+from PresetHandlers import PresetHandler
 
 class SlotContainer(QtGui.QMainWindow):
     def __init__(self, ui):
@@ -107,6 +109,15 @@ class SlotContainer(QtGui.QMainWindow):
         handler = RiHandler(self.ui)
         dialog.exec_()
         
+
+    def launch_preset_calibration(self):
+        self.ui.cal_presets_ui = Ui_cal_presets()
+        dialog = QDialog()
+        dialog.ui = self.ui.cal_presets_ui
+        dialog.ui.setupUi(dialog)
+        dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        handler = PresetHandler(self.ui)
+        dialog.exec_()
 
     # TODO Move this elsewhere
     def move(self, direction):

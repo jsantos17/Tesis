@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Calibration presets</string>
   </property>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="cal_kit_combo">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -41,7 +41,7 @@
     <string>Calibration kit</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="full_2port_button">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -54,7 +54,7 @@
     <string>Full 2-Port</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="trl_2port_button">
    <property name="geometry">
     <rect>
      <x>160</x>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
+# Form implementation generated from reading ui file 'ui/Keithley.ui'
 #
-# Created: Sun Apr 13 19:28:22 2014
+# Created: Tue Apr 15 14:47:20 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -300,13 +300,17 @@ class Ui_mainWindow(object):
         self.actionCalibration.setObjectName(_fromUtf8("actionCalibration"))
         self.actionRI = QtGui.QAction(mainWindow)
         self.actionRI.setObjectName(_fromUtf8("actionRI"))
+        self.actionCalibration_Presets = QtGui.QAction(mainWindow)
+        self.actionCalibration_Presets.setObjectName(_fromUtf8("actionCalibration_Presets"))
         self.menuArchivo.addAction(self.actionAbrir)
         self.menuArchivo.addAction(self.actionGuardar)
         self.menuArchivo.addAction(self.actionGuardar_como)
         self.menuArchivo.addAction(self.actionCalibration)
+        self.menuArchivo.addAction(self.actionCalibration_Presets)
         self.menuArchivo.addAction(self.actionRI)
         self.menuArchivo.addSeparator()
         self.menuArchivo.addAction(self.actionSalir)
+        self.menuArchivo.addSeparator()
         self.menuBar.addAction(self.menuArchivo.menuAction())
 
         self.retranslateUi(mainWindow)
@@ -367,4 +371,5 @@ class Ui_mainWindow(object):
         self.actionSalir.setText(_translate("mainWindow", "Salir", None))
         self.actionCalibration.setText(_translate("mainWindow", "Calibration VNA", None))
         self.actionRI.setText(_translate("mainWindow", "RI", None))
+        self.actionCalibration_Presets.setText(_translate("mainWindow", "Calibration Presets", None))
 
