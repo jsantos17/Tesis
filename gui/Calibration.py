@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/calibration.ui'
+# Form implementation generated from reading ui file 'gui/ui/calibration.ui'
 #
-# Created: Tue Mar 18 12:25:42 2014
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Tue Apr 15 12:03:09 2014
+#      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -53,6 +53,8 @@ class Ui_cal_dialog(object):
         self.cal_type_combo.addItem(_fromUtf8(""))
         self.cal_type_combo.addItem(_fromUtf8(""))
         self.cal_type_combo.addItem(_fromUtf8(""))
+        self.cal_type_combo.addItem(_fromUtf8(""))
+        self.cal_type_combo.addItem(_fromUtf8(""))
         self.short_button = QtGui.QPushButton(cal_dialog)
         self.short_button.setGeometry(QtCore.QRect(10, 210, 271, 41))
         self.short_button.setObjectName(_fromUtf8("short_button"))
@@ -88,6 +90,8 @@ class Ui_cal_dialog(object):
         self.cal_type_combo.setItemText(0, _translate("cal_dialog", "Open", None))
         self.cal_type_combo.setItemText(1, _translate("cal_dialog", "Short", None))
         self.cal_type_combo.setItemText(2, _translate("cal_dialog", "Through", None))
+        self.cal_type_combo.setItemText(3, _translate("cal_dialog", "Full 2-Port", None))
+        self.cal_type_combo.setItemText(4, _translate("cal_dialog", "Full 1-Port", None))
         self.short_button.setText(_translate("cal_dialog", "Short", None))
         self.load_button.setText(_translate("cal_dialog", "Load", None))
         self.label.setText(_translate("cal_dialog", "Port:", None))

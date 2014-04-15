@@ -13,6 +13,8 @@ class CalHandler(object):
         self.ui.cal_ui.short_button.clicked.connect(self.calibrate_short)
         self.ui.cal_ui.load_button.clicked.connect(self.calibrate_load)
         self.ui.cal_ui.savecal_button.clicked.connect(self.save_cal)
+        self.cal_type_selected = False
+        self.cal_kit_selected = False
         self.channel = None
         self.cals_done = []
 
@@ -36,7 +38,11 @@ class CalHandler(object):
             cal_type = CalType.SHORT
         elif self.ui.cal_ui.cal_type_combo.currentIndex() == 2:
             cal_type = CalType.THRU
-        
+        elif self.ui.cal_ui.cal_type_combo.currentIndex() == 3:
+            cal_type = CalType.FULL_2PORT
+        elif self.ui.cal_ui.cal_type_combo.currentIndex() == 4:
+            cal_type = CalType.FULL_1PORT
+
         if self.ui.cal_ui.cal_kit_combo.currentIndex() == 0:
             cal_kit = 1 # For 85033E
         
@@ -46,7 +52,6 @@ class CalHandler(object):
         self.ui.cal_ui.open_button.setEnabled(False)
         self.ui.cal_ui.short_button.setEnabled(False)
         self.ui.cal_ui.load_button.setEnabled(False)
-        self.ui.cal_ui.savecal_button.setEnabled(False)
     
     def _selected_port(self):
         return self.ui.cal_ui.port_combo.currentIndex() + 1
@@ -67,8 +72,12 @@ class CalHandler(object):
             self.cals_done.append("open")
             thread.start_new_thread(enable_when_ready, (buttons, self.channel, self.cals_done))
             cal_data = self._get_cal_data()
-            self.channel.set_cal_kit(cal_data["cal_kit"])
-            self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+            if not self.cal_kit_selected:
+                self.channel.set_cal_kit(cal_data["cal_kit"])
+                self.cal_kit_selected = True
+            if not self.cal_type_selected:
+                self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+                self.cal_type_selected = True
             self.channel.cal_measure_open(self._selected_port())
 
         thread.start_new_thread(measure, ())
@@ -87,8 +96,14 @@ class CalHandler(object):
             self.cals_done.append("short")
             thread.start_new_thread(enable_when_ready, (buttons, self.channel, self.cals_done))
             cal_data = self._get_cal_data()
-            self.channel.set_cal_kit(cal_data["cal_kit"])
-            self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+
+            if not self.cal_kit_selected:
+                self.channel.set_cal_kit(cal_data["cal_kit"])
+                self.cal_kit_selected = True
+            if not self.cal_type_selected:
+                self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+                self.cal_type_selected = True
+
             self.channel.cal_measure_short(self._selected_port())
 
         thread.start_new_thread(measure, ())
@@ -107,8 +122,14 @@ class CalHandler(object):
             self.cals_done.append("load")
             thread.start_new_thread(enable_when_ready, (buttons, self.channel, self.cals_done))
             cal_data = self._get_cal_data()
-            self.channel.set_cal_kit(cal_data["cal_kit"])
-            self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+
+            if not self.cal_kit_selected:
+                self.channel.set_cal_kit(cal_data["cal_kit"])
+                self.cal_kit_selected = True
+            if not self.cal_type_selected:
+                self.channel.set_cal_type(cal_data["cal_type"], self._selected_port())
+                self.cal_type_selected = True
+   
             self.channel.cal_measure_load(self._selected_port())
         
         thread.start_new_thread(measure, ())

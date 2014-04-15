@@ -30,6 +30,10 @@ class Vna(object):
             template = ":SENS{ch}:CORR:COLL:METH:SHORT {port}"
         elif cal_type == CalType.THRU:
             template = ":SENS{ch}:CORR:COLL:METH:THRU {port}"
+        elif cal_type == CalType.FULL_2PORT:
+            template = ":SENS{ch}:CORR:COLL:METH:SOLT2 1, 2"
+        elif cal_type == CalType.FULL_1PORT:
+            template = ":SENS{ch}:CORR:COLL:METH:SOLT1 {port}"
 
         cmd = template.format(ch=channel, port=port)
         self.executor.execute_command(cmd)

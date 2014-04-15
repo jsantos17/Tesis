@@ -706,9 +706,11 @@
     <addaction name="actionGuardar"/>
     <addaction name="actionGuardar_como"/>
     <addaction name="actionCalibration"/>
+    <addaction name="actionCalibration_Presets"/>
     <addaction name="actionRI"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuArchivo"/>
   </widget>
@@ -740,6 +742,11 @@
   <action name="actionRI">
    <property name="text">
     <string>RI</string>
+   </property>
+  </action>
+  <action name="actionCalibration_Presets">
+   <property name="text">
+    <string>Calibration Presets</string>
    </property>
   </action>
  </widget>

@@ -103,6 +103,16 @@
      <string>Through</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>Full 2-Port</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Full 1-Port</string>
+    </property>
+   </item>
   </widget>
   <widget class="QPushButton" name="short_button">
    <property name="geometry">
