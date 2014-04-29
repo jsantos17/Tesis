@@ -61,15 +61,15 @@ class Vna(object):
         self.executor.execute_command(template.format(port_x = port_x, port_y = port_y, ch = channel))
 
     def trl_thru_line(self, channel, port_x, port_y):
-        template = ":SENS{ch}:CORR:COLL:METH:TRLT {port_x}, {port_y}"
+        template = ":SENS{ch}:CORR:COLL:TRLT {port_x}, {port_y}"
         self.executor.execute_command(template.format(port_x = port_x, port_y = port_y, ch = channel))
 
     def trl_reflect(self, channel, port):
-        template = ":SENS{ch}:CORR:COLL:ACQ:TRLR {port}"
+        template = ":SENS{ch}:CORR:COLL:TRLR {port}"
         self.executor.execute_command(template.format(ch=channel, port=port))
 
     def trl_line_match(self, channel, port_x, port_y):
-        template = ":SENS{ch}:CORR:COLL:ACQ:TRLL {port_x},{port_y}"
+        template = ":SENS{ch}:CORR:COLL:TRLL {port_x},{port_y}"
         self.executor.execute_command(template.format(ch=channel, port_x=port_x, port_y=port_y))
 
     def save_cal(self, channel):
