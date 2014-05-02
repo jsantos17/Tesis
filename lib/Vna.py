@@ -186,6 +186,35 @@ class Vna(object):
     def trigger(self):
         self.executor.execute_command(":TRIG:IMM")
 
+    def set_cs5(self, channel):
+        sel_cal_kit = ":SENS{ch}:CORR:COLL:CKIT 36" # Last kit
+        sel_cal_kit_name = ":SENS{ch}:CORR:COLL:CKIT:LABEL CS5" # Last kit
+        
+        set_std1_label = ":SENS{ch}:CORR:COLL:CKIT:STAN1:LABEL CS5 OPEN"
+        set_std1_type_open = ":SENS{ch}:CORR:COLL:CKIT:STAN1:TYPE OPEN"
+        set_std1_c0 = ":SENS{ch}:CORR:COLL:CKIT:STAN1:C0 6.5E-15"
+
+        set_std2_label = ":SENS{ch}:CORR:COLL:CKIT:STAN2:LABEL CS5 SHORT"
+        set_std2_type_short = ":SENS{ch}:CORR:COLL:CKIT:STAN2:TYPE SHORT"
+        set_std2_l0 = ":SENS{ch}:CORR:COLL:CKIT:STAN2:L0 5E-12"
+
+        set_std3_label = ":SENS{ch}:CORR:COLL:CKIT:STAN3:LABEL CS5 LOAD"
+        set_std3_type_load = ":SENS{ch}:CORR:COLL:CKIT:STAN3:TYPE LOAD"
+        set_std3_l0 = ":SENS{ch}:CORR:COLL:CKIT:STAN3:L0 -7.8E-12"
+
+        set_std4_label = ":SENS{ch}:CORR:COLL:CKIT:STAN4:LABEL CS5 THRU"
+        set_std4_type_thru = ":SENS{ch}:CORR:COLL:CKIT:STAN4:TYPE THRU"
+        set_std4_l0 = ":SENS{ch}:CORR:COLL:CKIT:STAN4:L0 -7.8E-12"
+ 
+
+        commands = [sel_cal_kit, sel_cal_kit_name, set_std1_label, set_std1_type_open,
+                    set_std1_c0, set_std2_label, set_std2_type_short, set_std2_l0, set_std3_label,
+                    set_std3_type_load, set_std3_l0, set_std4_label, set_std4_type_thru, set_std4_l0]
+
+        for command in commands[:]:
+            command = command.format(ch=channel)
+            self.executor.execute_command(command)
+
     def set_format(self, channel, fmat):
         if fmat not in [DataFormat.LOG, DataFormat.LIN, DataFormat.LIN_PHASE, DataFormat.PHASE,
                     DataFormat.GDELAY, DataFormat.SMITH_LIN_PHASE, DataFormat.SMITH_LOG_PHASE,
