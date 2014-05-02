@@ -27,6 +27,11 @@
      <string>85033E</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>CS5</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">

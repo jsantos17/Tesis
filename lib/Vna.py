@@ -187,29 +187,40 @@ class Vna(object):
         self.executor.execute_command(":TRIG:IMM")
 
     def set_cs5(self, channel):
-        sel_cal_kit = ":SENS{ch}:CORR:COLL:CKIT 36" # Last kit
+        sel_cal_kit = ":SENS{ch}:CORR:COLL:CKIT 30" # Last kit
         sel_cal_kit_name = ":SENS{ch}:CORR:COLL:CKIT:LABEL CS5" # Last kit
         
-        set_std1_label = ":SENS{ch}:CORR:COLL:CKIT:STAN1:LABEL CS5 OPEN"
+        set_std1_label = ":SENS{ch}:CORR:COLL:CKIT:STAN1:LABEL CS5_OPEN"
         set_std1_type_open = ":SENS{ch}:CORR:COLL:CKIT:STAN1:TYPE OPEN"
-        set_std1_c0 = ":SENS{ch}:CORR:COLL:CKIT:STAN1:C0 6.5E-15"
+        set_std1_c0 = ":SENS{ch}:CORR:COLL:CKIT:STAN1:C0 6.5e-15"
+        set_std1_cls_port1 = ":SENS{ch}:CORR:COLL:CKIT:ORD:OPEN 1,1" # Assign standard 1 to port 1
+        set_std1_cls_port2 = ":SENS{ch}:CORR:COLL:CKIT:ORD:OPEN 2,1" # Assign standard 1 to port 2
 
-        set_std2_label = ":SENS{ch}:CORR:COLL:CKIT:STAN2:LABEL CS5 SHORT"
+
+        set_std2_label = ":SENS{ch}:CORR:COLL:CKIT:STAN2:LABEL CS5_SHORT"
         set_std2_type_short = ":SENS{ch}:CORR:COLL:CKIT:STAN2:TYPE SHORT"
-        set_std2_l0 = ":SENS{ch}:CORR:COLL:CKIT:STAN2:L0 5E-12"
+        set_std2_l0 = ":SENS{ch}:CORR:COLL:CKIT:STAN2:L0 5e-12"
+        set_std2_cls_port1 = ":SENS{ch}:CORR:COLL:CKIT:ORD:SHORT 1,2" # Assign standard 2 to port 1
+        set_std2_cls_port2 = ":SENS{ch}:CORR:COLL:CKIT:ORD:SHORT 2,2" # Assign standard 2 to port 2
 
-        set_std3_label = ":SENS{ch}:CORR:COLL:CKIT:STAN3:LABEL CS5 LOAD"
+        set_std3_label = ":SENS{ch}:CORR:COLL:CKIT:STAN3:LABEL CS5_LOAD"
         set_std3_type_load = ":SENS{ch}:CORR:COLL:CKIT:STAN3:TYPE LOAD"
-        set_std3_l0 = ":SENS{ch}:CORR:COLL:CKIT:STAN3:L0 -7.8E-12"
+        set_std3_delay = ":SENS{ch}:CORR:COLL:CKIT:STAN3:DELAY 0.0156e-12"
+        set_std3_z0 = ":SENS{ch}:CORR:COLL:CKIT:STAN3:Z0 5"
+        set_std3_cls_port1 = ":SENS{ch}:CORR:COLL:CKIT:ORD:LOAD 1,3" # Assign standard 3 to port 1
+        set_std3_cls_port2 = ":SENS{ch}:CORR:COLL:CKIT:ORD:LOAD 2,3" # Assign standard 3 to port 2
 
-        set_std4_label = ":SENS{ch}:CORR:COLL:CKIT:STAN4:LABEL CS5 THRU"
+        set_std4_label = ":SENS{ch}:CORR:COLL:CKIT:STAN4:LABEL CS5_THRU"
         set_std4_type_thru = ":SENS{ch}:CORR:COLL:CKIT:STAN4:TYPE THRU"
-        set_std4_l0 = ":SENS{ch}:CORR:COLL:CKIT:STAN4:L0 -7.8E-12"
+        set_std4_delay = ":SENS{ch}:CORR:COLL:CKIT:STAN4:DELAY 1.132e-12"
+        set_std4_cls_port12 = ":SENS{ch}:CORR:COLL:CKIT:ORD:THRU 1,2,4" # Assign standard 4 to port 1 and 2
  
 
-        commands = [sel_cal_kit, sel_cal_kit_name, set_std1_label, set_std1_type_open,
-                    set_std1_c0, set_std2_label, set_std2_type_short, set_std2_l0, set_std3_label,
-                    set_std3_type_load, set_std3_l0, set_std4_label, set_std4_type_thru, set_std4_l0]
+        commands = [sel_cal_kit, sel_cal_kit_name, 
+                    set_std1_label, set_std1_type_open, set_std1_c0, set_std1_cls_port1, set_std1_cls_port2, 
+                    set_std2_label, set_std2_type_short, set_std2_l0, set_std2_cls_port1, set_std2_cls_port2,
+                    set_std3_label, set_std3_type_load, set_std3_delay, set_std3_z0, set_std3_cls_port1, set_std3_cls_port2,
+                    set_std4_label, set_std4_type_thru, set_std4_delay, set_std4_cls_port12]
 
         for command in commands[:]:
             command = command.format(ch=channel)

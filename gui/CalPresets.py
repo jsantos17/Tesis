@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/cal_presets.ui'
 #
-# Created: Tue Apr 15 16:03:44 2014
+# Created: Fri May  2 16:20:22 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,6 +31,7 @@ class Ui_cal_presets(object):
         self.cal_kit_combo.setGeometry(QtCore.QRect(130, 20, 151, 31))
         self.cal_kit_combo.setObjectName(_fromUtf8("cal_kit_combo"))
         self.cal_kit_combo.addItem(_fromUtf8(""))
+        self.cal_kit_combo.addItem(_fromUtf8(""))
         self.label = QtGui.QLabel(cal_presets)
         self.label.setGeometry(QtCore.QRect(20, 30, 91, 16))
         self.label.setObjectName(_fromUtf8("label"))
@@ -47,6 +48,7 @@ class Ui_cal_presets(object):
     def retranslateUi(self, cal_presets):
         cal_presets.setWindowTitle(_translate("cal_presets", "Calibration presets", None))
         self.cal_kit_combo.setItemText(0, _translate("cal_presets", "85033E", None))
+        self.cal_kit_combo.setItemText(1, _translate("cal_presets", "CS5", None))
         self.label.setText(_translate("cal_presets", "Calibration kit", None))
         self.full_2port_button.setText(_translate("cal_presets", "Full 2-Port", None))
         self.trl_2port_button.setText(_translate("cal_presets", "2-Port TRL", None))

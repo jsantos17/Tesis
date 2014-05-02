@@ -93,7 +93,9 @@ class VnaChannel(Vna):
     def trl_line_match(self, port_x, port_y):
         super(VnaChannel, self).trl_line_match(self.channel, port_x, port_y)
     
-
     def save_cal(self):
         super(VnaChannel, self).save_cal(self.channel)
+
+    def set_cs5(self):
+        super(VnaChannel, self).set_cs5(self.channel)
 

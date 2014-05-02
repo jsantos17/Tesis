@@ -10,9 +10,12 @@ class PresetHandler(object):
         self.ui.cal_presets_ui.trl_2port_button.clicked.connect(self.trl_2port_cal)
         self.executor = None
 
-    def _get_cal_kit(self):
+    def _set_cal_kit(self):
         if self.ui.cal_presets_ui.cal_kit_combo.currentIndex() == 0:
-            return 1# Corresponds to 85033E cal kit
+            self.channel.set_cal_kit(1)
+        elif self.ui.cal_presets_ui.cal_kit_combo.currentIndex() == 1:
+            self.channel.set_cs5()
+            self.channel.set_cal_kit(30)
 
     def _connect(self):
         if self.executor is not None:
@@ -29,8 +32,9 @@ class PresetHandler(object):
 
     def full_2port_cal(self):
         self._connect()
+        self._set_cal_kit() # Find and set cal kit
         self.channel.set_cal_type(CalType.FULL_2PORT)
-        self.channel.set_cal_kit(1) # Calkit 85033E
+
 
         QtGui.QMessageBox.information(self.ui.centralwidget,"Open", "Conectar open en 1")
         self.channel.cal_measure_open(1)
