@@ -31,17 +31,20 @@ class PresetHandler(object):
         self._connect()
         self.channel.set_cal_type(CalType.FULL_2PORT)
         self.channel.set_cal_kit(1) # Calkit 85033E
+
         QtGui.QMessageBox.information(self.ui.centralwidget,"Open", "Conectar open en 1")
         self.channel.cal_measure_open(1)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short en 1")
-        self.channel.cal_measure_short(1)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load en 1")
-        self.channel.cal_measure_load(1)
-
         QtGui.QMessageBox.information(self.ui.centralwidget,"Open", "Conectar open en 2")
         self.channel.cal_measure_open(2)
+
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short en 1")
+        self.channel.cal_measure_short(1)
         QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short en 2")
         self.channel.cal_measure_short(2)
+   
+    
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load en 1")
+        self.channel.cal_measure_load(1)
         QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load en 2")
         self.channel.cal_measure_load(2)
 
