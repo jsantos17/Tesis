@@ -4,8 +4,11 @@ from lib.VnaChannel import VnaChannel
 from lib.util.VnaEnums import SParameters
 from lib.util.VnaEnums import SweepType
 from lib.util.VnaEnums import DataFormat
+from lib.util.DataTransformers import z_from_s, y_from_s
 from time import sleep
 from lib.SocketExecutor import SocketExecutor
+
+sdata = []
 
 def VnaMeasureThreaded(ui):
     try:
@@ -26,87 +29,90 @@ def VnaMeasure(ui, ip, port):
 
     channel = VnaChannel(ip, port, 1) # One channel
     # channel.reset()
-    channel.set_sweep_type(SweepType.LINEAR)
-    if ui.s11_radio.isChecked():
-        spar = SParameters.S11
-    elif ui.s12_radio.isChecked():
-        spar = SParameters.S12
-    elif ui.s21_radio.isChecked():
-        spar = SParameters.S21
-    elif ui.s22_radio.isChecked():
-        spar = SParameters.S22
-    points = str(ui.points_field.text())
-    fmat = DataFormat.LOG # By default we use MLOG
-    fmat_index = ui.format_combobox.currentIndex()
-    formats = [DataFormat.LOG, 
-               DataFormat.LIN, 
-               DataFormat.LIN_PHASE, 
-               DataFormat.PHASE, 
-               DataFormat.GDELAY, 
-               DataFormat.SMITH_LIN_PHASE, 
-               DataFormat.SMITH_LOG_PHASE, 
-               DataFormat.SMITH_RE_IM, 
-               DataFormat.SMITH_R_JX, 
-               DataFormat.SMITH_G_JB]
-
-    fmat = formats[fmat_index]
-    
-    if ui.center_span_radio.isChecked():
-        groupbox = ui.bottom_layout.itemAt(3).widget()
-        center_freq = float(groupbox.findChild(QtGui.QLineEdit, "center_field").text())
-        span_freq = float(groupbox.findChild(QtGui.QLineEdit, "span_field").text())
-        channel.set_center_span(center_freq, span_freq)
-        channel.set_traces(1)
-        channel.set_points(points)
-        channel.set_sparam(1, spar)
-        channel.set_format(fmat) # set the selected format
-        channel.activate_channel()
-        channel.activate_trace(1)
+    for spar in [SParameters.S11, SParameters.S12, SParameters.S21, SParameters.S22]:
         
-    elif ui.start_stop_radio.isChecked():
-        groupbox = ui.bottom_layout.itemAt(3).widget()
-        freq_start = float(groupbox.findChild(QtGui.QLineEdit, "freqstart_field").text())
-        freq_stop = float(groupbox.findChild(QtGui.QLineEdit, "freqstop_field").text())
-        channel.set_start_stop(freq_start, freq_stop)
-        channel.set_traces(1)
-        channel.set_points(points)
-        channel.set_sparam(1, spar)
-        channel.set_format(fmat) # set the selected format
-        channel.activate_channel()
-        channel.activate_trace(1)
-        channel.set_continuous()
+        channel.set_sweep_type(SweepType.LINEAR)
+        points = str(ui.points_field.text())
+        fmat = DataFormat.LOG # By default we use MLOG
+        fmat_index = ui.format_combobox.currentIndex()
+        formats = [DataFormat.LOG, 
+                   DataFormat.LIN, 
+                   DataFormat.LIN_PHASE, 
+                   DataFormat.PHASE, 
+                   DataFormat.GDELAY, 
+                   DataFormat.SMITH_LIN_PHASE, 
+                   DataFormat.SMITH_LOG_PHASE, 
+                   DataFormat.SMITH_RE_IM, 
+                   DataFormat.SMITH_R_JX, 
+                   DataFormat.SMITH_G_JB]
 
-    if ui.autoscale_checkbox.isChecked():
-        channel.auto_scale() # Autoscale
+        fmat = formats[fmat_index]
+        
+        if ui.center_span_radio.isChecked():
+            groupbox = ui.bottom_layout.itemAt(3).widget()
+            center_freq = float(groupbox.findChild(QtGui.QLineEdit, "center_field").text())
+            span_freq = float(groupbox.findChild(QtGui.QLineEdit, "span_field").text())
+            channel.set_center_span(center_freq, span_freq)
+            channel.set_traces(1)
+            channel.set_points(points)
+            channel.set_sparam(1, spar)
+            channel.set_format(fmat) # set the selected format
+            channel.activate_channel()
+            channel.activate_trace(1)
+            
+        elif ui.start_stop_radio.isChecked():
+            groupbox = ui.bottom_layout.itemAt(3).widget()
+            freq_start = float(groupbox.findChild(QtGui.QLineEdit, "freqstart_field").text())
+            freq_stop = float(groupbox.findChild(QtGui.QLineEdit, "freqstop_field").text())
+            channel.set_start_stop(freq_start, freq_stop)
+            channel.set_traces(1)
+            channel.set_points(points)
+            channel.set_sparam(1, spar)
+            channel.set_format(fmat) # set the selected format
+            channel.activate_channel()
+            channel.activate_trace(1)
+            channel.set_continuous()
 
-    f = str(ui.vna_file_field.text())
-    channel.executor.close()
-    # Reenable buttons once measure has finished
-    ui.measure_vna.setEnabled(True)
-    ui.left_button.setEnabled(True)
-    ui.right_button.setEnabled(True)
+        if ui.autoscale_checkbox.isChecked():
+            channel.auto_scale() # Autoscale
 
-    thread.start_new_thread(retrieve_data, (ip, port, f))
+        f = str(ui.vna_file_field.text())
+        channel.executor.close()
+        # Reenable buttons once measure has finished
+        ui.measure_vna.setEnabled(True)
+        ui.left_button.setEnabled(True)
+        ui.right_button.setEnabled(True)
+
+        retrieve_data(ip, port, f)
+
+def write_vectors(lvectors, fname):
+    with open("{fname}.csv".format(fname=fname), "w+") as f:
+        for idx, d in enumerate(lvectors):
+            f.write(str(d[idx][0])+","+str(d[idx][1])+","+str(d[idx][2])+","+str(d[idx][3])+"\r\n"
 
 def retrieve_data(ip, port, fname):
     executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
 
     data = executor.ask(":CALC1:DATA:FDAT?")
-    with open(fname + "_vna.csv", "w+") as f:
-        data = data.split(",")
-        data = [float(i) for i in data]
-        for line in data:
-#           if int(line) == 0:
-#               continue
-            f.write(str(line)+"\r\n")
 
-    freq_data = executor.ask(":SENS1:FREQ:DATA?")
-    with open(fname + "_freqdata.csv", "w+") as f:
-        freq_data = freq_data.split(",")
-        freq_data = [float(i) for i in freq_data]
-        for line in freq_data:
-            f.write(str(line)+"\r\n")
+    data = data.split(",")
+    data = [float(i) for i in data]
+    sdata.append(data)
+
+    if len(sdata) == 4: # Everything measured
+        
+        write_vectors(sdata, fname+"_vna_s") 
+        write_vectors(y_from_s(sdata), fname+"_vna_y") 
+        write_vectors(z_from_s(sdata), fname+"_vna_z")
+
+        freq_data = executor.ask(":SENS1:FREQ:DATA?")
+        with open(fname + "_freqdata.csv", "w+") as f:
+            freq_data = freq_data.split(",")
+            freq_data = [float(i) for i in freq_data]
+            for line in freq_data:
+                f.write(str(line)+"\r\n")
 
     executor.close()
+
 
