@@ -25,7 +25,7 @@ def VnaMeasure(ui, ip, port):
     ui.right_button.setEnabled(False)
 
     channel = VnaChannel(ip, port, 1) # One channel
-    channel.reset()
+    # channel.reset()
     channel.set_sweep_type(SweepType.LINEAR)
     if ui.s11_radio.isChecked():
         spar = SParameters.S11

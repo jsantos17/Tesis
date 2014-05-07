@@ -189,7 +189,9 @@ class Vna(object):
     def set_cs5(self, channel):
         sel_cal_kit = ":SENS{ch}:CORR:COLL:CKIT 30" # Last kit
         sel_cal_kit_name = ":SENS{ch}:CORR:COLL:CKIT:LABEL CS5" # Last kit
-        
+
+        set_velocity = ":SENS{ch}:CORR:RVEL:COAX 0.442"
+
         set_std1_label = ":SENS{ch}:CORR:COLL:CKIT:STAN1:LABEL CS5_OPEN"
         set_std1_type_open = ":SENS{ch}:CORR:COLL:CKIT:STAN1:TYPE OPEN"
         set_std1_c0 = ":SENS{ch}:CORR:COLL:CKIT:STAN1:C0 6.5e-15"
@@ -216,7 +218,7 @@ class Vna(object):
         set_std4_cls_port12 = ":SENS{ch}:CORR:COLL:CKIT:ORD:THRU 1,2,4" # Assign standard 4 to port 1 and 2
  
 
-        commands = [sel_cal_kit, sel_cal_kit_name, 
+        commands = [sel_cal_kit, sel_cal_kit_name, set_velocity,
                     set_std1_label, set_std1_type_open, set_std1_c0, set_std1_cls_port1, set_std1_cls_port2, 
                     set_std2_label, set_std2_type_short, set_std2_l0, set_std2_cls_port1, set_std2_cls_port2,
                     set_std3_label, set_std3_type_load, set_std3_delay, set_std3_z0, set_std3_cls_port1, set_std3_cls_port2,
