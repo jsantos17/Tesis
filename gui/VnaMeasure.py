@@ -82,12 +82,16 @@ def VnaMeasure(ui, ip, port):
 
         f = str(ui.vna_file_field.text())
         channel.executor.close()
-        # Reenable buttons once measure has finished
-        ui.measure_vna.setEnabled(True)
-        ui.left_button.setEnabled(True)
-        ui.right_button.setEnabled(True)
-
+        
         retrieve_data(ip, port, f, fmat)
+    
+
+    # Reenable buttons once measure has finished
+
+    ui.measure_vna.setEnabled(True)
+    ui.left_button.setEnabled(True)
+    ui.right_button.setEnabled(True)
+
 
 def write_vectors(lvectors, fname):
 
