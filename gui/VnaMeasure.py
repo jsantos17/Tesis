@@ -4,7 +4,7 @@ from lib.VnaChannel import VnaChannel
 from lib.util.VnaEnums import SParameters
 from lib.util.VnaEnums import SweepType
 from lib.util.VnaEnums import DataFormat
-from lib.util.DataTransformers import z_from_s, y_from_s
+from lib.util.DataTransformers import z_from_s, y_from_s, cga_from_s, cgs_from_s
 from time import sleep
 from lib.SocketExecutor import SocketExecutor
 
@@ -92,8 +92,11 @@ def VnaMeasure(ui, ip, port):
 def write_vectors(lvectors, fname):
 
     def ctos(cmx):
-        # write complex to number to a string
-        return str(cmx.real) + "+" + str(cmx.imag) + "j"
+        if cmx.imag == 0: # float comparison. This might be bad
+            return str(cmx.real) # Avoid writing 0j
+        else:
+            # write complex to number to a string
+            return str(cmx.real) + "+" + str(cmx.imag) + "j"
 
     with open("{fname}.csv".format(fname=fname), "w+") as f:
         for idx, d in enumerate(lvectors):
@@ -118,9 +121,11 @@ def retrieve_data(ip, port, fname, fmat):
         write_vectors(z_from_s(sdata), fname+"_vna_z")
 
         freq_data = executor.ask(":SENS1:FREQ:DATA?")
+        freq_data = freq_data.split(",")
+        freq_data = [float(i) for i in freq_data]
+
+        write_vectors([cga_from_s(freq_data, sdata),cgs_from_s(freq_data, sdata)], fname+"_cap")
         with open(fname + "_freqdata.csv", "w+") as f:
-            freq_data = freq_data.split(",")
-            freq_data = [float(i) for i in freq_data]
             for line in freq_data:
                 f.write(str(line)+"\r\n")
 

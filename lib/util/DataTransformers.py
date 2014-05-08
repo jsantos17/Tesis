@@ -69,3 +69,15 @@ def z_from_s(sdata):
 
     zdata = [z11_list, z12_list, z21_list, z22_list]
     return zdata
+
+def cga_from_s(freq_data, sdata):
+    ydata = y_from_s(sdata)
+    cga = []
+    for freq, ydatum in zip(freq_data, ydata):
+        cga.append(ydata[0].imag/(freq_data*2*3.141592))
+
+def cgs_from_s(freq_data, sdata):
+    ydata = y_from_s(sdata)
+    cgs = []
+    for freq, ydatum in zip(freq_data, ydata):
+        cgs.append(-ydata[1].imag/(freq_data*2*3.141592))
