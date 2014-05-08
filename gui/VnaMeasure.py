@@ -90,9 +90,14 @@ def VnaMeasure(ui, ip, port):
         retrieve_data(ip, port, f, fmat)
 
 def write_vectors(lvectors, fname):
+
+    def ctos(cmx):
+        # write complex to number to a string
+        return str(cmx.real) + "+" + str(cmx.imag) + "j"
+
     with open("{fname}.csv".format(fname=fname), "w+") as f:
         for idx, d in enumerate(lvectors):
-            f.write(str(d[idx][0])+","+str(d[idx][1])+","+str(d[idx][2])+","+str(d[idx][3])+"\r\n")
+            f.write(ctos(d[idx][0])+","+ctos(d[idx][1])+","+ctos(d[idx][2])+","+ctos(d[idx][3])+"\r\n")
 
 def retrieve_data(ip, port, fname, fmat):
     executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")

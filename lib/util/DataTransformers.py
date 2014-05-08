@@ -17,7 +17,12 @@ def single_z_from_s(data):
     return [z11, z12, z21, z22]
 
 def single_y_from_s(data):
-    inv(single_z_from_s(data)).tolist()
+    # Put data in matrix form for inversion
+    matrix_s = [[data[0], data[1]], [data[2], data[3]]]
+    matrix_y = inv(single_z_from_s(matrix_s)).tolist()
+    # Other parts of the program expect a flat list, not a matrix
+    y = [item for sublist in matrix_y for item in sublist] # list flattening magic
+    return y
 
 def y_from_s(sdata):
     ydata = []
