@@ -10,6 +10,9 @@ from lib.SocketExecutor import SocketExecutor
 
 sdata = []
 
+def chunker(seq, size):
+    return (seq[pos:pos + size] for pos in xrange(0, len(seq), size))
+
 def VnaMeasureThreaded(ui):
     try:
         ip_port = str(ui.vna_ip_field.text()).split(":")
@@ -29,6 +32,7 @@ def VnaMeasure(ui, ip, port):
 
     channel = VnaChannel(ip, port, 1) # One channel
     # channel.reset()
+    sdata = [] # Clean sdata for each measure
     for spar in [SParameters.S11, SParameters.S12, SParameters.S21, SParameters.S22]:
         
         channel.set_sweep_type(SweepType.LINEAR)
@@ -83,21 +87,23 @@ def VnaMeasure(ui, ip, port):
         ui.left_button.setEnabled(True)
         ui.right_button.setEnabled(True)
 
-        retrieve_data(ip, port, f)
+        retrieve_data(ip, port, f, fmat)
 
 def write_vectors(lvectors, fname):
     with open("{fname}.csv".format(fname=fname), "w+") as f:
         for idx, d in enumerate(lvectors):
-            f.write(str(d[idx][0])+","+str(d[idx][1])+","+str(d[idx][2])+","+str(d[idx][3])+"\r\n"
+            f.write(str(d[idx][0])+","+str(d[idx][1])+","+str(d[idx][2])+","+str(d[idx][3])+"\r\n")
 
-def retrieve_data(ip, port, fname):
+def retrieve_data(ip, port, fname, fmat):
     executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
 
     data = executor.ask(":CALC1:DATA:FDAT?")
 
     data = data.split(",")
-    data = [float(i) for i in data]
+    # Dealing with complex values, convert pairs into complex numbers
+    data = [complex(pair[0], pair[1]) for pair in chunker(data, 2)] 
+
     sdata.append(data)
 
     if len(sdata) == 4: # Everything measured
