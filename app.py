@@ -52,6 +52,9 @@ if __name__ == "__main__":
             ui.centralwidget)
     right_shortcut.setContext(QtCore.Qt.ApplicationShortcut)
     right_shortcut.activated.connect(container.move_right)
+
+    ui.all_checkbox.stateChanged.connect(container.checked_all)
+
     app.aboutToQuit.connect(container.save_ui)
     restore_ui(ui)
     window.show()

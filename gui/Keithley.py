@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/Keithley.ui'
+# Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Tue Apr 15 14:47:20 2014
+# Created: Fri May  9 22:14:15 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -98,18 +98,21 @@ class Ui_mainWindow(object):
         self.s_groupbox = QtGui.QGroupBox(self.centralwidget)
         self.s_groupbox.setObjectName(_fromUtf8("s_groupbox"))
         self.s11_radio = QtGui.QRadioButton(self.s_groupbox)
-        self.s11_radio.setGeometry(QtCore.QRect(40, 30, 61, 24))
+        self.s11_radio.setGeometry(QtCore.QRect(40, 80, 61, 24))
         self.s11_radio.setChecked(True)
         self.s11_radio.setObjectName(_fromUtf8("s11_radio"))
         self.s12_radio = QtGui.QRadioButton(self.s_groupbox)
-        self.s12_radio.setGeometry(QtCore.QRect(40, 50, 61, 24))
+        self.s12_radio.setGeometry(QtCore.QRect(40, 100, 61, 24))
         self.s12_radio.setObjectName(_fromUtf8("s12_radio"))
         self.s21_radio = QtGui.QRadioButton(self.s_groupbox)
-        self.s21_radio.setGeometry(QtCore.QRect(40, 70, 61, 24))
+        self.s21_radio.setGeometry(QtCore.QRect(40, 120, 61, 24))
         self.s21_radio.setObjectName(_fromUtf8("s21_radio"))
         self.s22_radio = QtGui.QRadioButton(self.s_groupbox)
-        self.s22_radio.setGeometry(QtCore.QRect(40, 90, 61, 24))
+        self.s22_radio.setGeometry(QtCore.QRect(40, 140, 61, 24))
         self.s22_radio.setObjectName(_fromUtf8("s22_radio"))
+        self.all_checkbox = QtGui.QCheckBox(self.s_groupbox)
+        self.all_checkbox.setGeometry(QtCore.QRect(20, 40, 89, 21))
+        self.all_checkbox.setObjectName(_fromUtf8("all_checkbox"))
         self.bottom_layout.addWidget(self.s_groupbox)
         self.format_groupbox = QtGui.QGroupBox(self.centralwidget)
         self.format_groupbox.setObjectName(_fromUtf8("format_groupbox"))
@@ -331,6 +334,7 @@ class Ui_mainWindow(object):
         self.s12_radio.setText(_translate("mainWindow", "S12", None))
         self.s21_radio.setText(_translate("mainWindow", "S21", None))
         self.s22_radio.setText(_translate("mainWindow", "S22", None))
+        self.all_checkbox.setText(_translate("mainWindow", "Todos", None))
         self.format_groupbox.setTitle(_translate("mainWindow", "Configuración", None))
         self.format_combobox.setItemText(0, _translate("mainWindow", "Log", None))
         self.format_combobox.setItemText(1, _translate("mainWindow", "Lin", None))

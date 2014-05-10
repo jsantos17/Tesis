@@ -26,6 +26,20 @@ class SlotContainer(QtGui.QMainWindow):
         self.curr_x = 0
         self.channel = None
 
+    def checked_all(self, event):
+        sender = self.sender()
+        if sender.isChecked():
+            self.ui.s11_radio.setEnabled(False)
+            self.ui.s12_radio.setEnabled(False)
+            self.ui.s21_radio.setEnabled(False)
+            self.ui.s22_radio.setEnabled(False)
+        elif not sender.isChecked():
+            self.ui.s11_radio.setEnabled(True)
+            self.ui.s12_radio.setEnabled(True)
+            self.ui.s21_radio.setEnabled(True)
+            self.ui.s22_radio.setEnabled(True)
+
+
     def browse(self, event):
         directory = QFileDialog.getExistingDirectory(self, 
                 "Donde guardar?", "~", options=QFileDialog.ShowDirsOnly)
