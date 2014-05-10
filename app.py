@@ -40,6 +40,7 @@ if __name__ == "__main__":
     ui.actionCalibration.triggered.connect(container.launch_calibration)
     ui.actionCalibration_Presets.triggered.connect(container.launch_preset_calibration)
     ui.actionRI.triggered.connect(container.launch_ri)
+    ui.actionContinuo_Alterno.triggered.connect(container.launch_conalt)
 
     ui.left_button.clicked.connect(container.move_left)
     left_shortcut = QShortcut(QKeySequence(QtCore.Qt.ControlModifier + QtCore.Qt.Key_Left), 

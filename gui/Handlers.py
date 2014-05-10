@@ -13,10 +13,12 @@ from utils import save_ui
 from gui import MenuHandlers
 from Calibration import Ui_cal_dialog
 from Ri import Ui_RI_dialog
+from ConAlt import Ui_conalt_dialog
 from CalPresets import Ui_cal_presets
 from RiHandlers import RiHandler
 from CalHandlers import CalHandler 
 from PresetHandlers import PresetHandler
+from ConAltHandlers import ConAltHandler
 
 class SlotContainer(QtGui.QMainWindow):
     def __init__(self, ui):
@@ -123,6 +125,16 @@ class SlotContainer(QtGui.QMainWindow):
         handler = RiHandler(self.ui)
         dialog.exec_()
         
+
+    def launch_conalt(self):
+        self.ui.conalt_ui = Ui_conalt_dialog() 
+        dialog = QDialog()
+        dialog.ui = self.ui.conalt_ui
+        dialog.ui.setupUi(dialog)
+        dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        handler = ConAltHandler(self.ui)
+        dialog.exec_()
+
 
     def launch_preset_calibration(self):
         self.ui.cal_presets_ui = Ui_cal_presets()

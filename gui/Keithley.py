@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/Keithley.ui'
 #
-# Created: Fri May  9 22:14:15 2014
+# Created: Fri May  9 23:20:20 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -305,11 +305,14 @@ class Ui_mainWindow(object):
         self.actionRI.setObjectName(_fromUtf8("actionRI"))
         self.actionCalibration_Presets = QtGui.QAction(mainWindow)
         self.actionCalibration_Presets.setObjectName(_fromUtf8("actionCalibration_Presets"))
+        self.actionContinuo_Alterno = QtGui.QAction(mainWindow)
+        self.actionContinuo_Alterno.setObjectName(_fromUtf8("actionContinuo_Alterno"))
         self.menuArchivo.addAction(self.actionAbrir)
         self.menuArchivo.addAction(self.actionGuardar)
         self.menuArchivo.addAction(self.actionGuardar_como)
         self.menuArchivo.addAction(self.actionCalibration)
         self.menuArchivo.addAction(self.actionCalibration_Presets)
+        self.menuArchivo.addAction(self.actionContinuo_Alterno)
         self.menuArchivo.addAction(self.actionRI)
         self.menuArchivo.addSeparator()
         self.menuArchivo.addAction(self.actionSalir)
@@ -376,4 +379,5 @@ class Ui_mainWindow(object):
         self.actionCalibration.setText(_translate("mainWindow", "Calibration VNA", None))
         self.actionRI.setText(_translate("mainWindow", "RI", None))
         self.actionCalibration_Presets.setText(_translate("mainWindow", "Calibration Presets", None))
+        self.actionContinuo_Alterno.setText(_translate("mainWindow", "Continuo-Alterno", None))
 

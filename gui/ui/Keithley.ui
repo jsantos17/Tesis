@@ -345,13 +345,6 @@
           <string>Autoscale</string>
          </property>
         </widget>
-        <zorder>format_combobox</zorder>
-        <zorder>format_label</zorder>
-        <zorder>points_label</zorder>
-        <zorder>points_field</zorder>
-        <zorder>autoscale_checkbox</zorder>
-        <zorder>s_groupbox</zorder>
-        <zorder>s_groupbox</zorder>
        </widget>
       </item>
       <item>
@@ -727,6 +720,7 @@
     <addaction name="actionGuardar_como"/>
     <addaction name="actionCalibration"/>
     <addaction name="actionCalibration_Presets"/>
+    <addaction name="actionContinuo_Alterno"/>
     <addaction name="actionRI"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
@@ -767,6 +761,11 @@
   <action name="actionCalibration_Presets">
    <property name="text">
     <string>Calibration Presets</string>
+   </property>
+  </action>
+  <action name="actionContinuo_Alterno">
+   <property name="text">
+    <string>Continuo-Alterno</string>
    </property>
   </action>
  </widget>

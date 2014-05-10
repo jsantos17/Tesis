@@ -82,6 +82,8 @@ def ui_state(ui):
 
     state["autoscale"] = bool(ui.autoscale_checkbox.isChecked())
 
+    state["all_checked"] = bool(ui.all_checkbox.isChecked())
+
     return state
 
 
@@ -206,6 +208,7 @@ def restore_ui_file(ui, fname):
     ui.points_field.setText(str(state["points"]))
 
     ui.autoscale_checkbox.setChecked(bool(state["autoscale"]))
+    ui.all_checkbox.setChecked(bool(state["all_checked"]))
 
 
 def restore_ui(ui):
