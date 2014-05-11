@@ -102,6 +102,6 @@ class VnaChannel(Vna):
     def set_immediate(self):
         super(VnaChannel, self).set_immediate(self.channel)
     
-    def set_sweep_time(self, time)
+    def set_sweep_time(self, time):
         super(VnaChannel, self).set_sweep_time(self.channel, time)
 

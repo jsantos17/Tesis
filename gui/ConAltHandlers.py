@@ -53,6 +53,11 @@ class ConAltHandler(object):
         ip_keithley = ip_port_keithley[0]
         port_keithley = int(ip_port_keithley[1])
 
+        file_name_vna = str(self.ui.vna_file_field.text())
+        file_name_keithley = str(self.ui.fileField.text())
+
+        smu_parameters["file"] = file_name_keithley
+        vna_parameters["file"] = file_name_vna
 
         con_alt_measure(smu_parameters, vna_parameters, delay, 
                 (ip_keithley, port_keithley), (ip_vna, port_vna))
@@ -92,6 +97,14 @@ class ConAltHandler(object):
         except IndexError as e:
             raise ConAltMeasureException("IP and port must be specified for VNA a K4200")
 
+        file_name_vna = str(self.ui.vna_file_field.text())
+        file_name_keithley = str(self.ui.fileField.text())
+
+        if file_name_vna == "" or file_name_vna[-1] == "\\" or file_name_vna[-1] == "/":
+            raise ConAltMeasureException("VNA file name must be set")
+        
+        if file_name_keithley == "" or file_name_keithley[-1] == "\\" or file_name_keithley[-1] == "/":
+            raise ConAltMeasureException("K4200 file name must be set")
 
     def _all_freq_filled(self):
         groupbox = self.ui.bottom_layout.itemAt(3).widget()

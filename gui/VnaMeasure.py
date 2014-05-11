@@ -194,10 +194,17 @@ def write_2vectors(lvectors, fname):
         for idx, d in enumerate(lvectors[0]):
             f.write(ctos(lvectors[0][idx])+","+ctos(lvectors[1][idx])+"\r\n")
 
-def write_vector(vector, fname)
+def write_vector(vector, fname):
+    def ctos(cmx):
+        if cmx.imag == 0: # float comparison. This might be bad
+            return str(cmx.real) # Avoid writing 0j
+        else:
+            # write complex to number to a string
+            return str(cmx.real) + "+" + str(cmx.imag) + "j"
+
     with open(fname + "_freqdata.csv", "w+") as f:
         for line in vector:
-            f.write(str(line)+"\r\n")
+            f.write(ctos(line)+"\r\n")
 
 
 def retrieve_data_single(ip, port, fname):
@@ -223,6 +230,7 @@ def retrieve_data(ip, port, fname, fmat, executor):
 
     data = data.split(",")
     # Dealing with complex values, convert pairs into complex numbers
+    # even when returning reals, the VNA responds with rows of zeros for the imaginary part
     data = [complex(float(pair[0]), float(pair[1])) for pair in chunker(data, 2)] 
 
     sdata.append(data)
