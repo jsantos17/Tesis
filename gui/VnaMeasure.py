@@ -194,25 +194,25 @@ def write_2vectors(lvectors, fname):
         for idx, d in enumerate(lvectors[0]):
             f.write(ctos(lvectors[0][idx])+","+ctos(lvectors[1][idx])+"\r\n")
 
+def write_vector(vector, fname)
+    with open(fname + "_freqdata.csv", "w+") as f:
+        for line in vector:
+            f.write(str(line)+"\r\n")
+
+
 def retrieve_data_single(ip, port, fname):
     executor = SocketExecutor(ip, port, expect_reply=False, endline="\n")
     executor.execute_command(":FORM:DATA ASC") # Set data to ASCII
 
     data = executor.ask(":CALC1:DATA:FDAT?")
-    with open(fname + "_vna.csv", "w+") as f:
-        data = data.split(",")
-        data = [float(i) for i in data]
-        for line in data:
-#           if int(line) == 0:
-#               continue
-            f.write(str(line)+"\r\n")
+    data = data.split(",")
+    data = [float(i) for i in data]
+    write_vector(data, fname + "_freqdata.csv")
 
     freq_data = executor.ask(":SENS1:FREQ:DATA?")
-    with open(fname + "_freqdata.csv", "w+") as f:
-        freq_data = freq_data.split(",")
-        freq_data = [float(i) for i in freq_data]
-        for line in freq_data:
-            f.write(str(line)+"\r\n")
+    freq_data = freq_data.split(",")
+    freq_data = [float(i) for i in freq_data]
+    write_vector(freq_data, fname + "_freqdata.csv")
 
     executor.close()
 
