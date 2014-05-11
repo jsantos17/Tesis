@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui/ui/conalt.ui'
 #
-# Created: Fri May  9 23:20:10 2014
+# Created: Sat May 10 18:59:04 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,15 +34,17 @@ class Ui_conalt_dialog(object):
         self.smu_combo.setGeometry(QtCore.QRect(110, 12, 161, 31))
         self.smu_combo.setObjectName(_fromUtf8("smu_combo"))
         self.smu_combo.addItem(_fromUtf8(""))
+        self.smu_combo.setItemText(0, _fromUtf8(""))
+        self.smu_combo.addItem(_fromUtf8(""))
         self.smu_combo.addItem(_fromUtf8(""))
         self.smu_combo.addItem(_fromUtf8(""))
         self.smu_combo.addItem(_fromUtf8(""))
         self.smu_label = QtGui.QLabel(conalt_dialog)
         self.smu_label.setGeometry(QtCore.QRect(10, 20, 61, 14))
         self.smu_label.setObjectName(_fromUtf8("smu_label"))
-        self.lineEdit = QtGui.QLineEdit(conalt_dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(110, 50, 141, 31))
-        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
+        self.sweep_delay_field = QtGui.QLineEdit(conalt_dialog)
+        self.sweep_delay_field.setGeometry(QtCore.QRect(110, 50, 141, 31))
+        self.sweep_delay_field.setObjectName(_fromUtf8("sweep_delay_field"))
         self.label = QtGui.QLabel(conalt_dialog)
         self.label.setGeometry(QtCore.QRect(260, 60, 16, 16))
         self.label.setObjectName(_fromUtf8("label"))
@@ -56,10 +58,10 @@ class Ui_conalt_dialog(object):
     def retranslateUi(self, conalt_dialog):
         conalt_dialog.setWindowTitle(_translate("conalt_dialog", "Continuo-Analogo", None))
         self.sweep_delay_label.setText(_translate("conalt_dialog", "Sweep Delay:", None))
-        self.smu_combo.setItemText(0, _translate("conalt_dialog", "SMU1", None))
-        self.smu_combo.setItemText(1, _translate("conalt_dialog", "SMU2", None))
-        self.smu_combo.setItemText(2, _translate("conalt_dialog", "SMU3", None))
-        self.smu_combo.setItemText(3, _translate("conalt_dialog", "SMU4", None))
+        self.smu_combo.setItemText(1, _translate("conalt_dialog", "SMU1", None))
+        self.smu_combo.setItemText(2, _translate("conalt_dialog", "SMU2", None))
+        self.smu_combo.setItemText(3, _translate("conalt_dialog", "SMU3", None))
+        self.smu_combo.setItemText(4, _translate("conalt_dialog", "SMU4", None))
         self.smu_label.setText(_translate("conalt_dialog", "SMU:", None))
         self.label.setText(_translate("conalt_dialog", "s", None))
         self.conalt_measure.setText(_translate("conalt_dialog", "Measure", None))

@@ -37,6 +37,11 @@
    </property>
    <item>
     <property name="text">
+     <string/>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>SMU1</string>
     </property>
    </item>
@@ -69,7 +74,7 @@
     <string>SMU:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="sweep_delay_field">
    <property name="geometry">
     <rect>
      <x>110</x>
