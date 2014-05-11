@@ -69,6 +69,7 @@ def VnaMeasureSingle(ui, ip, port):
         channel.set_format(fmat) # set the selected format
         channel.activate_channel()
         channel.activate_trace(1)
+        channel.set_continuous(True)
         
     elif ui.start_stop_radio.isChecked():
         groupbox = ui.bottom_layout.itemAt(3).widget()
@@ -81,7 +82,7 @@ def VnaMeasureSingle(ui, ip, port):
         channel.set_format(fmat) # set the selected format
         channel.activate_channel()
         channel.activate_trace(1)
-        channel.set_continuous()
+        channel.set_continuous(True)
 
     if ui.autoscale_checkbox.isChecked():
         channel.auto_scale() # Autoscale
@@ -135,7 +136,7 @@ def VnaMeasure(ui, ip, port):
             channel.set_format(fmat) # set the selected format
             channel.activate_channel()
             channel.activate_trace(1)
-            channel.set_continuous()
+            channel.set_continuous(True)
             
         elif ui.start_stop_radio.isChecked():
             groupbox = ui.bottom_layout.itemAt(3).widget()
@@ -148,7 +149,7 @@ def VnaMeasure(ui, ip, port):
             channel.set_format(fmat) # set the selected format
             channel.activate_channel()
             channel.activate_trace(1)
-            channel.set_continuous()
+            channel.set_continuous(True)
 
         if ui.autoscale_checkbox.isChecked():
             channel.auto_scale() # Autoscale

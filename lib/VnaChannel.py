@@ -9,8 +9,8 @@ class VnaChannel(Vna):
         super(VnaChannel, self).__init__(ip, port)
         self.channel = channel
 
-    def set_continuous(self):
-        super(VnaChannel, self).set_continuous(self.channel)
+    def set_continuous(self, cont):
+        super(VnaChannel, self).set_continuous(self.channel, cont)
 
     def is_ready(self):
         return super(VnaChannel, self).is_ready()
@@ -98,4 +98,10 @@ class VnaChannel(Vna):
 
     def set_cs5(self):
         super(VnaChannel, self).set_cs5(self.channel)
+
+    def set_immediate(self):
+        super(VnaChannel, self).set_immediate(self.channel)
+    
+    def set_sweep_time(self, time)
+        super(VnaChannel, self).set_sweep_time(self.channel, time)
 

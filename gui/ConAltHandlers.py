@@ -27,17 +27,35 @@ class ConAltHandler(object):
         
         smu_params = self._get_smu_sweep_params() # validation passed, so this won't fail
         smu_params = [float(param) for param in smu_params]
-        
+
+        if "current" in self.current_combo.currentText().toLower():
+            smu_mode = "current"
+        elif "voltage" in self.current_combo.currentText().toLower():
+            smu_mode = "voltage"
+
         vna_parameters = self._get_vna_params()
         smu_parameters = {
             "index": self.smu_index - 1,
             "start": smu_params[1],
             "stop": smu_params[0],
             "step": smu_params[2],
+            "compliance": smu_params[3],
             "steps": self._get_steps(),
+            "mode": smu_mode
         }
         delay = float(self.ui.conalt_ui.sweep_delay_field.text())
-        con_alt_measure(smu_parameters, vna_parameters, delay)
+
+        ip_port_vna = str(self.ui.vna_ip_field.text()).split(":")
+        ip_vna = ip_port_vna[0]
+        port_vna = int(ip_port_vna[1])
+
+        ip_port_keithley = str(self.ui.vna_ip_field.text()).split(":")
+        ip_keithley = ip_port_keithley[0]
+        port_keithley = int(ip_port_keithley[1])
+
+
+        con_alt_measure(smu_parameters, vna_parameters, delay, 
+                (ip_keithley, port_keithley), (ip_vna, port_vna))
 
     def _validate_measure(self):
 
@@ -62,6 +80,18 @@ class ConAltHandler(object):
 
         if self.ui.conalt_ui.sweep_delay_field.text() == "":
             raise ConAltMeasureException("Specify a delay")
+
+        try:
+            ip_port_vna = str(self.ui.vna_ip_field.text()).split(":")
+            ip_vna = ip_port_vna[0]
+            port_vna = int(ip_port_vna[1])
+
+            ip_port_keithley = str(self.ui.vna_ip_field.text()).split(":")
+            ip_keithley = ip_port_keithley[0]
+            port_keithley = int(ip_port_keithley[1])
+        except IndexError as e:
+            raise ConAltMeasureException("IP and port must be specified for VNA a K4200")
+
 
     def _all_freq_filled(self):
         groupbox = self.ui.bottom_layout.itemAt(3).widget()
@@ -137,7 +167,7 @@ class ConAltHandler(object):
 
         steps = (stop-start)/step
 
-        return int(steps)
+        return abs(int(steps))
 
 
 class ConAltMeasureException(Exception):

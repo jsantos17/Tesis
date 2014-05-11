@@ -77,8 +77,12 @@ class Vna(object):
         template.format(ch=channel)
         self.executor.execute_command(template.format(ch=channel))
 
-    def set_continuous(self, channel):
-        template = ":INIT{ch}:CONT ON"
+    def set_continuous(self, channel, cont):
+        if cont:
+            template = ":INIT{ch}:CONT ON"
+        else:
+            template = ":INIT{ch}:CONT OFF"
+
         cmd = template.format(ch=channel)
         self.executor.execute_command(cmd)
 
@@ -184,7 +188,7 @@ class Vna(object):
         self.executor.execute_command(":OUTP")
 
     def trigger(self):
-        self.executor.execute_command(":TRIG:IMM")
+        self.executor.execute_command("*TRG")
 
     def set_cs5(self, channel):
         sel_cal_kit = ":SENS{ch}:CORR:COLL:CKIT 30" # Last kit
@@ -256,6 +260,25 @@ class Vna(object):
             cmd_fmat = "SADM"
 
         self.executor.execute_command(template.format(ch=channel, fmat=cmd_fmat))
+
+    def set_bus_trigger(self):
+        self.executor.execute_command("TRIG:SOUR BUS")
+
+    def set_internal_trigger(self):
+        self.executor.execute_command("TRIG:SOUR INT")
+
+    def set_immediate(self, channel):
+        cmd = "INIT{ch}:IMM"
+        cmd.format(ch=channel)
+        self.executor.execute_command(cmd)
+
+    def set_four_channels(self):
+        self.executor.execute_command(":DISP:SPL D12_34")
+
+    def set_sweep_time(self, channel, time):
+        cmd = "SENS{ch}:SWE:TIME {time}"
+        cmd.format(ch=channel, time=time)
+        self.executor.execute_command(cmd)
 
 class VnaConfigError(Exception):
     pass
