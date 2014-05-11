@@ -37,6 +37,7 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
 
     vna = VnaChannel(conn_vna[0], conn_vna[1], 1)
     vna.set_four_channels()
+    vna.set_bus_trigger()
 
     def measure_vna(vna):
         vna.trigger()
@@ -48,7 +49,6 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
         vna.channel = i
         vna.set_continuous(False)
         vna.set_immediate()
-        vna.set_bus_trigger()
         vna.activate_channel()
         vna.set_traces(1)
         vna.activate_trace(1)
@@ -66,3 +66,9 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
     start_new_thread(measure_vna, (vna,))
     start_new_thread(measure_keithley, (device,))
 
+
+def check_vna(vna):
+    pass
+
+def check_keithley(device):
+    pass
