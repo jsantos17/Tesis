@@ -262,22 +262,22 @@ class Vna(object):
         self.executor.execute_command(template.format(ch=channel, fmat=cmd_fmat))
 
     def set_bus_trigger(self):
-        self.executor.execute_command("TRIG:SOUR BUS")
+        self.executor.execute_command(":TRIG:SOUR BUS")
 
     def set_internal_trigger(self):
-        self.executor.execute_command("TRIG:SOUR INT")
+        self.executor.execute_command(":TRIG:SOUR INT")
 
     def set_immediate(self, channel):
-        cmd = "INIT{ch}:IMM"
-        cmd.format(ch=channel)
+        cmd = ":INIT{ch}:IMM"
+        cmd = cmd.format(ch=channel)
         self.executor.execute_command(cmd)
 
     def set_four_channels(self):
         self.executor.execute_command(":DISP:SPL D12_34")
 
     def set_sweep_time(self, channel, time):
-        cmd = "SENS{ch}:SWE:TIME {time}"
-        cmd.format(ch=channel, time=time)
+        cmd = ":SENS{ch}:SWE:TIME {time}"
+        cmd = cmd.format(ch=channel, time=time)
         self.executor.execute_command(cmd)
 
 class VnaConfigError(Exception):

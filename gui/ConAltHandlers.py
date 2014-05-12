@@ -49,7 +49,7 @@ class ConAltHandler(object):
         ip_vna = ip_port_vna[0]
         port_vna = int(ip_port_vna[1])
 
-        ip_port_keithley = str(self.ui.vna_ip_field.text()).split(":")
+        ip_port_keithley = str(self.ui.ipField.text()).split(":")
         ip_keithley = ip_port_keithley[0]
         port_keithley = int(ip_port_keithley[1])
 

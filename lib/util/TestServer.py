@@ -2,22 +2,24 @@ from twisted.internet import reactor, protocol
 import random
 from time import sleep
 import string
+import sys
 
 class Echo(protocol.Protocol):
     
     def dataReceived(self, data):
         """ Echo everything """
-        sleep(1) # emulate slow server
+        self.transport.write(data)
         print data
 
 
-def main():
+def main(port):
     """This runs the protocol on port 1225"""
     factory = protocol.ServerFactory()
     factory.protocol = Echo
-    reactor.listenTCP(5025,factory)
+    reactor.listenTCP(port,factory)
     reactor.run()
 
 # this only runs if the module was *not* imported
 if __name__ == '__main__':
-    main()
+    port = sys.argv[1]
+    main(int(port))

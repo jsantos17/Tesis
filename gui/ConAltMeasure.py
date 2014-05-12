@@ -36,6 +36,7 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
     
     device = K4200(conn_keithley[0], conn_keithley[1])
     device.attach(smu)
+    device.configure()
     device.executor.execute_command("SS DT {time}".format(time=delay))
 
     # Prepare VNA to measure
