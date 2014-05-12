@@ -32,62 +32,96 @@ class PresetHandler(object):
 
     def full_2port_cal(self):
         self._connect()
-        self._set_cal_kit() # Find and set cal kit
-        self.channel.set_cal_type(CalType.FULL_2PORT)
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self._set_cal_kit() # Find and set cal kit
+            
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.set_cal_type(CalType.FULL_2PORT)
+        
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Open", "Conectar open")
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.is_ready()
+            self.channel.cal_measure_open(1)
+            self.channel.is_ready()
+            self.channel.cal_measure_open(2)
 
-
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Open", "Conectar open en 1")
-        self.channel.cal_measure_open(1)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Open", "Conectar open en 2")
-        self.channel.cal_measure_open(2)
-
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short en 1")
-        self.channel.cal_measure_short(1)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short en 2")
-        self.channel.cal_measure_short(2)
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short")
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.is_ready()
+            self.channel.cal_measure_short(1)
+            self.channel.is_ready()
+            self.channel.cal_measure_short(2)
    
-    
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load en 1")
-        self.channel.cal_measure_load(1)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load en 2")
-        self.channel.cal_measure_load(2)
 
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load")
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.is_ready()
+            self.channel.cal_measure_load(1)
+            self.channel.is_ready()
+            self.channel.cal_measure_load(2)
 
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Conectar thru entre 1 y 2")
-        self.channel.cal_measure_thru(1, 2)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Conectar thru backwards")
-        self.channel.cal_measure_thru(2, 1)
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Conectar thru entre")
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.is_ready()
+            self.channel.cal_measure_thru(1, 2)
+            self.channel.is_ready()
+            self.channel.cal_measure_thru(2, 1)
+
 
         isolation = QtGui.QMessageBox.question(self.ui.centralwidget,"Isolation", "Calibrar isolation? (opcional)", 
                 QtGui.QMessageBox.Yes| QtGui.QMessageBox.No)
 
         if isolation == QtGui.QMessageBox.Yes:
             QtGui.QMessageBox.information(self.ui.centralwidget,"Isolation", "Conectar load en 1 y 2")
-            self.channel.cal_measure_isol(1, 2)
+            for ch in [1,2,3,4]:
+                self.channel.channel = ch
+                self.channel.is_ready()
+                self.channel.cal_measure_isol(1, 2)
 
+        self.channel.is_ready()
         should_save = QtGui.QMessageBox.question(self.ui.centralwidget, "Guardar?", "Guardar calibracion?",
                 QtGui.QMessageBox.Yes| QtGui.QMessageBox.No)
 
         if should_save == QtGui.QMessageBox.Yes:
-            self.channel.save_cal()
+            for ch in [1,2,3,4]:
+                self.channel.channel = ch
+                self.channel.save_cal()
             
         
     def trl_2port_cal(self):
         self._connect()
         self.channel.set_cal_kit(1) # Calkit 85033E
         self.channel.set_cal_type(CalType.TRL_2PORT)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Thru de 1 a 2")
-        self.channel.trl_thru_line(1, 2)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Thru de 2 a 1")
-        self.channel.trl_thru_line(2, 1)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Reflect", "Reflect puerto 1")
-        self.channel.trl_reflect(1)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Reflect", "Reflect puerto 2")
-        self.channel.trl_reflect(2)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Line/Match", "Line/Match de 1 a 2")
-        self.channel.trl_line_match(1,2)
-        QtGui.QMessageBox.information(self.ui.centralwidget,"Line/Match", "Line/Match de 2 a 1")
-        self.channel.trl_line_match(2,1)
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Conectar THRU")
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.trl_thru_line(1, 2)
+            self.channel.is_ready()
+            self.channel.trl_thru_line(2, 1)
+            self.channel.is_ready()
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Reflect", "Conectar REFLECT")
+        
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.trl_reflect(1)
+            self.channel.is_ready()
+            self.channel.trl_reflect(2)
+            self.channel.is_ready()
+
+        QtGui.QMessageBox.information(self.ui.centralwidget,"Line/Match", "Conectar Line Match")
+        
+        for ch in [1,2,3,4]:
+            self.channel.channel = ch
+            self.channel.trl_line_match(1,2)
+            self.channel.is_ready()
+            self.channel.trl_line_match(2,1)
+            self.channel.is_ready()
 
         should_save = QtGui.QMessageBox.question(self.ui.centralwidget, "Guardar?", "Guardar calibracion?",
                 QtGui.QMessageBox.Yes| QtGui.QMessageBox.No)
