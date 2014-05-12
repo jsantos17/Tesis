@@ -275,9 +275,15 @@ class Vna(object):
     def set_four_channels(self):
         self.executor.execute_command(":DISP:SPL D12_34")
 
+    def beep(self):
+        self.executor.execute_command(":SYST:BEEP:COMP:IMM")
+
     def set_sweep_time(self, channel, time):
+        no_auto = ":SENS{ch}:SWE:TIME:AUTO 0"
         cmd = ":SENS{ch}:SWE:TIME {time}"
         cmd = cmd.format(ch=channel, time=time)
+        no_auto = no_auto.format(ch=channel)
+        self.executor.execute_command(no_auto)
         self.executor.execute_command(cmd)
 
 class VnaConfigError(Exception):

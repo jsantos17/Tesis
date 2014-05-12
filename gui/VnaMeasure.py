@@ -192,7 +192,11 @@ def write_2vectors(lvectors, fname):
 
     with open("{fname}.csv".format(fname=fname), "w+") as f:
         for idx, d in enumerate(lvectors[0]):
-            f.write(ctos(lvectors[0][idx])+","+ctos(lvectors[1][idx])+"\r\n")
+            try:
+                f.write(ctos(lvectors[0][idx])+","+ctos(lvectors[1][idx])+"\r\n")
+            except IndexError as e:
+                print "Index mismatch"
+
 
 def write_vector(vector, fname):
     def ctos(cmx):
@@ -202,7 +206,7 @@ def write_vector(vector, fname):
             # write complex to number to a string
             return str(cmx.real) + "+" + str(cmx.imag) + "j"
 
-    with open(fname + "_freqdata.csv", "w+") as f:
+    with open(fname + ".csv", "w+") as f:
         for line in vector:
             f.write(ctos(line)+"\r\n")
 
@@ -248,4 +252,5 @@ def retrieve_data(ip, port, fname, fmat, executor):
             for line in freq_data:
                 f.write(str(line)+"\r\n")
 
-
+        # Clean sdata
+        del sdata[0:len(sdata)]

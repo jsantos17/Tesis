@@ -8,14 +8,16 @@ from lib.util.DataTransformers import z_from_s, y_from_s, cga_from_s, cgs_from_s
 from gui.VnaMeasure import chunker, write_vector, write_2vectors, write_4vectors
 from thread import start_new_thread
 import time
+import pprint
 
 gdata = {} 
-
+params = []
 def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
     points = smu_params["steps"]
     sweep_time = delay*points
     # Prepare K4200 to measure 
-
+    params.append(smu_params)
+    params.append(vna_params)
     ch = smu_params["index"] + 1
     if smu_params["mode"] == "voltage":
         source_mode = SourceMode.VOLTAGE
@@ -38,6 +40,7 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
     device.attach(smu)
     device.configure()
     device.executor.execute_command("SS DT {time}".format(time=delay))
+    # device.executor.execute_command("SS HT {time}".format(time=2.2))
 
     # Prepare VNA to measure
 
@@ -80,7 +83,8 @@ def check_vna(vna, vna_params):
         time.sleep(1)
         print "Waiting for VNA"
     print "VNA is ready"
-    retrieve_vna_data(vna)
+    vna.beep()
+    retrieve_vna_data(vna, vna_params)
     vna.executor.close()
 
 def check_keithley(device, smu_params):
@@ -88,13 +92,15 @@ def check_keithley(device, smu_params):
         time.sleep(1)
         print "Waiting for K4200"
     print "K4200 is ready"
-    retrieve_keithley_data(device)
+    retrieve_keithley_data(device, smu_params)
     device.executor.close()
 
 def retrieve_keithley_data(device, smu_params):
     ch = smu_params["index"] + 1
     cmd = "DO 'CH{ch}T'".format(ch=ch)
     data = device.executor.ask(cmd)
+    print "Keithley Data:"
+    pprint.pprint(data)
     data = data.split(",")
     data = [float(datum) for datum in data]
     gdata["pol"] = data
@@ -106,28 +112,29 @@ def retrieve_vna_data(vna, vna_params):
     sdata = []
     freq_data = []
     template = ":CALC{ch}:DATA:FDAT?"
-    template_freq = ":SENS{ch}:FREQ:DATA?"
     for channel in [1,2,3,4]:
         data = vna.executor.ask(template.format(ch=str(channel)))
-        fdata = vna.executor.ask(template_freq.format(ch=str(channel)))
-        fdata = fdata.split(',')
         data = data.split(',')
         data = [complex(float(pair[0]), float(pair[1])) for pair in chunker(data, 2)]
-        
         sdata.append(data)
-        freq_data.append(fdata)
+    
+    template_freq = ":SENS{ch}:FREQ:DATA?"
+    freq_data = vna.executor.ask(template_freq.format(ch=1))
+    freq_data = freq_data.split(',')
+    freq_data = [float(fdatum) for fdatum in freq_data]
+
 
     ydata = y_from_s(sdata)
     zdata = z_from_s(sdata)
-    cga_data = cga_from_s(sdata)
-    cgs_data = cgs_from_s(sdata)
-    capacitance = [cga, cgs]
+    cga_data = cga_from_s(freq_data, sdata)
+    cgs_data = cgs_from_s(freq_data, sdata)
+    capacitance = [cga_data, cgs_data]
     gdata["cap"] = capacitance
-    write_4vectors(freq_data, vna_params["file"] + "_freqs.csv")
-    write_4vectors(sdata, vna_params["file"] + "_s.csv")
-    write_4vectors(zdata, vna_params["file"] + "_z.csv")
-    write_4vectors(ydata, vna_params["file"] + "_y.csv")
-    write_2vectors(capacitance, vna_params["file"] + "_cap.csv")
+    write_vector(freq_data, vna_params["file"] + "_freqs")
+    write_4vectors(sdata, vna_params["file"] + "_s")
+    write_4vectors(zdata, vna_params["file"] + "_z")
+    write_4vectors(ydata, vna_params["file"] + "_y")
+    write_2vectors(capacitance, vna_params["file"] + "_cap")
     
     retrieve_both()
 
@@ -140,6 +147,11 @@ def retrieve_both():
     
     v_cga = [pol, cap[0]]
     v_cgs = [pol, cap[1]]
-
-    write_2vectors(v_cga, "v_vs_cga.csv")
-    write_2vectors(v_cgs, "v_vs_cgs.csv")
+    print "V_cga len"
+    print str(len(v_cga[0])) + "," + str(len(v_cga[1]))
+    print "V_cgs len"
+    print str(len(v_cgs[0])) + "," + str(len(v_cgs[1]))
+    write_2vectors(v_cga, params[0]["file"] + "_v_vs_cga")
+    write_2vectors(v_cgs, params[0]["file"] + "_v_vs_cgs")
+    pprint.pprint(v_cga)
+    pprint.pprint(v_cgs)

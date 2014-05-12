@@ -178,7 +178,7 @@ class ConAltHandler(object):
         start = float(sweep_params[1])
         step = float(sweep_params[2])
 
-        steps = (stop-start)/step
+        steps = (stop-start)/step + 1.5
 
         return abs(int(steps))
 

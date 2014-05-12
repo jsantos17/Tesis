@@ -15,6 +15,7 @@ class SocketExecutor(CommandExecutor):
         self.expect_reply = expect_reply
 
     def execute_command(self, command):
+        print "Executed: %s" % command
         self.s.send(command + self.endline)
         if self.expect_reply:
             data = self.s.recv(8192)
@@ -22,6 +23,7 @@ class SocketExecutor(CommandExecutor):
             self.data = data
 
     def ask(self, command):
+        print "Asked: %s" % command
         self.s.send(command + self.endline)
         self.data = ""
         data = ""

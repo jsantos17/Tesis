@@ -21,7 +21,8 @@ class K4200:
         self.configured = True
 
     def is_ready(self):
-        is_ready = self.executor.ask("SP")
+        self.executor.execute_command("SP")
+        is_ready = self.executor.get_data()
         is_ready = is_ready.replace("\0","")
         return 0b00000001 & int(is_ready)
 
