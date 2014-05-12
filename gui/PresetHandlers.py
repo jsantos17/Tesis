@@ -8,7 +8,14 @@ class PresetHandler(object):
         self.ui = ui
         self.ui.cal_presets_ui.full_2port_button.clicked.connect(self.full_2port_cal)
         self.ui.cal_presets_ui.trl_2port_button.clicked.connect(self.trl_2port_cal)
+        self.ui.cal_presets_ui.cal_kit_combo.currentIndexChanged.connect(self.toggle_buttons)
         self.executor = None
+
+    def toggle_buttons(self):
+        if self.ui.cal_presets_ui.cal_kit_combo.currentIndex() == 0:
+            self.ui.cal_presets_ui.trl_2port_button.setEnabled(True)
+        if self.ui.cal_presets_ui.cal_kit_combo.currentIndex() == 1:
+            self.ui.cal_presets_ui.trl_2port_button.setEnabled(False)
 
     def _set_cal_kit(self):
         if self.ui.cal_presets_ui.cal_kit_combo.currentIndex() == 0:
@@ -47,6 +54,7 @@ class PresetHandler(object):
             self.channel.cal_measure_open(1)
             self.channel.is_ready()
             self.channel.cal_measure_open(2)
+            self.channel.is_ready()
 
         QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short")
         for ch in [1,2,3,4]:
@@ -55,6 +63,7 @@ class PresetHandler(object):
             self.channel.cal_measure_short(1)
             self.channel.is_ready()
             self.channel.cal_measure_short(2)
+            self.channel.is_ready()
    
 
         QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load")
@@ -64,6 +73,7 @@ class PresetHandler(object):
             self.channel.cal_measure_load(1)
             self.channel.is_ready()
             self.channel.cal_measure_load(2)
+            self.channel.is_ready()
 
         QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Conectar thru entre")
         for ch in [1,2,3,4]:
@@ -72,6 +82,7 @@ class PresetHandler(object):
             self.channel.cal_measure_thru(1, 2)
             self.channel.is_ready()
             self.channel.cal_measure_thru(2, 1)
+            self.channel.is_ready()
 
 
         isolation = QtGui.QMessageBox.question(self.ui.centralwidget,"Isolation", "Calibrar isolation? (opcional)", 
@@ -83,6 +94,7 @@ class PresetHandler(object):
                 self.channel.channel = ch
                 self.channel.is_ready()
                 self.channel.cal_measure_isol(1, 2)
+            self.channel.is_ready()
 
         self.channel.is_ready()
         should_save = QtGui.QMessageBox.question(self.ui.centralwidget, "Guardar?", "Guardar calibracion?",
