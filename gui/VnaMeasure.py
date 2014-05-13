@@ -159,7 +159,11 @@ def VnaMeasure(ui, ip, port):
         
         retrieve_data(ip, port, f, fmat, channel.executor)
     
+    for ch, sparam in zip([1,2,3,4], [SParameters.S11, SParameters.S12, SParameters.S21, SParameters.S22]):
+        channel.channel = ch
+        channel.set_sparam(1, sparam)
 
+    channel.channel = 1
     channel.executor.close()
     
     # Reenable buttons once measure has finished
