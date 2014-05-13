@@ -87,7 +87,7 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
 
 
 def check_vna(vna, vna_params):
-    while True
+    while True:
         vlock.acquire()
         is_ready = vna.is_ready()
         vlock.release()
@@ -104,7 +104,7 @@ def check_vna(vna, vna_params):
 def check_keithley(device, smu_params):
     while True:
         klock.acquire()
-        is_ready = device.is_ready():
+        is_ready = device.is_ready()
         klock.release()
         if is_ready:
             break
@@ -160,7 +160,7 @@ def retrieve_vna_data(vna, vna_params):
 def reset_config(vna):
     vna.set_internal_trigger()
     vna.set_one_channel()
-    for ch in [1,2,3,4]
+    for ch in [1,2,3,4]:
         vna.channel = ch
         vna.set_immediate()
 
