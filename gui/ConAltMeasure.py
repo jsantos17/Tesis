@@ -7,8 +7,12 @@ from lib.VnaChannel import VnaChannel
 from lib.util.DataTransformers import z_from_s, y_from_s, cga_from_s, cgs_from_s
 from gui.VnaMeasure import chunker, write_vector, write_2vectors, write_4vectors
 from thread import start_new_thread
+from threading import RLock
 import time
 import pprint
+
+vlock = RLock()
+klock = RLock()
 
 gdata = {} 
 params = []
@@ -49,10 +53,14 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
     vna.set_bus_trigger()
 
     def measure_vna(vna):
+        vlock.acquire()    
         vna.trigger()
+        vlock.release()
 
     def measure_keithley(keithley):
+        klock.acquire()
         keithley.measure()
+        klock.release()
 
     for i in range(1,5): # Measure using four channels, once per S parameter
         vna.channel = i
@@ -79,16 +87,27 @@ def con_alt_measure(smu_params, vna_params, delay, conn_keithley, conn_vna):
 
 
 def check_vna(vna, vna_params):
-    while not vna.is_ready():
+    while True
+        vlock.acquire()
+        is_ready = vna.is_ready()
+        vlock.release()
+        if is_ready:
+            break
         time.sleep(1)
         print "Waiting for VNA"
     print "VNA is ready"
     vna.beep()
     retrieve_vna_data(vna, vna_params)
+    reset_config(vna)
     vna.executor.close()
 
 def check_keithley(device, smu_params):
-    while not device.is_ready():
+    while True:
+        klock.acquire()
+        is_ready = device.is_ready():
+        klock.release()
+        if is_ready:
+            break
         time.sleep(1)
         print "Waiting for K4200"
     print "K4200 is ready"
@@ -138,6 +157,13 @@ def retrieve_vna_data(vna, vna_params):
     
     retrieve_both()
 
+def reset_config(vna):
+    vna.set_internal_trigger()
+    vna.set_one_channel()
+    for ch in [1,2,3,4]
+        vna.channel = ch
+        vna.set_immediate()
+
 def retrieve_both():
     try:
         cap = gdata["cap"]
@@ -153,5 +179,3 @@ def retrieve_both():
     print str(len(v_cgs[0])) + "," + str(len(v_cgs[1]))
     write_2vectors(v_cga, params[0]["file"] + "_v_vs_cga")
     write_2vectors(v_cgs, params[0]["file"] + "_v_vs_cgs")
-    pprint.pprint(v_cga)
-    pprint.pprint(v_cgs)
