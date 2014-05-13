@@ -57,7 +57,7 @@ def VnaMeasureSingle(ui, ip, port):
                DataFormat.SMITH_G_JB]
 
     fmat = formats[fmat_index]
-    
+    channel.set_one_channel()
     if ui.center_span_radio.isChecked():
         groupbox = ui.bottom_layout.itemAt(3).widget()
         center_freq = float(groupbox.findChild(QtGui.QLineEdit, "center_field").text())
@@ -105,6 +105,7 @@ def VnaMeasure(ui, ip, port):
 
     channel = VnaChannel(ip, port, 1) # One channel
     # channel.reset()
+    channel.set_four_channels()
     sdata = [] # Clean sdata for each measure
     for spar in [SParameters.S11, SParameters.S12, SParameters.S21, SParameters.S22]:
         print "Now measuring: " + str(spar)
