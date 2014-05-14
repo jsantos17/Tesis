@@ -107,9 +107,10 @@ def VnaMeasure(ui, ip, port):
     # channel.reset()
     channel.set_four_channels()
     sdata = [] # Clean sdata for each measure
-    for spar in [SParameters.S11, SParameters.S12, SParameters.S21, SParameters.S22]:
+    for idx, spar in enumerate([SParameters.S11, SParameters.S12, SParameters.S21, SParameters.S22]):
         print "Now measuring: " + str(spar)
         channel.set_sweep_type(SweepType.LINEAR)
+        channel.channel = idx + 1
         points = str(ui.points_field.text())
         fmat = DataFormat.LOG # By default we use MLOG
         fmat_index = ui.format_combobox.currentIndex()

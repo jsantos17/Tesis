@@ -1,4 +1,5 @@
 from lib.VnaChannel import VnaChannel
+from gui.VnaMeasure import VnaMeasure
 from lib.util.VnaEnums import CalType
 from PyQt4 import QtGui
 
@@ -28,7 +29,7 @@ class PresetHandler(object):
         if self.executor is not None:
             return self.channel # Reuse previously opened object (and socket)
         try:
-            chan_number = int(self.ui.cal_presets_ui.channel_combobox.currentText())
+            chan_number = int(self.ui.cal_presets_ui.channel_combo.currentText())
             self.channels = range(1,chan_number+1)
             ip_port = str(self.ui.vna_ip_field.text()).split(":")
             ip = ip_port[0]
@@ -41,6 +42,21 @@ class PresetHandler(object):
 
     def full_2port_cal(self):
         self._connect()
+        def assign_channels(vna):
+            for ch in self.channels:
+                vna.channel = ch
+                vna.set_sparam(1, ch)
+
+        self.channel.channel = 1
+        if len(self.channels) == 4:
+            self.channel.set_four_channels()
+        else:
+            self.channel.set_one_channel()
+        
+        for ch in self.channels:
+            self.channel.channel = ch
+            self.channel.set_sparam(1, ch)
+
         for ch in self.channels:
             self.channel.channel = ch
             self._set_cal_kit() # Find and set cal kit
@@ -57,7 +73,7 @@ class PresetHandler(object):
             self.channel.is_ready()
             self.channel.cal_measure_open(2)
             self.channel.is_ready()
-
+        assign_channels(self.channel)
         QtGui.QMessageBox.information(self.ui.centralwidget,"Short", "Conectar short")
         for ch in self.channels:
             self.channel.channel = ch
@@ -66,8 +82,7 @@ class PresetHandler(object):
             self.channel.is_ready()
             self.channel.cal_measure_short(2)
             self.channel.is_ready()
-   
-
+        assign_channels(self.channel)
         QtGui.QMessageBox.information(self.ui.centralwidget,"Load", "Conectar load")
         for ch in self.channels:
             self.channel.channel = ch
@@ -76,7 +91,8 @@ class PresetHandler(object):
             self.channel.is_ready()
             self.channel.cal_measure_load(2)
             self.channel.is_ready()
-
+        assign_channels(self.channel)
+   
         QtGui.QMessageBox.information(self.ui.centralwidget,"Thru", "Conectar thru")
         for ch in self.channels:
             self.channel.channel = ch
@@ -85,6 +101,7 @@ class PresetHandler(object):
             self.channel.is_ready()
             self.channel.cal_measure_thru(2, 1)
             self.channel.is_ready()
+        assign_channels(self.channel)
 
 
         isolation = QtGui.QMessageBox.question(self.ui.centralwidget,"Isolation", "Calibrar isolation? (opcional)", 
@@ -96,7 +113,9 @@ class PresetHandler(object):
                 self.channel.channel = ch
                 self.channel.is_ready()
                 self.channel.cal_measure_isol(1, 2)
-            self.channel.is_ready()
+                self.channel.is_ready()
+
+            assign_channels(self.channel)
 
         self.channel.is_ready()
         should_save = QtGui.QMessageBox.question(self.ui.centralwidget, "Guardar?", "Guardar calibracion?",
