@@ -6,6 +6,7 @@ from lib.K4200 import K4200
 from lib.VnaChannel import VnaChannel
 from lib.util.DataTransformers import z_from_s, y_from_s, cga_from_s, cgs_from_s
 from gui.VnaMeasure import chunker, write_vector, write_2vectors, write_4vectors
+import lib.util.plotter as plotter
 from thread import start_new_thread
 from threading import RLock
 import time
@@ -179,3 +180,6 @@ def retrieve_both():
     print str(len(v_cgs[0])) + "," + str(len(v_cgs[1]))
     write_2vectors(v_cga, params[0]["file"] + "_v_vs_cga")
     write_2vectors(v_cgs, params[0]["file"] + "_v_vs_cgs")
+
+    plotter.plot(pol, cga, params[0]["file"]+ "cga_plot")
+    plotter.plot(pol, cgs, params[0]["file"]+ "cgs_plot")
